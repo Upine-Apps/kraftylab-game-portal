@@ -15,10 +15,6 @@ function IndexPage() {
     <Layout>
       <SEO title="Home" />
       <HeroSection />
-      <AboutUs />
-      <Projects />
-      <Services />
-      <ContactUs />
     </Layout>
   );
 }

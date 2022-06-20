@@ -105,3 +105,6 @@ dist
 
 # Environmental Variables
 .env
+
+
+.DS_Store
