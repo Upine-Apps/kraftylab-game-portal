@@ -4,10 +4,21 @@ import styled from "styled-components"
 
 export default function ReusableButton(props) {
   const { title } = props
+
+  // how will the button component obtain state from other fields? curiosity.
+  // either lifting up and passing down state, or redux
+
+  const handleSubmit = async () => {
+    try {
+    } catch (err) {
+      console.error("error invoked")
+    }
+  }
+
   return (
     <Wrapper>
       <TextWrapper>
-        <Title>{title || "Submit"}</Title>
+        <Title onSubmit={handleSubmit}>{title || "Submit"}</Title>
       </TextWrapper>
     </Wrapper>
   )
