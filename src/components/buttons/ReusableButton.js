@@ -1,16 +1,16 @@
-import React from 'react';
-import { Link } from 'gatsby';
-import styled from 'styled-components';
+import React from "react"
+import { Link } from "gatsby"
+import styled from "styled-components"
 
 export default function ReusableButton(props) {
-  const { title } = props;
+  const { title } = props
   return (
     <Wrapper>
       <TextWrapper>
-        <Title>{title || 'Submit'}</Title>
+        <Title>{title || "Submit"}</Title>
       </TextWrapper>
     </Wrapper>
-  );
+  )
 }
 
 const Wrapper = styled.div`
@@ -23,14 +23,14 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 14px 14px;
   gap: 10px;
-`;
+`
 
 const TextWrapper = styled.div`
   gap: 4px;
-`;
+`
 
 const Title = styled.div`
   color: white;
   font-weight: 600;
   font-size: 15px;
-`;
+`
