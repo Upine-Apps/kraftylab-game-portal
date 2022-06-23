@@ -131,7 +131,7 @@ var plugins = [{
     "cache_busting_mode": "query",
     "crossOrigin": "anonymous",
     "include_favicon": true,
-    "cacheDigest": "88889bfd36b930d2846b2799a403ef03"
+    "cacheDigest": "f866d624c3252788106bb0bd32b0b07c"
   }
 }]; // During bootstrap, we write requires at top of this file which looks like:
 // var plugins = [
