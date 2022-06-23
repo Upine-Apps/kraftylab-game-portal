@@ -1,9 +1,9 @@
-import React from "react"
-import { Link } from "gatsby"
-import styled from "styled-components"
+import React from "react";
+import { Link } from "gatsby";
+import styled from "styled-components";
 
 export default function ReusableButton(props) {
-  const { title } = props
+  const { title } = props;
 
   // how will the button component obtain state from other fields? curiosity.
   // form component will pass down onClick/onSubmit function
@@ -12,14 +12,20 @@ export default function ReusableButton(props) {
 
   return (
     <>
-      <Link to="/">
-        <ButtonWrapper>
-          <Title>{title || "Submit"}</Title>
-        </ButtonWrapper>
-      </Link>
+      <LinkWrapper>
+        <Link to="/">
+          <ButtonWrapper>
+            <Title>{title || "Submit"}</Title>
+          </ButtonWrapper>
+        </Link>
+      </LinkWrapper>
     </>
-  )
+  );
 }
+
+const LinkWrapper = styled.div`
+  max-width: 500px;
+`;
 
 const ButtonWrapper = styled.div`
   width: 500px;
@@ -32,10 +38,10 @@ const ButtonWrapper = styled.div`
   align-items: center;
   padding: 14px 14px;
   gap: 10px;
-`
+`;
 
 const Title = styled.div`
   color: white;
   font-weight: 600;
-  font-size: 15px;
-`
+  font-size: 1em;
+`;
