@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import PurchaseButton from "../../buttons/PurchaseButton";
 import ReusableButton from "../../buttons/ReusableButton";
+import TextFieldButton from "../../buttons/TextFieldButton";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 
@@ -22,6 +23,7 @@ function TestHero() {
       </NameWrapper>
       <ReusableButton title="Login" />
       {/* <PurchaseButton /> */}
+      <TextFieldButton title="Code" />
     </Wrapper>
   );
 }
