@@ -7,21 +7,44 @@ export default function TextFieldButton(props) {
 
   return (
     <>
-      <FieldWrapper>
-        <input
-          id={title}
-          type="text"
-          placeholder={"Please enter your " + title.toLowerCase() || "Field"}
-          value={null}
-          onChange={(e) => null}
-        />
-      </FieldWrapper>
+      <Wrapper>
+        <TextWrapper>
+          <Title>{title || "Field"}</Title>
+        </TextWrapper>
+        <FieldWrapper>
+          <input
+            id={title}
+            // FIXME: make a function for this.
+            type={{ title } === "Email" ? "email" : "text"}
+            placeholder={
+              "Please enter your " + (title.toLowerCase() || "field")
+            }
+            value={null}
+            onChange={(e) => null}
+            maxLength="100"
+          />
+        </FieldWrapper>
+      </Wrapper>
     </>
   );
 }
 
+const Wrapper = styled.div`
+  display: grid;
+  width: 500px;
+`;
+
+const TextWrapper = styled.div`
+  width: 100px;
+  padding: 4px 0;
+  text-align: left;
+`;
+
 const FieldWrapper = styled.div`
   width: 500px;
+
+  // spacing between bottom of field and top of text has unknown spacing?
+  margin-bottom: 25px;
 
   input {
     box-sizing: border-box;
@@ -38,4 +61,11 @@ const FieldWrapper = styled.div`
       font-size: 0.875em;
     }
   }
+`;
+
+const Title = styled.div`
+  color: black;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
 `;

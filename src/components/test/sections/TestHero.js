@@ -24,6 +24,7 @@ function TestHero() {
       <ReusableButton title="Login" />
       {/* <PurchaseButton /> */}
       <TextFieldButton title="Code" />
+      <TextFieldButton title="First Name" />
     </Wrapper>
   );
 }
