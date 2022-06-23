@@ -75,16 +75,16 @@ function HeroSection() {
       <ContentWrapper>
         <TextWrapper>
           <Title>
-            Upine Apps
+            KraftyLabs Games
             <hr />
-            Transform
-            <br /> the <span>Ordinary</span>
+            placeholder
+            <br /> placeholder <span>placeholder</span>
           </Title>
           <Description>
-            Building the applications of the future. At Upine Apps, we believe
-            technology should work to make your life easier. We strive to build
-            efficient software, find solutions, and integrate technology at an
-            appropriate cost.
+            Description placeholder
+            
+            
+            
           </Description>
           <StupidWrapper ref={ref}>
             <PurchaseButton

@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\sections"
   ],
-  "SelectedNode": "\\gatsby-config.js",
+  "SelectedNode": "\\src\\components\\sections\\HeroSection.js",
   "PreviewInSolutionExplorer": false
 }
