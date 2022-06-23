@@ -6,36 +6,36 @@ export default function ReusableButton(props) {
   const { title } = props
 
   // how will the button component obtain state from other fields? curiosity.
-  // either lifting up and passing down state, or redux
+  // form component will pass down onClick/onSubmit function
+  // once that is clicked, parent component will process all
+  // text field states and submit a post request
 
   return (
     <>
-      <ButtonWrapper>
-        <button type="submit" value={title || "Submit"}>
-          {title || "Submit"}
-        </button>
-      </ButtonWrapper>
+      <Link to="/">
+        <ButtonWrapper>
+          <Title>{title || "Submit"}</Title>
+        </ButtonWrapper>
+      </Link>
     </>
   )
 }
 
 const ButtonWrapper = styled.div`
-  button {
-    max-width: 500px;
-    width: 400px;
-    background: #0067ff;
-    border: 1px solid #0056d7;
-    border-radius: 4px;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 14px 14px;
-    gap: 10px;
+  width: 500px;
+  max-width: 500px;
+  background: #0067ff;
+  border: 1px solid #0056d7;
+  border-radius: 4px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 14px;
+  gap: 10px;
+`
 
-    color: white;
-    font-weight: 600;
-    font-size: 15px;
-
-    cursor: pointer;
-  }
+const Title = styled.div`
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
 `
