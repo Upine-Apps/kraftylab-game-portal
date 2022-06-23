@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Upine Apps`,
-    description: `Building the applications of the future. At Upine Apps, we believe technology should work to make your life easier. We strive to build efficient software, find solutions, and integrate technology at an appropriate cost.`,
+    title: `KraftyLabs | Games`,
+    description: `Games to help you build your team composition`,
     author: `Upine Apps`,
   },
   plugins: [
