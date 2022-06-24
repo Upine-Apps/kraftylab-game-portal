@@ -8,7 +8,7 @@ export default function Header() {
         <Wrapper>
             <LinkWrapper>
                 <Link to="/">
-                    <img src="/images/logos/kraftylab-logo.svg" alt="Logo" />
+                    <img src="/images/logos/kraftylab-logo.png" alt="Logo" />
                 </Link>
             </LinkWrapper>
         </Wrapper>
