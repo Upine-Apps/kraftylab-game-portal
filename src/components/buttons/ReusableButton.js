@@ -6,11 +6,6 @@ import { H1, MediumText } from "../styles/TextStyles";
 export default function ReusableButton(props) {
   const { title, onClick } = props;
 
-  // how will the button component obtain state from other fields? curiosity.
-  // form component will pass down onClick/onSubmit function
-  // once that is clicked, parent component will process all
-  // text field states and submit a post request
-
   return (
     <>
       <Link to={onClick}>
@@ -37,5 +32,4 @@ const ButtonWrapper = styled.div`
 
 const Title = styled(MediumText)`
   color: white;
-  font-size: 1em;
 `;
