@@ -1,29 +1,37 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "gatsby";
 import styled from "styled-components";
+import { SmallText } from "../styles/TextStyles";
 
 export default function TextFieldButton(props) {
-  const { title } = props;
+  const [title, setTitle] = useState(props.title);
+
+  async function capitalize(words) {
+    return words
+      .split()
+      .map((word) => {
+        console.log();
+        return word[0].toUpperCase() + word.substring(1);
+      })
+      .join(" ");
+  }
+  setTitle(await capitalize(title));
 
   return (
     <>
       <Wrapper>
-        <TextWrapper>
-          <Title>{title || "Field"}</Title>
-        </TextWrapper>
-        <FieldWrapper>
-          <input
-            id={title}
-            // FIXME: make a function for this.
-            type={{ title } === "Email" ? "email" : "text"}
-            placeholder={
-              "Please enter your " + (title.toLowerCase() || "field")
-            }
-            value={null}
-            onChange={(e) => null}
-            maxLength="100"
-          />
-        </FieldWrapper>
+        <Label>{title || "Field"}</Label>
+        <InputField
+          id={title}
+          // FIXME: make a function for this.
+          type={{ title } === "Email" ? "email" : "text"}
+          placeholder={"Please enter your " + (title || "field")}
+          value={null}
+          onChange={(e) => null}
+          maxLength="100"
+          pattern="[A-Za-z]{3}"
+        />
       </Wrapper>
     </>
   );
@@ -34,10 +42,25 @@ const Wrapper = styled.div`
   width: 500px;
 `;
 
-const TextWrapper = styled.div`
-  width: 100px;
-  padding: 4px 0;
-  text-align: left;
+const InputField = styled.input`
+  margin-bottom: 25px;
+  // width: 500px;
+
+  box-sizing: border-box;
+  background: #f8f8f8;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  padding: 13px 14px;
+  gap: 12px;
+  font-size: 16px;
+  margin: 0px;
+
+  width: 500px;
+  &::placeholder {
+    font-size: 0.875em;
+    line-height: 21px;
+    color: #757575;
+  }
 `;
 
 const FieldWrapper = styled.div`
@@ -63,9 +86,11 @@ const FieldWrapper = styled.div`
   }
 `;
 
-const Title = styled.div`
+const Label = styled(SmallText)`
+  width: 100px;
+  padding: 4px 0;
+  text-align: left;
+
   color: black;
-  font-weight: 600;
-  font-size: 14px;
   line-height: 18px;
 `;
