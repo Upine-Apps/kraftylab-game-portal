@@ -5,18 +5,14 @@ import styled from "styled-components";
 import { SmallText } from "../styles/TextStyles";
 
 export default function TextFieldButton(props) {
-  const [title, setTitle] = useState(props.title);
+  const { title } = props;
+  // const [pattern, setPattern] = useState("[A-Za-z0-9-_.]{1,100}");
 
-  async function capitalize(words) {
-    return words
-      .split()
-      .map((word) => {
-        console.log();
-        return word[0].toUpperCase() + word.substring(1);
-      })
-      .join(" ");
-  }
-  setTitle(await capitalize(title));
+  const pattern = title === "First Name" || "Last Name" ? "[A-Za-z]{1, 100}" : ".{1,100}";
+  const invalid =
+    title === "First Name" || "Last Name"
+      ? "setCustomValidity('${title} must contain only letters.')"
+      : "setCustomValidity('${title} must have less than 100 characters.')";
 
   return (
     <>
@@ -26,11 +22,12 @@ export default function TextFieldButton(props) {
           id={title}
           // FIXME: make a function for this.
           type={{ title } === "Email" ? "email" : "text"}
-          placeholder={"Please enter your " + (title || "field")}
+          placeholder={"Please enter your " + (title.toLowerCase() || "field")}
           value={null}
           onChange={(e) => null}
-          maxLength="100"
-          pattern="[A-Za-z]{3}"
+          onInvalid={invalid}
+          // onInput={setCustomValidity("")}
+          pattern={pattern}
         />
       </Wrapper>
     </>
