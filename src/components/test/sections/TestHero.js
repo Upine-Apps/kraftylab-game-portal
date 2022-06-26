@@ -9,6 +9,11 @@ import { H1, MediumText } from "../../styles/TextStyles";
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+
+  function onChange(e) {
+    console.log(e.target.name, e.target.value);
+  }
+
   return (
     <Wrapper>
       <Title>Test page</Title>
@@ -24,7 +29,12 @@ function TestHero() {
       <ReusableButton title="Login" />
       {/* <PurchaseButton /> */}
       <TextFieldButton title="Code" />
-      <TextFieldButton title="First Name" />
+      <form>
+        <TextFieldButton title="First Name" onChange={onChange} />
+        <TextFieldButton title="Last Name" onChange={onChange} />
+        <TextFieldButton title="Email" onChange={onChange} />
+        <input type="submit" />
+      </form>
     </Wrapper>
   );
 }
