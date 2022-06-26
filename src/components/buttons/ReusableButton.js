@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { H1, MediumText } from "../styles/TextStyles";
 
 export default function ReusableButton(props) {
-  const { title } = props;
+  const { title, onClick } = props;
 
   // how will the button component obtain state from other fields? curiosity.
   // form component will pass down onClick/onSubmit function
@@ -13,7 +13,7 @@ export default function ReusableButton(props) {
 
   return (
     <>
-      <Link to="/">
+      <Link to={onClick}>
         <ButtonWrapper>
           <Title>{title || "Submit"}</Title>
         </ButtonWrapper>
