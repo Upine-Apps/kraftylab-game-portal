@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import styled from "styled-components";
+import { H1, MediumText } from "../styles/TextStyles";
 
 export default function ReusableButton(props) {
   const { title } = props;
@@ -12,20 +13,14 @@ export default function ReusableButton(props) {
 
   return (
     <>
-      <LinkWrapper>
-        <Link to="/">
-          <ButtonWrapper>
-            <Title>{title || "Submit"}</Title>
-          </ButtonWrapper>
-        </Link>
-      </LinkWrapper>
+      <Link to="/">
+        <ButtonWrapper>
+          <Title>{title || "Submit"}</Title>
+        </ButtonWrapper>
+      </Link>
     </>
   );
 }
-
-const LinkWrapper = styled.div`
-  max-width: 500px;
-`;
 
 const ButtonWrapper = styled.div`
   width: 500px;
@@ -40,8 +35,7 @@ const ButtonWrapper = styled.div`
   gap: 10px;
 `;
 
-const Title = styled.div`
+const Title = styled(MediumText)`
   color: white;
-  font-weight: 600;
   font-size: 1em;
 `;
