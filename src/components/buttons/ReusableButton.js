@@ -4,12 +4,11 @@ import styled from "styled-components";
 import { H1, MediumText } from "../styles/TextStyles";
 
 export default function ReusableButton(props) {
-  const { title, onClick } = props;
-
+  const { title, onClick, path } = props;
   return (
     <>
-      <Link to={onClick}>
-        <ButtonWrapper>
+      <Link to={path}>
+        <ButtonWrapper onClick={onClick}>
           <Title>{title || "Submit"}</Title>
         </ButtonWrapper>
       </Link>
@@ -17,7 +16,7 @@ export default function ReusableButton(props) {
   );
 }
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.button`
   width: 500px;
   max-width: 500px;
   background: #0067ff;
@@ -28,6 +27,7 @@ const ButtonWrapper = styled.div`
   align-items: center;
   padding: 14px 14px;
   gap: 10px;
+  cursor: pointer;
 `;
 
 const Title = styled(MediumText)`
