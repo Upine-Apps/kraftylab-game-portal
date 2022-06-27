@@ -5,6 +5,7 @@ import ReusableButton from "../../buttons/ReusableButton";
 import TextFieldButton from "../../buttons/TextFieldButton";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
+import Password from "../../textfield/CustomPasswordField";
 
 function TestHero() {
   const [firstName, setFirstName] = useState("");
@@ -26,6 +27,8 @@ function TestHero() {
           onChange={(e) => setFirstName(e.target.value)}
         />
       </NameWrapper>
+
+      <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
       {/* <PurchaseButton /> */}
       <TextFieldButton title="Code" />
