@@ -2,11 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { SmallText } from "../styles/TextStyles";
 
-export default function TextFieldButton(props) {
+export default function ReusableTextField(props) {
   const { title, onChange } = props;
 
-  const pattern =
-    title === "First Name" || "Last Name" ? "[A-Za-z]{1, 100}" : ".{1,100}";
   const type = title === "Email" ? "email" : "text";
 
   return (
@@ -20,7 +18,6 @@ export default function TextFieldButton(props) {
           onChange={(e) => onChange(e)}
           minLength="1"
           maxLength="100"
-          pattern={pattern}
           required
         />
       </Wrapper>

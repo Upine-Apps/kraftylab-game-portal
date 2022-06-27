@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import PurchaseButton from "../../buttons/PurchaseButton";
 import ReusableButton from "../../buttons/ReusableButton";
-import TextFieldButton from "../../buttons/TextFieldButton";
+import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
@@ -31,11 +30,11 @@ function TestHero() {
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
       {/* <PurchaseButton /> */}
-      <TextFieldButton title="Code" />
+      <ReusableTextField title="Code" />
       <form>
-        <TextFieldButton title="First Name" onChange={onChange} />
-        <TextFieldButton title="Last Name" onChange={onChange} />
-        <TextFieldButton title="Email" onChange={onChange} />
+        <ReusableTextField title="First Name" onChange={onChange} />
+        <ReusableTextField title="Last Name" onChange={onChange} />
+        <ReusableTextField title="Email" onChange={onChange} />
         <input type="submit" />
       </form>
     </Wrapper>
