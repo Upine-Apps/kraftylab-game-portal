@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
+import SlideShowButton from "../../buttons/SlideShowButton";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 
@@ -17,7 +18,10 @@ function TestHero() {
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
-      </NameWrapper>
+          </NameWrapper>
+          <SlideShowButton direction="180deg"/>
+          <SlideShowButton direction="0"/>
+          <SlideShowButton direction="45deg"/>
     </Wrapper>
   );
 }
