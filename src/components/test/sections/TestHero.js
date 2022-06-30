@@ -30,11 +30,13 @@ function TestHero() {
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
       {/* <PurchaseButton /> */}
+
       <ReusableTextField title="Code" />
       <form>
         <ReusableTextField title="First Name" onChange={onChange} />
         <ReusableTextField title="Last Name" onChange={onChange} />
         <ReusableTextField title="Email" onChange={onChange} />
+        <ReusableTextField onChange={onChange} />
         <input type="submit" />
       </form>
     </Wrapper>

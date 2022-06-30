@@ -4,17 +4,16 @@ import { SmallText } from "../styles/TextStyles";
 
 export default function ReusableTextField(props) {
   const { title, onChange } = props;
-
-  const type = title === "Email" ? "email" : "text";
+  const type = "text";
 
   return (
     <>
       <Wrapper>
         <Label>{title || "Field"}</Label>
         <InputField
-          name={title}
+          name={title || "Field"}
           type={type}
-          placeholder={"Please enter your " + (title.toLowerCase() || "field")}
+          placeholder={!title || "Please enter your " + title.toLowerCase()}
           onChange={(e) => onChange(e)}
           minLength="1"
           maxLength="100"
@@ -32,20 +31,19 @@ const Wrapper = styled.div`
 `;
 
 const InputField = styled.input`
-  box-sizing: border-box;
   background: #f8f8f8;
   border: 1px solid #d8d8d8;
   border-radius: 4px;
-  padding: 13px 14px;
-  gap: 12px;
+  padding: 0px 12px;
+  height: 36px;
   font-size: 16px;
   margin: 0px;
 
   width: 500px;
   &::placeholder {
-    font-size: 0.875em;
-    line-height: 21px;
     color: #757575;
+    font-size: 12px;
+    line-height: 21px;
   }
 `;
 
