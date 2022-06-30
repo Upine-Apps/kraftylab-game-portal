@@ -9,7 +9,7 @@ export default function ReusableTextField(props) {
   return (
     <>
       <Wrapper>
-        <Label>{title || "Field"}</Label>
+        <Label>{title || ""}</Label>
         <InputField
           name={title || "Field"}
           type={type}
