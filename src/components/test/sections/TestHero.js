@@ -7,7 +7,7 @@ import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
-
+import GameCard from "../../cards/GameCard";
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -29,6 +29,16 @@ function TestHero() {
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
+      <GameCard
+        title="test title"
+        description="some text for description"
+        color="background: radial-gradient(
+                218.51% 281.09% at 100% 100%,
+                rgba(253, 63, 51, 0.6) 0%,
+                rgba(76, 0, 200, 0.6) 45.83%,
+                rgba(76, 0, 200, 0.6) 100%
+              )"
+      ></GameCard>
       {/* <PurchaseButton /> */}
 
       <ReusableTextField title="Code" />
