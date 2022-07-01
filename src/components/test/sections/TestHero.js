@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import PurchaseButton from "../../buttons/PurchaseButton";
 import ReusableButton from "../../buttons/ReusableButton";
+import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
@@ -9,22 +9,31 @@ import Password from "../../textfield/CustomPasswordField";
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+
+  function onChange(e) {
+    console.log(e.target.name, e.target.value);
+  }
+
   return (
     <Wrapper>
       <Title>Test page</Title>
       <Subtitle>test out your components and stuff here</Subtitle>
       <NameWrapper>
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
+        <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
       </NameWrapper>
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
       {/* <PurchaseButton /> */}
+
+      <ReusableTextField title="Code" />
+      <form>
+        <ReusableTextField title="First Name" onChange={onChange} />
+        <ReusableTextField title="Last Name" onChange={onChange} />
+        <ReusableTextField title="Email" onChange={onChange} />
+        <ReusableTextField onChange={onChange} />
+        <input type="submit" />
+      </form>
     </Wrapper>
   );
 }
@@ -72,14 +81,10 @@ const NameWrapper = styled.div`
   input {
     /*         
     width: 100%; */
-    background: linear-gradient(
-      rgba(99, 106, 150, 0.4) 0%,
-      rgba(182, 186, 214, 0.25) 100%
-    );
+    background: linear-gradient(rgba(99, 106, 150, 0.4) 0%, rgba(182, 186, 214, 0.25) 100%);
     border: none;
     border-radius: 30px;
-    box-shadow: rgb(0 0 0 / 15%) 0px 20px 40px,
-      rgb(255 255 255 / 30%) 0px 0px 0px 0.5px inset;
+    box-shadow: rgb(0 0 0 / 15%) 0px 20px 40px, rgb(255 255 255 / 30%) 0px 0px 0px 0.5px inset;
     box-sizing: border-box;
     padding: 10px 42px;
     font-style: normal;
