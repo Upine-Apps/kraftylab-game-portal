@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import SlideShowButton from "../../buttons/SlideShowButton";
+import PurchaseButton from "../../buttons/PurchaseButton";
 import ReusableButton from "../../buttons/ReusableButton";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
@@ -26,11 +27,10 @@ function TestHero() {
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
-          <SlideShowButton direction="180deg"/>
-          <SlideShowButton direction="0"/>
-          <SlideShowButton direction="45deg"/>
-        <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
       </NameWrapper>
+      <SlideShowButton direction="180deg" />
+      <SlideShowButton direction="0" />
+      <SlideShowButton direction="45deg" />
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
@@ -91,10 +91,14 @@ const NameWrapper = styled.div`
   input {
     /*         
     width: 100%; */
-    background: linear-gradient(rgba(99, 106, 150, 0.4) 0%, rgba(182, 186, 214, 0.25) 100%);
+    background: linear-gradient(
+      rgba(99, 106, 150, 0.4) 0%,
+      rgba(182, 186, 214, 0.25) 100%
+    );
     border: none;
     border-radius: 30px;
-    box-shadow: rgb(0 0 0 / 15%) 0px 20px 40px, rgb(255 255 255 / 30%) 0px 0px 0px 0.5px inset;
+    box-shadow: rgb(0 0 0 / 15%) 0px 20px 40px,
+      rgb(255 255 255 / 30%) 0px 0px 0px 0.5px inset;
     box-sizing: border-box;
     padding: 10px 42px;
     font-style: normal;
