@@ -28,6 +28,9 @@ const ButtonWrapper = styled.button`
   padding: 14px 14px;
   gap: 10px;
   cursor: pointer;
+  @media (max-width: 450px) {
+    width: 300px;
+  }
 `;
 
 const Title = styled(MediumText)`

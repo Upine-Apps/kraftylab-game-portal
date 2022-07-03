@@ -55,6 +55,12 @@ const DividerWrapper = styled.div`
   height: 70%;
   width: 1px;
   top: 15%;
+  @media (max-width: 450px) {
+    border: 2px solid #d0d2d3;
+    width: 70%;
+    height: 1px;
+    left: 15%;
+  }
 `;
 
 const RightColumnWrapper = styled.div`
