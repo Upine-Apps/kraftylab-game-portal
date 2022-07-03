@@ -21,7 +21,7 @@ const ButtonWrapper = styled.button`
   max-width: 500px;
   background: #0067ff;
   border: 1px solid #0056d7;
-  border-radius: 4px;
+  border-radius: 16px;
   flex-direction: row;
   justify-content: center;
   align-items: center;

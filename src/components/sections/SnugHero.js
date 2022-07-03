@@ -1,8 +1,8 @@
-import React from "react"
-import styled, { keyframes } from "styled-components"
-import { themes } from "../styles/ColorStyles"
-import { H1, MediumText } from "../styles/TextStyles"
-import SnugHeroWave from "../backgrounds/SnugHeroWave"
+import React from "react";
+import styled, { keyframes } from "styled-components";
+import { themes } from "../styles/ColorStyles";
+import { H1, MediumText } from "../styles/TextStyles";
+import SnugHeroWave from "../backgrounds/SnugHeroWave";
 
 function SnugHero() {
   return (
@@ -12,7 +12,7 @@ function SnugHero() {
         <LeftColumnWrapper>
           <TextWrapper>
             <Title>
-              Snug <br /> <span>Safer Dating</span>
+              <br /> <span>Safer Dating</span>
             </Title>
             <Subtitle>
               Looking for peace of mind when dating? Snug has your back! Snug -
@@ -44,15 +44,15 @@ function SnugHero() {
         </RightColumnWrapper>
       </ContentWrapper>
     </Wrapper>
-  )
+  );
 }
 
-export default SnugHero
+export default SnugHero;
 
 const animation = keyframes`
             from {opacity: 0; transform: translateY(-10px) filter: blur(10px)}
             to {opacity: 1; transform: translateY(0px) filter: blur(0px)}
-            `
+            `;
 
 const LeftColumnWrapper = styled.div`
   display: grid;
@@ -62,13 +62,13 @@ const LeftColumnWrapper = styled.div`
     justify-content: center;
     margin: 0 auto;
   }
-`
+`;
 
 const RightColumnWrapper = styled.div`
   @media (max-width: 450px) {
     margin: 0 auto;
   }
-`
+`;
 
 const ScreenshotWrapper = styled.div`
   display: grid;
@@ -80,7 +80,7 @@ const ScreenshotWrapper = styled.div`
       width: 350px;
     }
   }
-`
+`;
 
 const Wrapper = styled.div`
   overflow: hidden;
@@ -89,7 +89,7 @@ const Wrapper = styled.div`
   @media (max-width: 450px) {
     height: 1100px;
   }
-`
+`;
 
 const StupidWrapper = styled.div`
   width: 600px;
@@ -111,7 +111,7 @@ const StupidWrapper = styled.div`
       transform: translateY(-3px);
     }
   }
-`
+`;
 
 const ContentWrapper = styled.div`
   max-width: 1440px;
@@ -128,7 +128,7 @@ const ContentWrapper = styled.div`
     justify-content: center;
     margin: 0 auto;
   }
-`
+`;
 const TextWrapper = styled.div`
   max-width: 360px;
   display: grid;
@@ -150,7 +150,7 @@ const TextWrapper = styled.div`
       animation-delay: 0.4s;
     }
   }
-`
+`;
 
 const Title = styled(H1)`
   padding: 10px;
@@ -168,9 +168,9 @@ const Title = styled(H1)`
   @media (max-width: 450px) {
     font-size: 48px;
   }
-`
+`;
 
 const Subtitle = styled(MediumText)`
   padding: 10px;
   color: ${themes.dark.text1};
-`
+`;
