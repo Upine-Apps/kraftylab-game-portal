@@ -3,14 +3,15 @@ import styled, { keyframes } from "styled-components";
 import { BodyMain, MediumText } from "../styles/TextStyles";
 
 export default function StatusAlert(props) {
+  const { status, title, subtitle } = props;
   return (
-    <Wrapper status={props.status}>
+    <Wrapper status={status}>
       <IconWrapper>
-        <Icon src={getStatusIcon(props.status)} />
+        <Icon src={getStatusIcon(status)} />
       </IconWrapper>
       <TextWrapper>
-        <Title>{props.title}</Title>
-        <Subtitle>{props.subtitle}</Subtitle>
+        <Title>{title}</Title>
+        <Subtitle>{subtitle}</Subtitle>
       </TextWrapper>
     </Wrapper>
   );
