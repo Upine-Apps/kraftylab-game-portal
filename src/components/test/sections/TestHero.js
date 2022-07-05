@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import StatusAlert from "../../alerts/StatusAlert";
-import PurchaseButton from "../../buttons/PurchaseButton";
+
 import ReusableButton from "../../buttons/ReusableButton";
-import SlideshowButton from "../../buttons/SlideshowButton";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
@@ -26,13 +25,8 @@ function TestHero() {
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
-      {/* <PurchaseButton /> */}
-      {/* <StatusAlert status="Success" />
-      <StatusAlert status="Error" />
-      <StatusAlert status="Success" />
-      <StatusAlert status="Success" />
-      <StatusAlert status="Success" /> */}
-      <SlideshowButton />
+
+      <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
     </Wrapper>
   );
 }
