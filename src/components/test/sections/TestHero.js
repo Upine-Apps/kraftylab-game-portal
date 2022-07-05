@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import StatusAlert from "../../alerts/StatusAlert";
-
 import ReusableButton from "../../buttons/ReusableButton";
+import SlideShowButton from "../../buttons/SlideShowButton";
+import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
@@ -10,6 +11,11 @@ import Password from "../../textfield/CustomPasswordField";
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+
+  function onChange(e) {
+    console.log(e.target.name, e.target.value);
+  }
+
   return (
     <Wrapper>
       <Title>Test page</Title>
@@ -22,11 +28,21 @@ function TestHero() {
           onChange={(e) => setFirstName(e.target.value)}
         />
       </NameWrapper>
+      <SlideShowButton direction="180deg" />
+      <SlideShowButton direction="0" />
+      <SlideShowButton direction="45deg" />
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
 
       <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
+      <ReusableTextField title="Code" />
+      <form>
+        <ReusableTextField title="First Name" onChange={onChange} />
+        <ReusableTextField title="Last Name" onChange={onChange} />
+        <ReusableTextField title="Email" onChange={onChange} />
+        <input type="submit" />
+      </form>
     </Wrapper>
   );
 }
