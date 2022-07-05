@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import SlideShowButton from "../../buttons/SlideShowButton";
-import PurchaseButton from "../../buttons/PurchaseButton";
+import StatusAlert from "../../alerts/StatusAlert";
 import ReusableButton from "../../buttons/ReusableButton";
+import SlideShowButton from "../../buttons/SlideShowButton";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
@@ -44,7 +44,7 @@ function TestHero() {
                 rgba(76, 0, 200, 0.6) 100%
               )"
       ></GameCard>
-      {/* <PurchaseButton /> */}
+      <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
 
       <ReusableTextField title="Code" />
       <form>
