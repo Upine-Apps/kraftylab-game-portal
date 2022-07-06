@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import StatusAlert from "../../alerts/StatusAlert";
-import ReusableButton from "../../buttons/ReusableButton";
 import SlideShowButton from "../../buttons/SlideShowButton";
+import ReusableButton from "../../buttons/ReusableButton";
+import StatusAlert from "../../alerts/StatusAlert";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
@@ -27,6 +28,15 @@ function TestHero() {
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
+        <SlideShowButton direction="180deg" />
+        <SlideShowButton direction="0" />
+        <SlideShowButton direction="45deg" />
+        <input
+          type="text"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
       </NameWrapper>
       <SlideShowButton direction="180deg" />
       <SlideShowButton direction="0" />
@@ -37,12 +47,7 @@ function TestHero() {
       <GameCard
         title="test title"
         description="some text for description"
-        color="background: radial-gradient(
-                218.51% 281.09% at 100% 100%,
-                rgba(253, 63, 51, 0.6) 0%,
-                rgba(76, 0, 200, 0.6) 45.83%,
-                rgba(76, 0, 200, 0.6) 100%
-              )"
+        // color="blue"
       ></GameCard>
       <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
 
