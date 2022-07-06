@@ -11,8 +11,11 @@ import { themes } from "../styles/ColorStyles";
 
 export default function GameCard(props) {
   const { title, description, color } = props;
+  console.log(props.color);
+  console.log(props.title);
+  console.log(props.description);
   return (
-    <Wrapper style={{ background: color }}>
+    <Wrapper style={{ background: props.color }}>
       <TextWrapper>
         <GameTitle>{title}</GameTitle>
         <Description>{description}</Description>
@@ -28,12 +31,7 @@ const Wrapper = styled.div`
   height: 600px;
   padding: 20px 20px;
 
-  background: radial-gradient(
-    218.51% 281.09% at 100% 100%,
-    rgba(253, 63, 51, 0.6) 0%,
-    rgba(76, 0, 200, 0.6) 45.83%,
-    rgba(76, 0, 200, 0.6) 100%
-  );
+  background: ${(props) => (props.color ? props.color : "black")};
   border: 0.5px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0px 30px 60px rgba(99, 30, 187, 0.5);
   backdrop-filter: blur(40px);
