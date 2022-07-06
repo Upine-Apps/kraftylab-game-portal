@@ -46,7 +46,7 @@ function TestHero() {
       <GameCard
         title="test title"
         description="some text for description"
-        // color="blue"
+        color="blue"
       ></GameCard>
       <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
 
