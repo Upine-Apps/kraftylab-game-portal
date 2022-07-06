@@ -11,11 +11,8 @@ import { themes } from "../styles/ColorStyles";
 
 export default function GameCard(props) {
   const { title, description, color } = props;
-  console.log(props.color);
-  console.log(props.title);
-  console.log(props.description);
   return (
-    <Wrapper style={{ background: props.color }}>
+    <Wrapper color={color}>
       <TextWrapper>
         <GameTitle>{title}</GameTitle>
         <Description>{description}</Description>
@@ -30,7 +27,6 @@ const Wrapper = styled.div`
   width: 600px;
   height: 600px;
   padding: 20px 20px;
-
   background: ${(props) => (props.color ? props.color : "black")};
   border: 0.5px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0px 30px 60px rgba(99, 30, 187, 0.5);

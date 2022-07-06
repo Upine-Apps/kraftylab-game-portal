@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import PurchaseButton from "../../buttons/PurchaseButton";
+import SlideShowButton from "../../buttons/SlideShowButton";
 import ReusableButton from "../../buttons/ReusableButton";
+import StatusAlert from "../../alerts/StatusAlert";
+import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
@@ -9,6 +11,11 @@ import GameCard from "../../cards/GameCard";
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+
+  function onChange(e) {
+    console.log(e.target.name, e.target.value);
+  }
+
   return (
     <Wrapper>
       <Title>Test page</Title>
@@ -20,7 +27,19 @@ function TestHero() {
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
+        <SlideShowButton direction="180deg" />
+        <SlideShowButton direction="0" />
+        <SlideShowButton direction="45deg" />
+        <input
+          type="text"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
       </NameWrapper>
+      <SlideShowButton direction="180deg" />
+      <SlideShowButton direction="0" />
+      <SlideShowButton direction="45deg" />
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
@@ -29,7 +48,16 @@ function TestHero() {
         description="some text for description"
         // color="blue"
       ></GameCard>
-      {/* <PurchaseButton /> */}
+      <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
+
+      <ReusableTextField title="Code" />
+      <form>
+        <ReusableTextField title="First Name" onChange={onChange} />
+        <ReusableTextField title="Last Name" onChange={onChange} />
+        <ReusableTextField title="Email" onChange={onChange} />
+        <ReusableTextField onChange={onChange} />
+        <input type="submit" />
+      </form>
     </Wrapper>
   );
 }
@@ -41,11 +69,9 @@ const Wrapper = styled.div`
   max-width: 1234px;
   margin: 0 auto;
   padding: 40px 30px 150px;
-
   display: grid;
   gap: 20px;
   text-align: center;
-
   @media (max-width: 450px) {
     grid-template-columns: auto;
   }
