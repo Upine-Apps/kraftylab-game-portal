@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import SlideShowButton from "../../buttons/SlideShowButton";
 import ReusableButton from "../../buttons/ReusableButton";
+import StatusAlert from "../../alerts/StatusAlert";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
@@ -26,16 +27,19 @@ function TestHero() {
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
-          <SlideShowButton direction="180deg"/>
-          <SlideShowButton direction="0"/>
-          <SlideShowButton direction="45deg"/>
+        <SlideShowButton direction="180deg" />
+        <SlideShowButton direction="0" />
+        <SlideShowButton direction="45deg" />
         <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
       </NameWrapper>
+      <SlideShowButton direction="180deg" />
+      <SlideShowButton direction="0" />
+      <SlideShowButton direction="45deg" />
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
-      {/* <PurchaseButton /> */}
 
+      <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
       <ReusableTextField title="Code" />
       <form>
         <ReusableTextField title="First Name" onChange={onChange} />
