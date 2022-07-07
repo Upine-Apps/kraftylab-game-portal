@@ -3,8 +3,11 @@ import styled, { keyframes } from "styled-components";
 import { themes } from "../styles/ColorStyles";
 import { H1, H3, MediumText } from "../styles/TextStyles";
 import ReusableButton from "../buttons/ReusableButton";
+import GameCard from "../cards/GameCard";
+import SlideShowButton from "../buttons/SlideShowButton";
 
 function HeroSection() {
+  const gameCardColor = "radial-gradient(218.51% 281.09% at 100% 100%, rgba(253, 63, 51, 0.7) 0%, rgba(76, 0, 200, 0.7) 45.83%, rgba(76, 0, 200, 0.7) 100%)";
   return (
     <Wrapper>
       <ContentWrapper>
@@ -19,13 +22,17 @@ function HeroSection() {
           </TextWrapper>
           <ButtonWrapper>
             <ReusableButton title="Login" path="" />
-            <ReusableButton title="Register" path="" s />
+            <ReusableButton title="Register" path="" />
           </ButtonWrapper>
         </LeftColumnWrapper>
         <DividerWrapper></DividerWrapper>
         <RightColumnWrapper>
           <RightColumnTitle>Most Popular</RightColumnTitle>
-          <GameCardWrapper></GameCardWrapper>
+          <GameCardWrapper>
+            <SlideShowButton direction="180deg" />
+            <GameCard title="Icebreakers" description="Get to know each other!" color={gameCardColor} />
+            <SlideShowButton direction="0deg" />
+          </GameCardWrapper>
         </RightColumnWrapper>
       </ContentWrapper>
     </Wrapper>
@@ -35,8 +42,8 @@ function HeroSection() {
 export default HeroSection;
 
 const animation = keyframes`
-            from {opacity: 0; transform: translateY(-10px) filter: blur(10px)}
-            to {opacity: 1; transform: translateY(0px) filter: blur(0px)}
+            from {opacity: 0; transform: translateY(-10px); filter: blur(10px)}
+            to {opacity: 1; transform: translateY(0px); filter: blur(0px)}
             `;
 
 const LeftColumnWrapper = styled.div`
@@ -65,27 +72,42 @@ const DividerWrapper = styled.div`
 
 const RightColumnWrapper = styled.div`
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: 5% auto;
   gap: 10px;
   @media (max-width: 450px) {
     margin: 0 auto;
   }
-
-  border: 1px green solid;
 `;
 
 const RightColumnTitle = styled(H3)`
   text-align: center;
 `;
 
-const GameCardWrapper = styled.div``;
+const GameCardWrapper = styled.div`
+position: relative;
+display: grid;
+width: 100%;
+height: 100%;
+padding: 20px;
+grid-template-columns: 10% 80% 10%;
+justify-content: center;
+align-items: center;
+margin: 0 auto;
+gap: 20px;
+
+@media (max-width: 450px) {
+    max-width: 450px;
+    height: 300px;
+    gap: 10px;
+  }
+`;
 
 const Wrapper = styled.div`
-  overflow: hidden;
-  height: 1000px;
+  /* overflow: hidden;
+  height: 1200px; */
 
   @media (max-width: 450px) {
-    height: 1100px;
+    height: 1200px;
   }
 `;
 
