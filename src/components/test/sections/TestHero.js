@@ -7,7 +7,7 @@ import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
-
+import GameCard from "../../cards/GameCard";
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -30,7 +30,12 @@ function TestHero() {
         <SlideShowButton direction="180deg" />
         <SlideShowButton direction="0" />
         <SlideShowButton direction="45deg" />
-        <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+        <input
+          type="text"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
       </NameWrapper>
       <SlideShowButton direction="180deg" />
       <SlideShowButton direction="0" />
@@ -38,8 +43,13 @@ function TestHero() {
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
-
+      <GameCard
+        title="test title"
+        description="some text for description"
+        color="blue"
+      ></GameCard>
       <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
+
       <ReusableTextField title="Code" />
       <form>
         <ReusableTextField title="First Name" onChange={onChange} />
@@ -59,11 +69,9 @@ const Wrapper = styled.div`
   max-width: 1234px;
   margin: 0 auto;
   padding: 40px 30px 150px;
-
   display: grid;
   gap: 20px;
   text-align: center;
-
   @media (max-width: 450px) {
     grid-template-columns: auto;
   }
@@ -95,10 +103,14 @@ const NameWrapper = styled.div`
   input {
     /*         
     width: 100%; */
-    background: linear-gradient(rgba(99, 106, 150, 0.4) 0%, rgba(182, 186, 214, 0.25) 100%);
+    background: linear-gradient(
+      rgba(99, 106, 150, 0.4) 0%,
+      rgba(182, 186, 214, 0.25) 100%
+    );
     border: none;
     border-radius: 30px;
-    box-shadow: rgb(0 0 0 / 15%) 0px 20px 40px, rgb(255 255 255 / 30%) 0px 0px 0px 0.5px inset;
+    box-shadow: rgb(0 0 0 / 15%) 0px 20px 40px,
+      rgb(255 255 255 / 30%) 0px 0px 0px 0.5px inset;
     box-sizing: border-box;
     padding: 10px 42px;
     font-style: normal;
