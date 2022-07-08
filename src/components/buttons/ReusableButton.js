@@ -21,13 +21,16 @@ const ButtonWrapper = styled.button`
   max-width: 500px;
   background: #0067ff;
   border: 1px solid #0056d7;
-  border-radius: 4px;
+  border-radius: 16px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 14px 14px;
   gap: 10px;
   cursor: pointer;
+  @media (max-width: 450px) {
+    width: 300px;
+  }
 `;
 
 const Title = styled(MediumText)`

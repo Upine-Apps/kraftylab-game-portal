@@ -1,13 +1,13 @@
-import { createGlobalStyle } from "styled-components"
-import { themes } from "./ColorStyles"
+import { createGlobalStyle } from "styled-components";
+import { themes } from "./ColorStyles";
 
 export const GlobalStyle = createGlobalStyle`
 body {
-    background: ${themes.light.backgroundColor};
+    background: "#f5f5f5";
 
     @media (prefers-color-scheme: dark) {
-        background: ${themes.dark.backgroundColor};
+        background: "#f5f5f5";
     }
 }
 
-`
+`;

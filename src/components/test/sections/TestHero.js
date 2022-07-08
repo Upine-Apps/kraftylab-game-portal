@@ -19,35 +19,13 @@ function TestHero() {
   return (
     <Wrapper>
       <Title>Test page</Title>
-      <Subtitle>test out your components and stuff here</Subtitle>
-      <NameWrapper>
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <SlideShowButton direction="180deg" />
-        <SlideShowButton direction="0" />
-        <SlideShowButton direction="45deg" />
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-      </NameWrapper>
-      <SlideShowButton direction="180deg" />
-      <SlideShowButton direction="0" />
-      <SlideShowButton direction="45deg" />
+      <Subtitle>Test out your components here</Subtitle>
+
+      <SlideShowButton direction="left" />
+      <SlideShowButton direction="right" />
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
-      <GameCard
-        title="test title"
-        description="some text for description"
-        color="blue"
-      ></GameCard>
       <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
 
       <ReusableTextField title="Code" />
@@ -55,8 +33,8 @@ function TestHero() {
         <ReusableTextField title="First Name" onChange={onChange} />
         <ReusableTextField title="Last Name" onChange={onChange} />
         <ReusableTextField title="Email" onChange={onChange} />
-        <ReusableTextField onChange={onChange} />
-        <input type="submit" />
+        {/* <ReusableTextField onChange={onChange} /> */}
+        {/* <input type="submit" /> */}
       </form>
     </Wrapper>
   );
