@@ -21,9 +21,8 @@ function TestHero() {
       <Title>Test page</Title>
       <Subtitle>Test out your components here</Subtitle>
 
-      <SlideShowButton direction="180deg" />
-      <SlideShowButton direction="0" />
-      <SlideShowButton direction="45deg" />
+      <SlideShowButton direction="left" />
+      <SlideShowButton direction="right" />
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />

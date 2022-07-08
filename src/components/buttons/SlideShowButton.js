@@ -1,22 +1,24 @@
 import React from "react";
 import styled from "styled-components";
+import { BiRightArrow, BiLeftArrow } from "react-icons/bi";
 export default function SlideShowButton(props) {
-  const degrees = props.direction;
+  const direction = props.direction;
+  const button =
+    direction == "left" ? (
+      <BiLeftArrow className="react-icons" />
+    ) : (
+      <BiRightArrow className="react-icons" />
+    );
+
   return (
     <Wrapper>
-      <IconWrapper>
-        <Icon
-          src="/images/icons/arrow-icon.svg"
-          className="icon"
-          rotateDirection={degrees}
-        />
-      </IconWrapper>
+      <IconWrapper direction={direction}>{button}</IconWrapper>
     </Wrapper>
   );
 }
 const Wrapper = styled.div`
-  width: 55px;
-  height: 55px;
+  width: 30px;
+  height: 30px;
   display: grid;
   justify-content: center;
   align-content: center;
@@ -35,26 +37,9 @@ const Wrapper = styled.div`
   }
 `;
 const IconWrapper = styled.div`
-  width: 45px;
-  height: 45px;
-  display: grid;
-  justify-content: center;
-  align-content: center;
-  justify-self: center;
-  position: relative;
-  @media (max-width: 450px) {
-    width: 100%;
-    height: 100%;
-  }
-`;
-const Icon = styled.img`
-  width: 29px;
-  height: 29px;
-  transform: rotate(${(props) => props.rotateDirection});
-  @media (max-width: 450px) {
-    align-self: center;
-    justify-self: center;
-    width: 70%;
-    height: 70%;
+  transform: ${(props) =>
+    props.direction == "left" ? "translate(-5%, -5%)" : "translate(5%, -5%)"};
+  .react-icons {
+    vertical-align: middle;
   }
 `;

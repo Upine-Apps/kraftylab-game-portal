@@ -7,7 +7,8 @@ import GameCard from "../cards/GameCard";
 import SlideShowButton from "../buttons/SlideShowButton";
 
 function HeroSection() {
-  const gameCardColor = "radial-gradient(218.51% 281.09% at 100% 100%, rgba(253, 63, 51, 0.7) 0%, rgba(76, 0, 200, 0.7) 45.83%, rgba(76, 0, 200, 0.7) 100%)";
+  const gameCardColor =
+    "radial-gradient(218.51% 281.09% at 100% 100%, rgba(253, 63, 51, 0.7) 0%, rgba(76, 0, 200, 0.7) 45.83%, rgba(76, 0, 200, 0.7) 100%)";
   return (
     <Wrapper>
       <ContentWrapper>
@@ -29,9 +30,13 @@ function HeroSection() {
         <RightColumnWrapper>
           <RightColumnTitle>Most Popular</RightColumnTitle>
           <GameCardWrapper>
-            <SlideShowButton direction="180deg" />
-            <GameCard title="Icebreakers" description="Get to know each other!" color={gameCardColor} />
-            <SlideShowButton direction="0deg" />
+            <SlideShowButton direction="left" />
+            <GameCard
+              title="Icebreakers"
+              description="Get to know each other!"
+              color={gameCardColor}
+            />
+            <SlideShowButton direction="right" />
           </GameCardWrapper>
         </RightColumnWrapper>
       </ContentWrapper>
@@ -84,18 +89,18 @@ const RightColumnTitle = styled(H3)`
 `;
 
 const GameCardWrapper = styled.div`
-position: relative;
-display: grid;
-width: 100%;
-height: 100%;
-padding: 20px;
-grid-template-columns: 10% 80% 10%;
-justify-content: center;
-align-items: center;
-margin: 0 auto;
-gap: 20px;
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  grid-template-columns: 10% 80% 10%;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  gap: 20px;
 
-@media (max-width: 450px) {
+  @media (max-width: 450px) {
     max-width: 450px;
     height: 300px;
     gap: 10px;
