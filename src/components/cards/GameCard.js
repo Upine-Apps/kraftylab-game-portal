@@ -11,11 +11,8 @@ import { themes } from "../styles/ColorStyles";
 
 export default function GameCard(props) {
   const { title, description, color } = props;
-  console.log(props.color);
-  console.log(props.title);
-  console.log(props.description);
   return (
-    <Wrapper style={{ background: props.color }}>
+    <Wrapper color={color}>
       <TextWrapper>
         <GameTitle>{title}</GameTitle>
         <Description>{description}</Description>
@@ -25,12 +22,11 @@ export default function GameCard(props) {
 }
 
 const Wrapper = styled.div`
-  box-sizing: border-box;
   position: relative;
-  width: 600px;
-  height: 600px;
-  padding: 20px 20px;
-
+  display: grid;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
   background: ${(props) => (props.color ? props.color : "black")};
   border: 0.5px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0px 30px 60px rgba(99, 30, 187, 0.5);
@@ -39,14 +35,14 @@ const Wrapper = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  position: absolute;
-  left: 60px;
-  top: 100px;
-  display: flex;
-  flex-direction: column;
-  width: 450px;
-  height: 300px;
-  gap: 20px;
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 30px;
+  align-self: center;
+  @media (max-width: 450px) {
+  }
 `;
 
 const GameTitle = styled(BodyMain)`
@@ -54,11 +50,17 @@ const GameTitle = styled(BodyMain)`
   font-weight: 700;
   color: ${themes.dark.text1};
   text-align: start;
+  @media (max-width: 450px) {
+    font-size: 36px;
+  }
 `;
 
 const Description = styled(SmallText)`
   font-weight: 400;
   font-size: 28px;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.8);
   text-align: start;
+  @media (max-width: 450px) {
+    font-size: 24px;
+  }
 `;
