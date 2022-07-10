@@ -1,17 +1,49 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { themes } from "../../styles/ColorStyles";
-import { H1, H3, MediumText } from "../../styles/TextStyles";
+import BackButton from "../../buttons/mobile/BackButton";
+import { useState, useEffect } from "react";
 
 export default function AuthSection() {
-  const gameCardColor =
-    "radial-gradient(218.51% 281.09% at 100% 100%, rgba(253, 63, 51, 0.7) 0%, rgba(76, 0, 200, 0.7) 45.83%, rgba(76, 0, 200, 0.7) 100%)";
+  const [screenSize, getDimension] = useState({
+    dynamicWidth: window.innerWidth,
+    dynamicHeight: window.innerHeight,
+  });
+
+  const setDimension = () => {
+    getDimension({
+      dynamicWidth: window.innerWidth,
+      dynamicHeight: window.innerHeight,
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", setDimension);
+
+    return () => {
+      window.removeEventListener("resize", setDimension);
+    };
+  }, [screenSize]);
+
+  function renderDesktop() {
+    return (
+      <GraphicWrapper>
+        <Graphic src="images/auth/auth-graphic.svg" />
+      </GraphicWrapper>
+    );
+  }
+
+  function renderMobile() {
+    return (
+      <NavigationWrapper>
+        <BackButton link="/auth" />
+      </NavigationWrapper>
+    );
+  }
+
   return (
     <Wrapper>
       <ContentWrapper>
-        <GraphicWrapper>
-          <Graphic src="images/auth/auth-graphic.svg" />
-        </GraphicWrapper>
+        {screenSize.dynamicWidth > 450 ? renderDesktop() : renderMobile()}
         <ScreenWrapper>
           {/* ADD YOUR COMPONENT HERE INSTEAD OF SCREEN COMPONENT
             SCREEN COMPONENT IS JUST THERE TO SHOW YOU THE RED BOX IT SHOULD TAKE UP. 
@@ -42,8 +74,6 @@ const ContentWrapper = styled.div`
   grid-template-columns: 35% auto;
   @media (max-width: 450px) {
     display: inline;
-    /* justify-content: center; */
-    /* margin: 0 auto; */
   }
 `;
 const GraphicWrapper = styled.div`
@@ -57,6 +87,15 @@ const GraphicWrapper = styled.div`
     display: hidden;
   }
 `;
+
+const NavigationWrapper = styled.div`
+  display: grid;
+  height: 7%;
+  padding-left: 20px;
+  justify-content: start;
+  align-items: center;
+`;
+
 const Graphic = styled.img`
   width: 75%;
   height: 100%;
@@ -66,11 +105,10 @@ const ScreenWrapper = styled.div`
   display: grid;
   justify-content: center;
   align-content: center;
-  border: 1px solid green;
 
   @media (max-width: 450px) {
     width: 100%;
-    height: 70%;
+    height: 93%;
     align-content: start;
   }
 `;
