@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { themes } from "../styles/ColorStyles";
-import { H1, H3, MediumText } from "../styles/TextStyles";
+import { themes } from "../../styles/ColorStyles";
+import { H1, H3, MediumText } from "../../styles/TextStyles";
 
 export default function AuthSection() {
   const gameCardColor =
@@ -14,11 +14,14 @@ export default function AuthSection() {
         </GraphicWrapper>
         <ScreenWrapper>
           {/* ADD YOUR COMPONENT HERE INSTEAD OF SCREEN COMPONENT
-            SCREEN COMPONENT IS JUST THERE TO SHOW YOU THE RED BOX IT SHOULD TAKE UP
+            SCREEN COMPONENT IS JUST THERE TO SHOW YOU THE RED BOX IT SHOULD TAKE UP. 
+            !!!!REMOVE SCREEN COMPONENET AND GRAPHIC!!!
             MAKE SURE YOU LOOK AT HOW I ADDED WIDTH AND HEIGHT FOR THE COMPONENT
             WE WANT THIS TO BE FLEXIBLE WITH WHATEVER BOX WE PUT IT IN
             DON'T HARDCODE WIDTHS AND HEIGHTS W PIXELS!!!! USE PERCENTAGES */}
-          <ScreenComponent />
+          <ScreenComponent>
+            <Graphic src="images/auth/auth-graphic.svg" />
+          </ScreenComponent>
         </ScreenWrapper>
       </ContentWrapper>
     </Wrapper>
@@ -32,16 +35,15 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+  display: grid;
   max-width: 100%;
   margin: 0 auto;
   height: 100%;
-  display: grid;
   grid-template-columns: 35% auto;
   @media (max-width: 450px) {
-    grid-template-rows: 30% auto;
-    padding: 200px 0px 0px 0px;
-    justify-content: center;
-    margin: 0 auto;
+    display: inline;
+    /* justify-content: center; */
+    /* margin: 0 auto; */
   }
 `;
 const GraphicWrapper = styled.div`
@@ -52,22 +54,32 @@ const GraphicWrapper = styled.div`
   justify-items: center;
   align-content: center;
   @media (max-width: 450px) {
-    max-width: 350px;
-    justify-content: center;
-    margin: 0 auto;
+    display: hidden;
   }
 `;
 const Graphic = styled.img`
   width: 75%;
+  height: 100%;
 `;
+
 const ScreenWrapper = styled.div`
   display: grid;
-  padding: 100px 30px 200px 30px;
+  justify-content: center;
+  align-content: center;
   border: 1px solid green;
+
+  @media (max-width: 450px) {
+    width: 100%;
+    height: 70%;
+    align-content: start;
+  }
 `;
 
 const ScreenComponent = styled.div`
+  display: grid;
   border: 1px solid red;
   width: 100%;
   height: 100%;
+  justify-items: center;
+  align-content: center;
 `;
