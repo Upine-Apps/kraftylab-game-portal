@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import BackButton from "../../buttons/mobile/BackButton";
 import { useState, useEffect } from "react";
 
@@ -32,22 +32,14 @@ export default function AuthSection() {
     );
   }
 
-  function renderMobile() {
-    return (
-      <NavigationWrapper>
-        <BackButton link="/auth" />
-      </NavigationWrapper>
-    );
-  }
-
   return (
     <Wrapper>
       <ContentWrapper>
-        {screenSize.dynamicWidth > 450 ? renderDesktop() : renderMobile()}
+        {screenSize.dynamicWidth > 450 ? renderDesktop() : ""}
         <ScreenWrapper>
           {/* ADD YOUR COMPONENT HERE INSTEAD OF SCREEN COMPONENT
             SCREEN COMPONENT IS JUST THERE TO SHOW YOU THE RED BOX IT SHOULD TAKE UP. 
-            !!!!REMOVE SCREEN COMPONENET AND GRAPHIC!!!
+            !!!!REMOVE SCREEN COMPONENT AND GRAPHIC!!!
             MAKE SURE YOU LOOK AT HOW I ADDED WIDTH AND HEIGHT FOR THE COMPONENT
             WE WANT THIS TO BE FLEXIBLE WITH WHATEVER BOX WE PUT IT IN
             DON'T HARDCODE WIDTHS AND HEIGHTS W PIXELS!!!! USE PERCENTAGES */}
@@ -88,14 +80,6 @@ const GraphicWrapper = styled.div`
   }
 `;
 
-const NavigationWrapper = styled.div`
-  display: grid;
-  height: 7%;
-  padding-left: 20px;
-  justify-content: start;
-  align-items: center;
-`;
-
 const Graphic = styled.img`
   width: 75%;
   height: 100%;
@@ -108,7 +92,7 @@ const ScreenWrapper = styled.div`
 
   @media (max-width: 450px) {
     width: 100%;
-    height: 93%;
+    height: 100%;
     align-content: start;
   }
 `;
