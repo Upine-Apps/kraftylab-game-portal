@@ -17,7 +17,8 @@ export default function ReusableButton(props) {
 }
 
 const ButtonWrapper = styled.button`
-  width: 100%;
+  width: 500px;
+  max-width: 500px;
   background: #0067ff;
   border: 1px solid #0056d7;
   border-radius: 16px;

@@ -27,6 +27,7 @@ export default function ReusableTextField(props) {
 const Wrapper = styled.div`
   margin-bottom: 25px;
   display: grid;
+  width: 500px;
 `;
 
 const InputField = styled.input`
@@ -38,6 +39,7 @@ const InputField = styled.input`
   font-size: 16px;
   margin: 0px;
 
+  width: 500px;
   &::placeholder {
     color: #757575;
     font-size: 12px;
@@ -46,6 +48,7 @@ const InputField = styled.input`
 `;
 
 const Label = styled(SmallText)`
+  width: 100px;
   padding: 4px 0;
   text-align: left;
 
