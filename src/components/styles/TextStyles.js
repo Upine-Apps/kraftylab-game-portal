@@ -67,3 +67,9 @@ export const SmallText2 = styled.p`
   line-height: 130%;
   text-transform: uppercase;
 `
+
+export const AuthTitle = styled.p`
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+`

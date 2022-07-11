@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "gatsby";
-import styled from "styled-components";
-import { H1, MediumText } from "../styles/TextStyles";
+import React from "react"
+import { Link } from "gatsby"
+import styled from "styled-components"
+import { H1, MediumText } from "../styles/TextStyles"
 
 export default function ReusableButton(props) {
-  const { title, onClick, path } = props;
+  const { title, onClick, path } = props
   return (
     <>
       <Link to={path}>
@@ -13,12 +13,11 @@ export default function ReusableButton(props) {
         </ButtonWrapper>
       </Link>
     </>
-  );
+  )
 }
 
 const ButtonWrapper = styled.button`
-  width: 500px;
-  max-width: 500px;
+  width: 100%;
   background: #0067ff;
   border: 1px solid #0056d7;
   border-radius: 16px;
@@ -31,8 +30,8 @@ const ButtonWrapper = styled.button`
   @media (max-width: 450px) {
     width: 300px;
   }
-`;
+`
 
 const Title = styled(MediumText)`
   color: white;
-`;
+`
