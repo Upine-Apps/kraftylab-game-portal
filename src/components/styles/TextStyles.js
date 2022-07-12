@@ -70,6 +70,6 @@ export const SmallText2 = styled.p`
 
 export const AuthTitle = styled.p`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 18px;
 `
