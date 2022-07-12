@@ -26,7 +26,10 @@ export default function ReusableTextField(props) {
 
 const Wrapper = styled.div`
   margin-bottom: 25px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  position: relative;
 `
 
 const InputField = styled.input`
@@ -36,6 +39,7 @@ const InputField = styled.input`
   padding: 0px 12px;
   height: 36px;
   font-size: 16px;
+  margin: 0;
 
   &::placeholder {
     color: #757575;

@@ -27,6 +27,7 @@ const ButtonWrapper = styled.button`
   padding: 14px 14px;
   gap: 10px;
   cursor: pointer;
+  margin-bottom: 25px;
   @media (max-width: 450px) {
     width: 300px;
   }
