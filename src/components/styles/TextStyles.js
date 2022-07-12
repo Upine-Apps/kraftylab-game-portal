@@ -68,8 +68,11 @@ export const SmallText2 = styled.p`
   text-transform: uppercase;
 `
 
-export const AuthTitle = styled.p`
-  font-weight: 700;
+export const H4 = styled.h4`
+  font-weight: bold;
   font-size: 20px;
   line-height: 18px;
+  @media (max-width: 450px) {
+    font-size: 12px;
+  }
 `
