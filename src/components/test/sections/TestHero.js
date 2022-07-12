@@ -8,6 +8,7 @@ import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
 import GameCard from "../../cards/GameCard";
+import LoginPage from "../../sections/LoginPage";
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -36,6 +37,7 @@ function TestHero() {
         {/* <ReusableTextField onChange={onChange} /> */}
         {/* <input type="submit" /> */}
       </form>
+      {/* <LoginPage></LoginPage> */}
     </Wrapper>
   );
 }
