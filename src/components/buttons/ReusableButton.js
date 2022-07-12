@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import { H1, MediumText } from "../styles/TextStyles"
+import { Caption } from "../styles/TextStyles"
 
 export default function ReusableButton(props) {
   const { title, onClick, path } = props
@@ -20,7 +20,7 @@ const ButtonWrapper = styled.button`
   width: 100%;
   background: #0067ff;
   border: 1px solid #0056d7;
-  border-radius: 8px;
+  border-radius: 4px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -32,6 +32,6 @@ const ButtonWrapper = styled.button`
   }
 `
 
-const Title = styled(MediumText)`
+const Title = styled(Caption)`
   color: white;
 `
