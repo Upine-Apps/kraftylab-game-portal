@@ -53,7 +53,6 @@ const InputField = styled.input`
   padding: 0px 12px;
   height: 36px;
   margin: 0;
-  // width: 100%;
 
   &::placeholder {
     color: #757575;
