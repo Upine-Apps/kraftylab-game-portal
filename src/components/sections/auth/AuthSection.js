@@ -25,7 +25,6 @@ export default function AuthSection() {
   }, [screenSize])
 
   function renderDesktop() {
-    console.log(`screenSize ${screenSize.dynamicWidth}`)
     return (
       <GraphicWrapper>
         <Graphic src="images/auth/auth-graphic.svg" />
