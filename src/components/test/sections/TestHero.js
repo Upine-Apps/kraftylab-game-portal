@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
-import SlideShowButton from "../../buttons/SlideShowButton";
-import ReusableButton from "../../buttons/ReusableButton";
-import StatusAlert from "../../alerts/StatusAlert";
-import ReusableTextField from "../../textfield/ReusableTextField";
-import { themes } from "../../styles/ColorStyles";
-import { H1, MediumText } from "../../styles/TextStyles";
-import Password from "../../textfield/CustomPasswordField";
-import GameCard from "../../cards/GameCard";
+import React, { useState } from "react"
+import styled, { keyframes } from "styled-components"
+import SlideShowButton from "../../buttons/SlideShowButton"
+import ReusableButton from "../../buttons/ReusableButton"
+import StatusAlert from "../../alerts/StatusAlert"
+import ReusableTextField from "../../textfield/ReusableTextField"
+import { themes } from "../../styles/ColorStyles"
+import { H1, MediumText } from "../../styles/TextStyles"
+import Password from "../../textfield/CustomPasswordField"
+import GameCard from "../../cards/GameCard"
 function TestHero() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
 
   function onChange(e) {
-    console.log(e.target.name, e.target.value);
+    console.log(e.target.name, e.target.value)
   }
 
   return (
@@ -37,12 +37,13 @@ function TestHero() {
         {/* <input type="submit" /> */}
       </form>
     </Wrapper>
-  );
+  )
 }
 
-export default TestHero;
+export default TestHero
 
 const Wrapper = styled.div`
+  display: grid
   position: relative;
   max-width: 1234px;
   margin: 0 auto;
@@ -53,7 +54,7 @@ const Wrapper = styled.div`
   @media (max-width: 450px) {
     grid-template-columns: auto;
   }
-`;
+`
 
 const Title = styled(H1)`
   padding: 10px;
@@ -71,12 +72,12 @@ const Title = styled(H1)`
   @media (max-width: 450px) {
     font-size: 48px;
   }
-`;
+`
 
 const Subtitle = styled(MediumText)`
   padding: 10px;
   color: ${themes.light.text1};
-`;
+`
 const NameWrapper = styled.div`
   input {
     /*         
@@ -102,4 +103,4 @@ const NameWrapper = styled.div`
       text-align: left;
     }
   }
-`;
+`
