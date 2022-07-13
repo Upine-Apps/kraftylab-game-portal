@@ -29,7 +29,6 @@ export default function Registration() {
         <Title>Register your new account</Title>
       </TextWrapper>
       <FormWrapper>
-        {/* text field width does not change similarly to password */}
         <ReusableTextField title="First Name" onChange={onChange} />
         <ReusableTextField title="Last Name" onChange={onChange} />
         <ReusableTextField title="Email" onChange={onChange} />
