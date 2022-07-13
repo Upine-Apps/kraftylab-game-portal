@@ -26,6 +26,7 @@ export default function AuthSection() {
   }, [screenSize])
 
   function renderDesktop() {
+    console.log(`screenSize ${screenSize.dynamicWidth}`)
     return (
       <GraphicWrapper>
         <Graphic src="images/auth/auth-graphic.svg" />
@@ -59,7 +60,6 @@ const Wrapper = styled.div`
 
 const ContentWrapper = styled.div`
   display: grid;
-  max-width: 100%;
   margin: 0 auto;
   height: 100%;
   grid-template-columns: 35% 65%;
@@ -67,6 +67,7 @@ const ContentWrapper = styled.div`
     display: inline;
   }
 `
+
 const GraphicWrapper = styled.div`
   display: grid;
   height: 100%;
@@ -85,14 +86,14 @@ const Graphic = styled.img`
 `
 
 const ScreenWrapper = styled.div`
-  display: grid;
-  justify-content: center;
-  align-content: center;
+  margin: auto 0;
 
   @media (max-width: 450px) {
     width: 100%;
     height: 100%;
-    align-content: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `
 
