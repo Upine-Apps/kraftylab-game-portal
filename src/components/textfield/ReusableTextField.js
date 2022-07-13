@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import { SmallText } from "../styles/TextStyles";
+import React from "react"
+import styled from "styled-components"
+import { SmallText } from "../styles/TextStyles"
 
 export default function ReusableTextField(props) {
-  const { title, onChange } = props;
-  const type = "text";
+  const { title, onChange } = props
+  const type = "text"
 
   return (
     <>
@@ -21,14 +21,16 @@ export default function ReusableTextField(props) {
         />
       </Wrapper>
     </>
-  );
+  )
 }
 
 const Wrapper = styled.div`
   margin-bottom: 25px;
-  display: grid;
-  width: 500px;
-`;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  position: relative;
+`
 
 const InputField = styled.input`
   background: #f8f8f8;
@@ -37,21 +39,19 @@ const InputField = styled.input`
   padding: 0px 12px;
   height: 36px;
   font-size: 16px;
-  margin: 0px;
+  margin: 0;
 
-  width: 500px;
   &::placeholder {
     color: #757575;
     font-size: 12px;
     line-height: 21px;
   }
-`;
+`
 
 const Label = styled(SmallText)`
-  width: 100px;
-  padding: 4px 0;
+  margin-bottom: 6px;
   text-align: left;
 
   color: black;
-  line-height: 18px;
-`;
+  line-height: 16px;
+`
