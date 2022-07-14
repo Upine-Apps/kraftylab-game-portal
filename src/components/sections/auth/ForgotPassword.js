@@ -33,7 +33,8 @@ export default function ForgotPassword() {
       <FormWrapper>
         <ReusableButton title="Submit" onClick={onClick} />
         <TextButtonWrapper>
-          <TextButton title="Remember your password? Login"></TextButton>
+          <Subtitle>Remember your password?</Subtitle>
+          <TextButton title="Login"></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>
@@ -60,14 +61,13 @@ const Title = styled(H4)`
 `
 
 const Subtitle = styled(SmallText)`
-  padding-bottom: 25px;
+  padding: 15px 0;
   color: ${themes.light.text1};
-  opacity: 0.6;
 `
 
 const TextButtonWrapper = styled.div`
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 160px auto;
   align-items: start;
 `
 
