@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import { Caption } from "../styles/TextStyles"
 
-export default function ReusableButton(props) {
+export default function TextButton(props) {
   const { title, onClick, path } = props
   return (
     <>
@@ -17,19 +17,18 @@ export default function ReusableButton(props) {
 }
 
 const ButtonWrapper = styled.button`
-  width: 100%;
-  background: #0067ff;
-  border: 1px solid #0056d7;
-  border-radius: 4px;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 14px 14px;
-  gap: 10px;
   cursor: pointer;
-  margin-bottom: 25px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: blue;
+  text-decoration: underline;
 `
 
 const Title = styled(Caption)`
-  color: white;
+  color: #0067ff;
+  padding: 15px 0;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 130%;
 `

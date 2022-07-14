@@ -67,3 +67,12 @@ export const SmallText2 = styled.p`
   line-height: 130%;
   text-transform: uppercase;
 `
+
+export const H4 = styled.h4`
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 18px;
+  @media (max-width: 450px) {
+    font-size: 12px;
+  }
+`
