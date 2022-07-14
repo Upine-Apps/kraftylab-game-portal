@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import BackButton from "../../buttons/mobile/BackButton";
 import { useState, useEffect } from "react";
-import LoginPage from "../LoginPage";
+import Login from "./Login";
+import Registration from "./Registration";
 export default function AuthSection() {
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
@@ -37,7 +38,7 @@ export default function AuthSection() {
       <ContentWrapper>
         {screenSize.dynamicWidth > 450 ? renderDesktop() : ""}
         <ScreenWrapper>
-          <LoginPage />
+          <Login />
         </ScreenWrapper>
       </ContentWrapper>
     </Wrapper>
