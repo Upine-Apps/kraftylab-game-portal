@@ -1,25 +1,44 @@
 import React from "react"
 import styled from "styled-components"
-import {
-  MediumText,
-  Caption,
-  SmallText,
-  AuthTitle,
-  H4,
-} from "../../styles/TextStyles"
+import { SmallText, H4 } from "../../styles/TextStyles"
+import { useState } from "react"
 import { themes } from "../../styles/ColorStyles"
 import ReusableTextField from "../../textfield/ReusableTextField"
 import CustomPasswordField from "../../textfield/CustomPasswordField"
 import ReusableButton from "../../buttons/ReusableButton"
 import TextButton from "../../buttons/TextButton"
 
+import axios from "axios"
+
 export default function Registration() {
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  // https://www.pluralsight.com/guides/handling-multiple-inputs-with-single-onchange-handler-react
   function onChange(e) {
-    console.log(e.target.value)
+    console.log(e.target.name, e.target.value)
   }
-  function onClick() {
+
+  async function onClick(e) {
     console.log("clicked!")
     // FIXME: function will unmount component and mount a new one
+    e.preventDefault()
+
+    // const body = JSON.stringify({})
+    // const headers = {}
+
+    // let response = await axios.post("", body, {
+    //   headers,
+    // })
+
+    // i don't think we need to do this
+    // unless we have another type of form elsewhere
+    setFirstName("")
+    setLastName("")
+    setEmail("")
+    setPassword("")
   }
 
   return (
@@ -29,13 +48,14 @@ export default function Registration() {
         <Title>Register your new account</Title>
       </TextWrapper>
       <FormWrapper>
-        <ReusableTextField title="First Name" onChange={onChange} />
-        <ReusableTextField title="Last Name" onChange={onChange} />
-        <ReusableTextField title="Email" onChange={onChange} />
+        <ReusableTextField title="First Name" onChange={setFirstName} />
+        <ReusableTextField title="Last Name" onChange={setLastName} />
+        <ReusableTextField title="Email" onChange={setEmail} />
         <CustomPasswordField
           name="Password"
           label="Password"
           placeholder="Please enter your password"
+          onChange={setPassword}
         />
         <ReusableButton title="Register" onClick={onClick} />
         <TextButtonWrapper>
