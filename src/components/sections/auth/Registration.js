@@ -16,7 +16,6 @@ export default function Registration() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  // https://www.pluralsight.com/guides/handling-multiple-inputs-with-single-onchange-handler-react
   function onChange(e) {
     console.log(e.target.name, e.target.value)
   }
@@ -26,15 +25,24 @@ export default function Registration() {
     // FIXME: function will unmount component and mount a new one
     e.preventDefault()
 
-    // const body = JSON.stringify({})
-    // const headers = {}
+    const body = JSON.stringify({
+      email: email,
+      first_name: firstName,
+      last_name: lastName,
+      validated: false,
+      password: password,
+    })
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Request-Headers": "Content-Type, Authorization",
+    }
 
-    // let response = await axios.post("", body, {
-    //   headers,
-    // })
+    console.log("hi")
+    let response = await axios.post("http://localhost:3000/user", body, {
+      headers,
+    })
 
-    // i don't think we need to do this
-    // unless we have another type of form elsewhere
     setFirstName("")
     setLastName("")
     setEmail("")
@@ -57,7 +65,7 @@ export default function Registration() {
           placeholder="Please enter your password"
           onChange={setPassword}
         />
-        <ReusableButton title="Register" onClick={onClick} />
+        <ReusableButton title="Register" onClick={(e) => onClick(e)} />
         <TextButtonWrapper>
           <Subtitle>Already Registered?</Subtitle>
           <TextButton title="Login"></TextButton>
