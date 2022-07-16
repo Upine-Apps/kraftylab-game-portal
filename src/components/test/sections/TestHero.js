@@ -9,6 +9,7 @@ import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
 import GameCard from "../../cards/GameCard";
+// import LoginPage from "../../sections/auth/LoginPage";
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -37,6 +38,7 @@ function TestHero() {
         {/* <ReusableTextField onChange={onChange} /> */}
         {/* <input type="submit" /> */}
       </form>
+      {/* <LoginPage></LoginPage> */}
     </Wrapper>
   );
 }
@@ -44,6 +46,7 @@ function TestHero() {
 export default TestHero;
 
 const Wrapper = styled.div`
+  display: grid
   position: relative;
   max-width: 1234px;
   margin: 0 auto;

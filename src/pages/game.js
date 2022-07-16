@@ -5,16 +5,18 @@ import HeroSection from "../components/sections/HeroSection"
 import allReducer from "../reducers/index.js"
 import { configureStore } from "@reduxjs/toolkit"
 import Header from "../components/layout/Header"
+import GameSection from "../components/sections/GameSection"
+import GameHeader from "../components/layout/GameHeader"
 
-function IndexPage() {
+function GamePage() {
   const store = configureStore({ reducer: allReducer })
   return (
     <Layout>
       <SEO title="Home" />
-      <Header />
-      <HeroSection />
+      <GameHeader />
+      <GameSection />
     </Layout>
   )
 }
 
-export default IndexPage
+export default GamePage
