@@ -32,10 +32,11 @@ export default function Registration() {
       validated: false,
       password: password,
     })
+
     const headers = {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "http://localhost:3000",
-      "Access-Control-Request-Headers": "Content-Type, Authorization",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Request-Headers": "content-type",
     }
 
     console.log("hi")
