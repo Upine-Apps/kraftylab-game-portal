@@ -1,25 +1,53 @@
 import React from "react"
 import styled from "styled-components"
-import {
-  MediumText,
-  Caption,
-  SmallText,
-  AuthTitle,
-  H4,
-} from "../../styles/TextStyles"
+import { SmallText, H4 } from "../../styles/TextStyles"
+import { useState } from "react"
 import { themes } from "../../styles/ColorStyles"
 import ReusableTextField from "../../textfield/ReusableTextField"
 import CustomPasswordField from "../../textfield/CustomPasswordField"
 import ReusableButton from "../../buttons/ReusableButton"
 import TextButton from "../../buttons/TextButton"
 
+import axios from "axios"
+
 export default function Registration() {
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
   function onChange(e) {
-    console.log(e.target.value)
+    console.log(e.target.name, e.target.value)
   }
-  function onClick() {
+
+  async function onClick(e) {
     console.log("clicked!")
     // FIXME: function will unmount component and mount a new one
+    e.preventDefault()
+
+    const body = JSON.stringify({
+      email: email,
+      first_name: firstName,
+      last_name: lastName,
+      validated: false,
+      password: password,
+    })
+
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Request-Headers": "content-type",
+    }
+
+    console.log("hi")
+    let response = await axios.post("http://localhost:3000/user", body, {
+      headers,
+    })
+
+    setFirstName("")
+    setLastName("")
+    setEmail("")
+    setPassword("")
   }
 
   return (
@@ -29,15 +57,16 @@ export default function Registration() {
         <Title>Register your new account</Title>
       </TextWrapper>
       <FormWrapper>
-        <ReusableTextField title="First Name" onChange={onChange} />
-        <ReusableTextField title="Last Name" onChange={onChange} />
-        <ReusableTextField title="Email" onChange={onChange} />
+        <ReusableTextField title="First Name" onChange={setFirstName} />
+        <ReusableTextField title="Last Name" onChange={setLastName} />
+        <ReusableTextField title="Email" onChange={setEmail} />
         <CustomPasswordField
           name="Password"
           label="Password"
           placeholder="Please enter your password"
+          onChange={setPassword}
         />
-        <ReusableButton title="Register" onClick={onClick} />
+        <ReusableButton title="Register" onClick={(e) => onClick(e)} />
         <TextButtonWrapper>
           <Subtitle>Already Registered?</Subtitle>
           <TextButton title="Login"></TextButton>
