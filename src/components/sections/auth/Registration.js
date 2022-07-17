@@ -7,7 +7,6 @@ import ReusableTextField from "../../textfield/ReusableTextField"
 import CustomPasswordField from "../../textfield/CustomPasswordField"
 import ReusableButton from "../../buttons/ReusableButton"
 import TextButton from "../../buttons/TextButton"
-
 import axios from "axios"
 
 export default function Registration() {
@@ -17,13 +16,7 @@ export default function Registration() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
-  function onChange(e) {
-    console.log(e.target.name, e.target.value)
-  }
-
   async function onClick(e) {
-    console.log("clicked!")
-    // FIXME: function will unmount component and mount a new one
     e.preventDefault()
 
     const body = {
