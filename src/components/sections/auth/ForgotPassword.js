@@ -13,7 +13,7 @@ import CustomPasswordField from "../../textfield/CustomPasswordField"
 import ReusableButton from "../../buttons/ReusableButton"
 import TextButton from "../../buttons/TextButton"
 
-export default function ForgotPassword({ nextStep, prevStep }) {
+export default function ForgotPassword({ nextStep, prevStep, setStep }) {
   function onChange(e) {
     console.log(e.target.value)
   }
@@ -35,7 +35,7 @@ export default function ForgotPassword({ nextStep, prevStep }) {
         <ReusableButton title="Submit" onClick={onClick} />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
-          <TextButton title="Login"></TextButton>
+          <TextButton title="Login" onClick={() => setStep(0)}></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>

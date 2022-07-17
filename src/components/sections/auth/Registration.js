@@ -13,7 +13,7 @@ import CustomPasswordField from "../../textfield/CustomPasswordField"
 import ReusableButton from "../../buttons/ReusableButton"
 import TextButton from "../../buttons/TextButton"
 
-export default function Registration({ nextStep, prevStep }) {
+export default function Registration({ nextStep, prevStep, setStep }) {
   function onChange(e) {
     console.log(e.target.value)
   }
@@ -41,7 +41,7 @@ export default function Registration({ nextStep, prevStep }) {
         <ReusableButton title="Register" onClick={onClick} />
         <TextButtonWrapper>
           <Subtitle>Already Registered?</Subtitle>
-          <TextButton title="Login"></TextButton>
+          <TextButton title="Login" onClick={() => setStep(0)}></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>

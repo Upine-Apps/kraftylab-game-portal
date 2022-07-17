@@ -45,10 +45,25 @@ export default function AuthSection() {
   function renderSwitch(param) {
     console.log("step =", param)
     switch (param) {
+      case 0:
+        // login
+        return <p>Login</p>
       case 1:
-        return <Registration nextStep={nextStep} prevStep={prevStep} />
+        return (
+          <Registration
+            nextStep={nextStep}
+            prevStep={prevStep}
+            setStep={setStep}
+          />
+        )
       case 2:
-        return <ForgotPassword nextStep={nextStep} prevStep={prevStep} />
+        return (
+          <ForgotPassword
+            nextStep={nextStep}
+            prevStep={prevStep}
+            setStep={setStep}
+          />
+        )
       default:
         return <></>
     }
