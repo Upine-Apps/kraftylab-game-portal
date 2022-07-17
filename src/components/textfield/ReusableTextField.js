@@ -39,7 +39,6 @@ const InputField = styled.input`
   border-radius: 4px;
   padding: 0px 12px;
   height: 36px;
-  font-size: 16px;
   margin: 0;
 
   &::placeholder {
