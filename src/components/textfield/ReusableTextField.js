@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { SmallText } from "../styles/TextStyles"
 
 export default function ReusableTextField(props) {
-  const { title, onChange } = props
+  const { title, onChange, value } = props
   const type = "text"
 
   return (
@@ -13,6 +13,7 @@ export default function ReusableTextField(props) {
         <InputField
           name={title || "Field"}
           type={type}
+          value={value}
           placeholder={!title || "Please enter your " + title.toLowerCase()}
           onChange={(e) => onChange(e)}
           minLength="1"
