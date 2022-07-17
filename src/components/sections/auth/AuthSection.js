@@ -2,18 +2,28 @@ import React from "react"
 import styled from "styled-components"
 import BackButton from "../../buttons/mobile/BackButton"
 import { useState, useEffect } from "react"
+import Registration from "./Registration"
+import ForgotPassword from "./ForgotPassword"
 
 export default function AuthSection() {
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
   })
+  const [step, setStep] = useState(1)
 
   const setDimension = () => {
     getDimension({
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight,
     })
+  }
+
+  const nextStep = () => {
+    setStep(step + 1)
+  }
+  const prevStep = () => {
+    setStep(step - 1)
   }
 
   useEffect(() => {
@@ -32,6 +42,18 @@ export default function AuthSection() {
     )
   }
 
+  function renderSwitch(param) {
+    console.log("step =", param)
+    switch (param) {
+      case 1:
+        return <Registration nextStep={nextStep} prevStep={prevStep} />
+      case 2:
+        return <ForgotPassword nextStep={nextStep} prevStep={prevStep} />
+      default:
+        return <></>
+    }
+  }
+
   return (
     <Wrapper>
       <ContentWrapper>
@@ -43,6 +65,7 @@ export default function AuthSection() {
             MAKE SURE YOU LOOK AT HOW I ADDED WIDTH AND HEIGHT FOR THE COMPONENT
             WE WANT THIS TO BE FLEXIBLE WITH WHATEVER BOX WE PUT IT IN
             DON'T HARDCODE WIDTHS AND HEIGHTS W PIXELS!!!! USE PERCENTAGES */}
+          {renderSwitch(step)}
         </ScreenWrapper>
       </ContentWrapper>
     </Wrapper>
