@@ -40,11 +40,11 @@ export default function Registration() {
       "Access-Control-Request-Headers": "content-type",
     }
 
-    // console.log(body)
-    // let response = await axios.post("http://localhost:3000/user", body, {
-    //   headers,
-    // })
-    // console.log(response)
+    console.log(body)
+    let response = await axios.post("http://localhost:3000/user", body, {
+      headers,
+    })
+    console.log(response)
 
     setFirstName("")
     setLastName("")
