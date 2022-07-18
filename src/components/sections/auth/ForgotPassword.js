@@ -21,7 +21,7 @@ export default function ForgotPassword() {
     e.preventDefault();
 
     let error = false;
-    if (!parse(recoveryEmail)) error = true;
+    if (!parseInt(recoveryEmail)) error = true;
     if (!error){
       const body ={
         email:"shamer@upineapps.com" ,
