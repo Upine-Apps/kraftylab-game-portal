@@ -57,9 +57,9 @@ const Wrapper = styled.div`
   }
 `;
 const TextButtonWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 170px auto;
+  display: flex;
   align-items: start;
+  gap: 10px;
 `;
 
 const Title = styled(H4)`
@@ -70,7 +70,6 @@ const Title = styled(H4)`
 
 const Subtitle = styled(SmallText)`
   padding: 15px 0;
-  // border: 1px red solid;
   color: ${themes.light.text1};
 `;
 
