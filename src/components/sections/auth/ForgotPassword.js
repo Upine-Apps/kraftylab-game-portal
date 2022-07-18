@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import {useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import {
   MediumText,
   Caption,
@@ -15,31 +15,35 @@ import ReusableButton from "../../buttons/ReusableButton"
 import TextButton from "../../buttons/TextButton"
 import axios from "axios"
 
-export default function ForgotPassword() { 
-  const [recoveryEmail, setEmail] = useState("")
+function isEmail(str) {
+  return /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/.test(str)
+}
+
+export default function ForgotPassword() {
+  const [recoveryEmail, setEmail] = useState("");
   async function onClick(e) {
     e.preventDefault();
 
     let error = false;
-    if (!parseInt(recoveryEmail)) error = true;
-    if (!error){
-      const body ={
-        email:"shamer@upineapps.com" ,
+    error = !isEmail(recoveryEmail) ? true : error
+    if (!error) {
+      const body = {
+        username: recoveryEmail,
       };
       const headers = {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Request-Headers": "content-type",
       };
-      let response = await axios.post("http://localhost:3000/user/start-forgot-password", body, {headers})
+      let response = await axios.post("http://localhost:3000/user/start-forgot-password", body, { headers })
       console.log(response);
       setEmail("");
     }
     console.log("clicked!")
     // FIXME: function will unmount component and mount a new one
-  }}
-  
-  
+  }
+
+
   return (
     <Wrapper>
       <TextWrapper>
@@ -57,7 +61,7 @@ export default function ForgotPassword() {
       </FormWrapper>
     </Wrapper>
   )
-
+}
 
 const Wrapper = styled.div`
   justify-items: center;
