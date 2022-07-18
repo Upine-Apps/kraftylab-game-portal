@@ -4,7 +4,7 @@ import { MediumText, SmallText } from "../styles/TextStyles"
 
 // When using this component use a wrapper to constrain the width
 // This component will use the parent component's width
-function Password({ name, label, placeholder, onChange }) {
+function Password({ name, label, placeholder, onChange, value }) {
   const [isHidden, setIsHidden] = useState(true)
   let password = isHidden == true ? "password" : "text"
   let icon =
@@ -17,6 +17,7 @@ function Password({ name, label, placeholder, onChange }) {
         label="Password"
         name={name}
         type={password}
+        value={value}
         onChange={onChange}
       />
       <DisplayPasswordButton

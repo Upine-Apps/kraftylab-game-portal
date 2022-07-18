@@ -73,6 +73,6 @@ export const H4 = styled.h4`
   font-size: 20px;
   line-height: 18px;
   @media (max-width: 450px) {
-    font-size: 12px;
+    font-size: 18px;
   }
 `
