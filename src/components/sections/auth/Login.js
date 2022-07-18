@@ -31,8 +31,8 @@ export default function Login() {
           label="Password"
           placeholder="Please enter your password"
         />
-        <ReusableButton title="Login" path="" />
-        <TextButton title="Forgot Password?" path=""></TextButton>
+        <ReusableButton title="Login" />
+        <TextButton title="Forgot Password?"></TextButton>
         <TextButtonWrapper>
           <Subtitle>Not registered?</Subtitle>
           <TextButton title="Create an account"></TextButton>
@@ -44,7 +44,7 @@ export default function Login() {
 
 const Wrapper = styled.div`
   justify-items: center;
-  margin: 0 auto; // look into what this is doing
+  margin: 0 auto;
   max-width: 400px;
   @media (max-width: 450px) {
     vertical-align: middle;
@@ -52,12 +52,11 @@ const Wrapper = styled.div`
     padding: 0 30px;
     max-width: none;
   }
-  // border: 1px red solid;
 `;
 const TextButtonWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 98px auto;
+  display: flex;
   align-items: start;
+  gap: 10px;
 `;
 
 const Title = styled(H4)`
@@ -68,7 +67,6 @@ const Title = styled(H4)`
 
 const Subtitle = styled(SmallText)`
   padding: 15px 0;
-  // border: 1px red solid;
   color: ${themes.light.text1};
 `;
 
