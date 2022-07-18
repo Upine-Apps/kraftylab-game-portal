@@ -35,10 +35,10 @@ export default function ConfirmPassword() {
           label="Confirm Password"
           placeholder="Please confirm your new password"
         />
-        <ReusableButton title="Reset Password" />
+        <ReusableButton title="Reset Password" path="" />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
-          <TextButton title="Login"></TextButton>
+          <TextButton title="Login" path=""></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>
