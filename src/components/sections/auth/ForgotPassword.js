@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import {useState, useEffect } from "react"
 import {
   MediumText,
   Caption,
@@ -12,23 +13,40 @@ import ReusableTextField from "../../textfield/ReusableTextField"
 import CustomPasswordField from "../../textfield/CustomPasswordField"
 import ReusableButton from "../../buttons/ReusableButton"
 import TextButton from "../../buttons/TextButton"
+import axios from "axios"
 
-export default function ForgotPassword() {
-  function onChange(e) {
-    console.log(e.target.value)
-  }
-  function onClick() {
+export default function ForgotPassword() { 
+  const [recoveryEmail, setEmail] = useState("")
+  async function onClick(e) {
+    e.preventDefault();
+
+    let error = false;
+    if (!parse(recoveryEmail)) error = true;
+    if (!error){
+      const body ={
+        email:"shamer@upineapps.com" ,
+      };
+      const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Request-Headers": "content-type",
+      };
+      let response = await axios.post("http://localhost:3000/user/start-forgot-password", body, {headers})
+      console.log(response);
+      setEmail("");
+    }
     console.log("clicked!")
     // FIXME: function will unmount component and mount a new one
-  }
-
+  }}
+  
+  
   return (
     <Wrapper>
       <TextWrapper>
         <Subtitle>Uh oh! 👋</Subtitle>
         <Title>Forgot Password?</Title>
         <Subtitle>Enter the email associated with this account.</Subtitle>
-        <ReusableTextField title="Email" onChange={onChange} />
+        <ReusableTextField title="Email" onChange={(e) => setEmail(e.target.value)} />
       </TextWrapper>
       <FormWrapper>
         <ReusableButton title="Submit" onClick={onClick} />
@@ -39,7 +57,7 @@ export default function ForgotPassword() {
       </FormWrapper>
     </Wrapper>
   )
-}
+
 
 const Wrapper = styled.div`
   justify-items: center;
