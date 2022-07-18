@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { useState, useEffect } from "react"
 import {
   MediumText,
   Caption,
@@ -12,12 +13,29 @@ import ReusableTextField from "../../textfield/ReusableTextField"
 import CustomPasswordField from "../../textfield/CustomPasswordField"
 import ReusableButton from "../../buttons/ReusableButton"
 import TextButton from "../../buttons/TextButton"
+import axios from "axios"
 
 export default function Verification() {
-  function onChange(e) {
-    console.log(e.target.value)
-  }
-  function onClick() {
+  const [verificationCode, setVerificationCode] = useState("")
+  async function onClick(e) {
+    e.preventDefault();
+
+    let error = false;
+    if (!parseInt(verificationCode)) error = true;
+    if (!error){
+      const body ={
+        username: "shamer@upineapps.com",
+        code: verificationCode,
+      };
+      const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Request-Headers": "content-type",
+      };
+      let response = await axios.post("http://localhost:3000/user/validate-email", body, {headers})
+      console.log(response);
+      setVerificationCode("");
+    }
     console.log("clicked!")
     // FIXME: function will unmount component and mount a new one
   }
@@ -28,7 +46,7 @@ export default function Verification() {
         <Subtitle>Almost there! 👋</Subtitle>
         <Title>Verification</Title>
         <Subtitle>Enter the 4-digit code sent to your email address.</Subtitle>
-        <ReusableTextField title="Code"onChange={onChange} />
+        <ReusableTextField title="Code"onChange={(e) => setVerificationCode(e.target.value)} />
       </TextWrapper>
       <FormWrapper>
         <ReusableButton title="Verify" onClick={onClick} />
