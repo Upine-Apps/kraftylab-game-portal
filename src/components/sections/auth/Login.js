@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import {
   MediumText,
@@ -6,41 +5,37 @@ import {
   SmallText,
   AuthTitle,
   H4,
+  H3,
 } from "../../styles/TextStyles";
 import { themes } from "../../styles/ColorStyles";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
+import React, { useState } from "react";
 import TextButton from "../../buttons/TextButton";
 
-export default function Registration() {
+export default function Login() {
   function onChange(e) {
     console.log(e.target.value);
   }
-  function onClick() {
-    console.log("clicked!");
-    // FIXME: function will unmount component and mount a new one
-  }
-
   return (
     <Wrapper>
       <TextWrapper>
-        <Subtitle>Hello! 👋</Subtitle>
-        <Title>Register your new account</Title>
+        <Subtitle>Welcome back! 👋</Subtitle>
+        <Title>Login to your account</Title>
       </TextWrapper>
       <FormWrapper>
-        <ReusableTextField title="First Name" onChange={onChange} />
-        <ReusableTextField title="Last Name" onChange={onChange} />
         <ReusableTextField title="Email" onChange={onChange} />
         <CustomPasswordField
           name="Password"
           label="Password"
           placeholder="Please enter your password"
         />
-        <ReusableButton title="Register" onClick={onClick} />
+        <ReusableButton title="Login" />
+        <TextButton title="Forgot Password?"></TextButton>
         <TextButtonWrapper>
-          <Subtitle>Already Registered?</Subtitle>
-          <TextButton title="Login"></TextButton>
+          <Subtitle>Not registered?</Subtitle>
+          <TextButton title="Create an account"></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>
@@ -58,10 +53,14 @@ const Wrapper = styled.div`
     max-width: none;
   }
 `;
+const TextButtonWrapper = styled.div`
+  display: flex;
+  align-items: start;
+  gap: 10px;
+`;
 
 const Title = styled(H4)`
   padding-bottom: 25px;
-
   background-clip: text;
   -webkit-background-clip: text;
 `;
@@ -69,12 +68,6 @@ const Title = styled(H4)`
 const Subtitle = styled(SmallText)`
   padding: 15px 0;
   color: ${themes.light.text1};
-`;
-
-const TextButtonWrapper = styled.div`
-  display: flex;
-  align-items: start;
-  gap: 10px;
 `;
 
 const TextWrapper = styled.div`
