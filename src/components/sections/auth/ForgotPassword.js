@@ -1,22 +1,22 @@
-import React from "react"
-import styled from "styled-components"
-import { useState, useEffect } from "react"
+import React from "react";
+import styled from "styled-components";
+import { useState, useEffect } from "react";
 import {
   MediumText,
   Caption,
   SmallText,
   AuthTitle,
   H4,
-} from "../../styles/TextStyles"
-import { themes } from "../../styles/ColorStyles"
-import ReusableTextField from "../../textfield/ReusableTextField"
-import CustomPasswordField from "../../textfield/CustomPasswordField"
-import ReusableButton from "../../buttons/ReusableButton"
-import TextButton from "../../buttons/TextButton"
-import axios from "axios"
+} from "../../styles/TextStyles";
+import { themes } from "../../styles/ColorStyles";
+import ReusableTextField from "../../textfield/ReusableTextField";
+import CustomPasswordField from "../../textfield/CustomPasswordField";
+import ReusableButton from "../../buttons/ReusableButton";
+import TextButton from "../../buttons/TextButton";
+import axios from "axios";
 
 function isEmail(str) {
-  return /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/.test(str)
+  return /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/.test(str);
 }
 
 export default function ForgotPassword() {
@@ -25,7 +25,7 @@ export default function ForgotPassword() {
     e.preventDefault();
 
     let error = false;
-    error = !isEmail(recoveryEmail) ? true : error
+    error = !isEmail(recoveryEmail) ? true : error;
     if (!error) {
       const body = {
         username: recoveryEmail,
@@ -35,22 +35,28 @@ export default function ForgotPassword() {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Request-Headers": "content-type",
       };
-      let response = await axios.post("http://localhost:3000/user/start-forgot-password", body, { headers })
+      let response = await axios.post(
+        "http://localhost:3000/user/start-forgot-password",
+        body,
+        { headers }
+      );
       console.log(response);
       setEmail("");
     }
-    console.log("clicked!")
+    console.log("clicked!");
     // FIXME: function will unmount component and mount a new one
   }
-
 
   return (
     <Wrapper>
       <TextWrapper>
-        <Subtitle>Uh oh! 👋</Subtitle>
+        <Subtitle> Uh oh! 👋</Subtitle>
         <Title>Forgot Password?</Title>
         <Subtitle>Enter the email associated with this account.</Subtitle>
-        <ReusableTextField title="Email" onChange={(e) => setEmail(e.target.value)} />
+        <ReusableTextField
+          title="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </TextWrapper>
       <FormWrapper>
         <ReusableButton title="Submit" onClick={onClick} />
@@ -60,7 +66,7 @@ export default function ForgotPassword() {
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>
-  )
+  );
 }
 
 const Wrapper = styled.div`
@@ -73,30 +79,30 @@ const Wrapper = styled.div`
     padding: 0 30px;
     max-width: none;
   }
-`
+`;
 
 const Title = styled(H4)`
   padding-bottom: 15px;
 
   background-clip: text;
   -webkit-background-clip: text;
-`
+`;
 
 const Subtitle = styled(SmallText)`
   padding: 15px 0;
   color: ${themes.light.text1};
-`
+`;
 
 const TextButtonWrapper = styled.div`
   display: flex;
   align-items: start;
   gap: 10px;
-`
+`;
 
 const TextWrapper = styled.div`
   display: grid;
   text-align: left;
   gap: 0px;
-`
+`;
 
-const FormWrapper = styled.div``
+const FormWrapper = styled.div``;
