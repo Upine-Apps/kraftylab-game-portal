@@ -1,19 +1,32 @@
-import React from "react"
-import { Link } from "gatsby"
-import styled from "styled-components"
-import { Caption } from "../styles/TextStyles"
+import React from "react";
+import { Link } from "gatsby";
+import styled from "styled-components";
+import { Caption } from "../styles/TextStyles";
 
 export default function TextButton(props) {
-  const { title, onClick, path } = props
-  return (
-    <>
+  const { title, onClick, path } = props;
+
+  function returnLink(title, path, onClick) {
+    return (
       <Link to={path}>
         <ButtonWrapper onClick={onClick}>
           <Title>{title || "Submit"}</Title>
         </ButtonWrapper>
       </Link>
-    </>
-  )
+    );
+  }
+
+  function returnNoLink(title, onClick) {
+    return (
+      <ButtonWrapper onClick={onClick}>
+        <Title>{title || "Submit"}</Title>
+      </ButtonWrapper>
+    );
+  }
+
+  return path === undefined
+    ? returnNoLink(title, onClick)
+    : returnLink(title, path, onClick);
 }
 
 const ButtonWrapper = styled.button`
@@ -23,7 +36,7 @@ const ButtonWrapper = styled.button`
   padding: 0;
   color: blue;
   text-decoration: underline;
-`
+`;
 
 const Title = styled(Caption)`
   color: #0067ff;
@@ -31,4 +44,4 @@ const Title = styled(Caption)`
   font-weight: normal;
   font-size: 13px;
   line-height: 130%;
-`
+`;
