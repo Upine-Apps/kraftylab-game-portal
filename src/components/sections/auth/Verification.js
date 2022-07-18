@@ -66,9 +66,9 @@ const Subtitle = styled(SmallText)`
 `
 
 const TextButtonWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 160px auto;
+  display: flex;
   align-items: start;
+  gap: 10px;
 `
 
 const TextWrapper = styled.div`

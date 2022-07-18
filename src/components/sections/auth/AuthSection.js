@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import BackButton from "../../buttons/mobile/BackButton"
 import { useState, useEffect } from "react"
+import Verification from "./Verification"
 
 export default function AuthSection() {
   const [screenSize, getDimension] = useState({
@@ -37,6 +38,7 @@ export default function AuthSection() {
       <ContentWrapper>
         {screenSize.dynamicWidth > 450 ? renderDesktop() : ""}
         <ScreenWrapper>
+          <Verification></Verification>
           {/* ADD YOUR COMPONENT HERE INSTEAD OF SCREEN COMPONENT
             SCREEN COMPONENT IS JUST THERE TO SHOW YOU THE RED BOX IT SHOULD TAKE UP. 
             !!!!REMOVE SCREEN COMPONENT AND GRAPHIC!!!
