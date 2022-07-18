@@ -10,6 +10,10 @@ export default function AuthSection() {
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
   })
+
+  // https://medium.com/how-to-react/create-multi-step-form-in-react-with-validation-4ac09129a3a8
+  // https://blog.devgenius.io/create-a-multi-step-form-with-reactjs-322aa97a2968#d22e
+  // https://stackoverflow.com/questions/46592833/how-to-use-switch-statement-inside-a-react-component
   const [step, setStep] = useState(1)
 
   const setDimension = () => {
