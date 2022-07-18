@@ -28,7 +28,7 @@ export default function ForgotPassword() {
         <Subtitle>Uh oh! 👋</Subtitle>
         <Title>Forgot Password?</Title>
         <Subtitle>Enter the email associated with this account.</Subtitle>
-        <ReusableTextField title="Email"onChange={onChange} />
+        <ReusableTextField title="Email" onChange={onChange} />
       </TextWrapper>
       <FormWrapper>
         <ReusableButton title="Submit" onClick={onClick} />
@@ -66,9 +66,9 @@ const Subtitle = styled(SmallText)`
 `
 
 const TextButtonWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 160px auto;
+  display: flex;
   align-items: start;
+  gap: 10px;
 `
 
 const TextWrapper = styled.div`
