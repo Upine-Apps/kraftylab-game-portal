@@ -31,8 +31,8 @@ export default function Login() {
           label="Password"
           placeholder="Please enter your password"
         />
-        <ReusableButton title="Login" />
-        <TextButton title="Forgot Password?"></TextButton>
+        <ReusableButton title="Login" path="" />
+        <TextButton title="Forgot Password?" path=""></TextButton>
         <TextButtonWrapper>
           <Subtitle>Not registered?</Subtitle>
           <TextButton title="Create an account"></TextButton>
