@@ -16,34 +16,54 @@ export default function Registration() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
+  function isAlpha(str) {
+    return /^[a-zA-Z]*$/.test(str)
+  }
+
+  // https://emailregex.com/ for more sophisticated regex
+  // tristanigos@gmail .com matches unfortunately
+  function isEmail(str) {
+    return /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/.test(str)
+  }
+
   async function onClick(e) {
     e.preventDefault()
 
-    const body = {
-      email: email,
-      first_name: firstName,
-      last_name: lastName,
-      validated: false,
-      password: password,
+    let error = false
+    error = !isAlpha(firstName) ? true : error
+    error = !isAlpha(lastName) ? true : error
+    error = !isEmail(email) ? true : error
+    error = password.length < 6 ? true : error
+    error = password !== confirmPassword ? true : error
+    console.log("error = ", error)
+
+    if (!error) {
+      const body = {
+        email: email,
+        first_name: firstName,
+        last_name: lastName,
+        validated: false,
+        password: password,
+      }
+
+      const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Request-Headers": "content-type",
+      }
+
+      console.log(body)
+      let response = await axios.post("http://localhost:3000/user", body, {
+        headers,
+      })
+      console.log(response)
+
+      setFirstName("")
+      setLastName("")
+      setEmail("")
+      setPassword("")
+      setConfirmPassword("")
     }
-
-    const headers = {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Request-Headers": "content-type",
-    }
-
-    console.log(body)
-    let response = await axios.post("http://localhost:3000/user", body, {
-      headers,
-    })
-    console.log(response)
-
-    setFirstName("")
-    setLastName("")
-    setEmail("")
-    setPassword("")
-    setConfirmPassword("")
   }
 
   return (
