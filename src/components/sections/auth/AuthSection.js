@@ -26,13 +26,6 @@ export default function AuthSection() {
     });
   };
 
-  const nextStep = () => {
-    setStep(step + 1);
-  };
-  const prevStep = () => {
-    setStep(step - 1);
-  };
-
   useEffect(() => {
     window.addEventListener("resize", setDimension);
 
@@ -53,45 +46,17 @@ export default function AuthSection() {
     console.log("step =", param);
     switch (param) {
       case "Login":
-        return (
-          <Login nextStep={nextStep} prevStep={prevStep} setStep={setStep} />
-        );
+        return <Login setStep={setStep} />;
       case "Registration":
-        return (
-          <Registration
-            nextStep={nextStep}
-            prevStep={prevStep}
-            setStep={setStep}
-          />
-        );
+        return <Registration setStep={setStep} />;
       case "Verification":
-        return (
-          <Verification
-            nextStep={nextStep}
-            prevStep={prevStep}
-            setStep={setStep}
-          />
-        );
+        return <Verification setStep={setStep} />;
       case "ForgotPassword":
-        return (
-          <ForgotPassword
-            nextStep={nextStep}
-            prevStep={prevStep}
-            setStep={setStep}
-          />
-        );
+        return <ForgotPassword setStep={setStep} />;
       case "ConfirmPassword":
-        return (
-          <ConfirmPassword
-            nextStep={nextStep}
-            prevStep={prevStep}
-            setStep={setStep}
-          />
-        );
+        return <ConfirmPassword setStep={setStep} />;
       default:
-        return (
-          <Login nextStep={nextStep} prevStep={prevStep} setStep={setStep} />
-        );
+        return <Login setStep={setStep} />;
     }
   }
 
