@@ -45,7 +45,7 @@ export default function Verification() {
       <TextWrapper>
         <Subtitle>Almost there! 👋</Subtitle>
         <Title>Verification</Title>
-        <Subtitle>Enter the 4-digit code sent to your email address.</Subtitle>
+        <Subtitle>Enter the 6-digit code sent to your email address.</Subtitle>
         <ReusableTextField title="Code"onChange={(e) => setVerificationCode(e.target.value)} />
       </TextWrapper>
       <FormWrapper>
