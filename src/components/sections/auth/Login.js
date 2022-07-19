@@ -18,6 +18,10 @@ export default function Login({ nextStep, prevStep, setStep }) {
   function onChange(e) {
     console.log(e.target.value);
   }
+  function onClick(e) {
+    setStep("");
+  }
+
   return (
     <Wrapper>
       <TextWrapper>
@@ -31,11 +35,17 @@ export default function Login({ nextStep, prevStep, setStep }) {
           label="Password"
           placeholder="Please enter your password"
         />
-        <ReusableButton title="Login" />
-        <TextButton title="Forgot Password?"></TextButton>
+        <ReusableButton title="Login" onClick={(e) => onClick(e)} />
+        <TextButton
+          title="Forgot Password?"
+          onClick={() => setStep("ForgotPassword")}
+        ></TextButton>
         <TextButtonWrapper>
           <Subtitle>Not registered?</Subtitle>
-          <TextButton title="Create an account"></TextButton>
+          <TextButton
+            title="Create an account"
+            onClick={() => setStep("Registration")}
+          ></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>

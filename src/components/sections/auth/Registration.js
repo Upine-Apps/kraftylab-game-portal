@@ -20,7 +20,8 @@ export default function Registration({ nextStep, prevStep, setStep }) {
   function onClick() {
     console.log("clicked!");
     // FIXME: function will unmount component and mount a new one
-    nextStep()
+    // nextStep()
+    setStep("Verification");
   }
 
   return (
@@ -41,7 +42,10 @@ export default function Registration({ nextStep, prevStep, setStep }) {
         <ReusableButton title="Register" onClick={onClick} />
         <TextButtonWrapper>
           <Subtitle>Already Registered?</Subtitle>
-          <TextButton title="Login" onClick={() => setStep(0)}></TextButton>
+          <TextButton
+            title="Login"
+            onClick={() => setStep("Login")}
+          ></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>

@@ -6,6 +6,7 @@ import Registration from "./Registration";
 import ForgotPassword from "./ForgotPassword";
 import ConfirmPassword from "./ConfirmPassword";
 import Login from "./Login";
+import Verification from "./Verification";
 
 export default function AuthSection() {
   const [screenSize, getDimension] = useState({
@@ -16,7 +17,7 @@ export default function AuthSection() {
   // https://medium.com/how-to-react/create-multi-step-form-in-react-with-validation-4ac09129a3a8
   // https://blog.devgenius.io/create-a-multi-step-form-with-reactjs-322aa97a2968#d22e
   // https://stackoverflow.com/questions/46592833/how-to-use-switch-statement-inside-a-react-component
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState("Login");
 
   const setDimension = () => {
     getDimension({
@@ -51,11 +52,11 @@ export default function AuthSection() {
   function renderSwitch(param) {
     console.log("step =", param);
     switch (param) {
-      case 0:
+      case "Login":
         return (
           <Login nextStep={nextStep} prevStep={prevStep} setStep={setStep} />
         );
-      case 1:
+      case "Registration":
         return (
           <Registration
             nextStep={nextStep}
@@ -63,7 +64,7 @@ export default function AuthSection() {
             setStep={setStep}
           />
         );
-      case 2:
+      case "Verification":
         return (
           <Verification
             nextStep={nextStep}
@@ -71,7 +72,7 @@ export default function AuthSection() {
             setStep={setStep}
           />
         );
-      case 3:
+      case "ForgotPassword":
         return (
           <ForgotPassword
             nextStep={nextStep}
@@ -79,7 +80,7 @@ export default function AuthSection() {
             setStep={setStep}
           />
         );
-      case 4:
+      case "ConfirmPassword":
         return (
           <ConfirmPassword
             nextStep={nextStep}
@@ -88,7 +89,9 @@ export default function AuthSection() {
           />
         );
       default:
-        return <></>;
+        return (
+          <Login nextStep={nextStep} prevStep={prevStep} setStep={setStep} />
+        );
     }
   }
 

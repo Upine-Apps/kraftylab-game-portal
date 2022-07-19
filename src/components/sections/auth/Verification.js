@@ -20,6 +20,7 @@ export default function Verification({ nextStep, prevStep, setStep }) {
   function onClick() {
     console.log("clicked!");
     // FIXME: function will unmount component and mount a new one
+    setStep("Login");
   }
 
   return (
@@ -34,7 +35,10 @@ export default function Verification({ nextStep, prevStep, setStep }) {
         <ReusableButton title="Verify" onClick={onClick} />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
-          <TextButton title="Login"></TextButton>
+          <TextButton
+            title="Login"
+            onClick={() => setStep("Login")}
+          ></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>

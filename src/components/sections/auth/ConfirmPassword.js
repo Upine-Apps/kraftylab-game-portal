@@ -18,6 +18,10 @@ export default function ConfirmPassword({ nextStep, prevStep, setStep }) {
   function onChange(e) {
     console.log(e.target.value);
   }
+  function onClick(e) {
+    setStep("Login");
+  }
+
   return (
     <Wrapper>
       <TextWrapper>
@@ -35,10 +39,18 @@ export default function ConfirmPassword({ nextStep, prevStep, setStep }) {
           label="Confirm Password"
           placeholder="Please confirm your new password"
         />
-        <ReusableButton title="Reset Password" path="" />
+        <ReusableButton
+          title="Reset Password"
+          path=""
+          onClick={(e) => onClick(e)}
+        />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
-          <TextButton title="Login" path=""></TextButton>
+          <TextButton
+            title="Login"
+            path=""
+            onClick={() => setStep("Login")}
+          ></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>
