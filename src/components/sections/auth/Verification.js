@@ -13,29 +13,28 @@ import CustomPasswordField from "../../textfield/CustomPasswordField"
 import ReusableButton from "../../buttons/ReusableButton"
 import TextButton from "../../buttons/TextButton"
 
-export default function ForgotPassword({ nextStep, prevStep, setStep }) {
+export default function Verification() {
   function onChange(e) {
     console.log(e.target.value)
   }
   function onClick() {
     console.log("clicked!")
     // FIXME: function will unmount component and mount a new one
-    prevStep()
   }
 
   return (
     <Wrapper>
       <TextWrapper>
-        <Subtitle>Uh oh! 👋</Subtitle>
-        <Title>Forgot Password?</Title>
-        <Subtitle>Enter the email associated with this account.</Subtitle>
-        <ReusableTextField title="Email" onChange={onChange} />
+        <Subtitle>Almost there! 👋</Subtitle>
+        <Title>Verification</Title>
+        <Subtitle>Enter the 4-digit code sent to your email address.</Subtitle>
+        <ReusableTextField title="Code"onChange={onChange} />
       </TextWrapper>
       <FormWrapper>
-        <ReusableButton title="Submit" onClick={onClick} />
+        <ReusableButton title="Verify" onClick={onClick} />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
-          <TextButton title="Login" onClick={() => setStep(0)}></TextButton>
+          <TextButton title="Login"></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>

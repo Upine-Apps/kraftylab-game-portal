@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import {
   MediumText,
@@ -6,42 +5,40 @@ import {
   SmallText,
   AuthTitle,
   H4,
+  H3,
 } from "../../styles/TextStyles";
 import { themes } from "../../styles/ColorStyles";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
+import React, { useState } from "react";
 import TextButton from "../../buttons/TextButton";
 
-export default function Registration({ nextStep, prevStep, setStep }) {
+export default function ConfirmPassword() {
   function onChange(e) {
     console.log(e.target.value);
   }
-  function onClick() {
-    console.log("clicked!");
-    // FIXME: function will unmount component and mount a new one
-    nextStep()
-  }
-
   return (
     <Wrapper>
       <TextWrapper>
-        <Subtitle>Hello! 👋</Subtitle>
-        <Title>Register your new account</Title>
+        <Subtitle>Whew! 👋</Subtitle>
+        <Title>Create new password</Title>
       </TextWrapper>
       <FormWrapper>
-        <ReusableTextField title="First Name" onChange={onChange} />
-        <ReusableTextField title="Last Name" onChange={onChange} />
-        <ReusableTextField title="Email" onChange={onChange} />
         <CustomPasswordField
-          name="Password"
-          label="Password"
-          placeholder="Please enter your password"
+          name="New Password"
+          label="New Password"
+          placeholder="Please enter your new password"
         />
-        <ReusableButton title="Register" onClick={onClick} />
+        <CustomPasswordField
+          name="Confirm Password"
+          label="Confirm Password"
+          placeholder="Please confirm your new password"
+        />
+        <ReusableButton title="Reset Password" path="" />
         <TextButtonWrapper>
-          <Subtitle>Already Registered?</Subtitle>
-          <TextButton title="Login" onClick={() => setStep(0)}></TextButton>
+          <Subtitle>Remember your password?</Subtitle>
+          <TextButton title="Login" path=""></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>
@@ -50,7 +47,7 @@ export default function Registration({ nextStep, prevStep, setStep }) {
 
 const Wrapper = styled.div`
   justify-items: center;
-  margin: 0 auto;
+  margin: 0 auto; // look into what this is doing
   max-width: 400px;
   @media (max-width: 450px) {
     vertical-align: middle;
@@ -59,10 +56,14 @@ const Wrapper = styled.div`
     max-width: none;
   }
 `;
+const TextButtonWrapper = styled.div`
+  display: flex;
+  align-items: start;
+  gap: 10px;
+`;
 
 const Title = styled(H4)`
   padding-bottom: 25px;
-
   background-clip: text;
   -webkit-background-clip: text;
 `;
@@ -70,12 +71,6 @@ const Title = styled(H4)`
 const Subtitle = styled(SmallText)`
   padding: 15px 0;
   color: ${themes.light.text1};
-`;
-
-const TextButtonWrapper = styled.div`
-  display: flex;
-  align-items: start;
-  gap: 10px;
 `;
 
 const TextWrapper = styled.div`
