@@ -60,8 +60,19 @@ export default function Registration() {
   }
 
   console.log(alert.visible);
+  const popup = alert.visible ? (
+    <StatusAlert
+      status={alert.status}
+      title={alert.title}
+      subtitle={alert.subtitle}
+    />
+  ) : (
+    console.log("hi")
+  );
+
   return (
     <Wrapper>
+      {popup}
       <TextWrapper>
         <Subtitle>Hello! 👋</Subtitle>
         <Title>Register your new account</Title>
@@ -96,9 +107,7 @@ export default function Registration() {
           placeholder="Please confirm your password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <ReusableButton title="Register" onClick={(e) => onClick(e)}>
-          {alert.visible ? <h2>where is this?</h2> : console.log("hi")}
-        </ReusableButton>
+        <ReusableButton title="Register" onClick={(e) => onClick(e)} />
         <TextButtonWrapper>
           <Subtitle>Already Registered?</Subtitle>
           <TextButton title="Login"></TextButton>
