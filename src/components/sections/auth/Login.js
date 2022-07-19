@@ -14,7 +14,7 @@ import ReusableButton from "../../buttons/ReusableButton";
 import React, { useState } from "react";
 import TextButton from "../../buttons/TextButton";
 
-export default function Login({ nextStep, prevStep, setStep }) {
+export default function Login({ setStep }) {
   function onChange(e) {
     console.log(e.target.value);
   }

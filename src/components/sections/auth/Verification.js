@@ -13,7 +13,7 @@ import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
 import TextButton from "../../buttons/TextButton";
 
-export default function Verification({ nextStep, prevStep, setStep }) {
+export default function Verification({ setStep }) {
   function onChange(e) {
     console.log(e.target.value);
   }
