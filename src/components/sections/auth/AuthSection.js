@@ -4,6 +4,8 @@ import BackButton from "../../buttons/mobile/BackButton";
 import { useState, useEffect } from "react";
 import Registration from "./Registration";
 import ForgotPassword from "./ForgotPassword";
+import ConfirmPassword from "./ConfirmPassword";
+import Login from "./Login";
 
 export default function AuthSection() {
   const [screenSize, getDimension] = useState({
@@ -50,8 +52,9 @@ export default function AuthSection() {
     console.log("step =", param);
     switch (param) {
       case 0:
-        // login
-        return <p>Login</p>;
+        return (
+          <Login nextStep={nextStep} prevStep={prevStep} setStep={setStep} />
+        );
       case 1:
         return (
           <Registration
@@ -62,7 +65,23 @@ export default function AuthSection() {
         );
       case 2:
         return (
+          <Verification
+            nextStep={nextStep}
+            prevStep={prevStep}
+            setStep={setStep}
+          />
+        );
+      case 3:
+        return (
           <ForgotPassword
+            nextStep={nextStep}
+            prevStep={prevStep}
+            setStep={setStep}
+          />
+        );
+      case 4:
+        return (
+          <ConfirmPassword
             nextStep={nextStep}
             prevStep={prevStep}
             setStep={setStep}

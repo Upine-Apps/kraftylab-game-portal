@@ -14,7 +14,7 @@ import ReusableButton from "../../buttons/ReusableButton";
 import React, { useState } from "react";
 import TextButton from "../../buttons/TextButton";
 
-export default function ConfirmPassword() {
+export default function ConfirmPassword({ nextStep, prevStep, setStep }) {
   function onChange(e) {
     console.log(e.target.value);
   }
