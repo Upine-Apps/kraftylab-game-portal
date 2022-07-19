@@ -7,7 +7,11 @@ import ReusableTextField from "../../textfield/ReusableTextField";
 import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
 import TextButton from "../../buttons/TextButton";
-import axios from "axios";
+import {
+  validateRegistrationData,
+  validateRegistrationResponse,
+} from "../../../validators/registrationValidators";
+import UserService from "../../../service/UserService";
 
 export default function Registration() {
   const [firstName, setFirstName] = useState("");
@@ -16,53 +20,28 @@ export default function Registration() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  function isAlpha(str) {
-    return /^[a-zA-Z]*$/.test(str);
-  }
-
-  // https://emailregex.com/ for more sophisticated regex
-  // tristanigos@gmail .com matches unfortunately
-  function isEmail(str) {
-    return /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/.test(str);
-  }
-
   async function onClick(e) {
     e.preventDefault();
 
-    let error = false;
-    error = !isAlpha(firstName) ? true : error;
-    error = !isAlpha(lastName) ? true : error;
-    error = !isEmail(email) ? true : error;
-    error = password.length < 6 ? true : error;
-    error = password !== confirmPassword ? true : error;
-    console.log("error = ", error);
+    const body = {
+      email: email,
+      first_name: firstName,
+      last_name: lastName,
+      validated: false,
+      password: password,
+    };
 
-    if (!error) {
-      const body = {
-        email: email,
-        first_name: firstName,
-        last_name: lastName,
-        validated: false,
-        password: password,
-      };
-
-      const headers = {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Request-Headers": "content-type",
-      };
-
-      console.log(body);
-      let response = await axios.post("http://localhost:3000/user", body, {
-        headers,
-      });
-      console.log(response);
+    if (!validateRegistrationData({ ...body, confirmPassword })) {
+      let response = await UserService.registerUser(body);
+      validateRegistrationResponse(response);
 
       setFirstName("");
       setLastName("");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
+    } else {
+      // throw error
     }
   }
 

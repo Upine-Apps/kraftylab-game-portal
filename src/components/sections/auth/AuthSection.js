@@ -45,7 +45,6 @@ export default function AuthSection() {
             MAKE SURE YOU LOOK AT HOW I ADDED WIDTH AND HEIGHT FOR THE COMPONENT
             WE WANT THIS TO BE FLEXIBLE WITH WHATEVER BOX WE PUT IT IN
             DON'T HARDCODE WIDTHS AND HEIGHTS W PIXELS!!!! USE PERCENTAGES */}
-          <Registration />
         </ScreenWrapper>
       </ContentWrapper>
     </Wrapper>

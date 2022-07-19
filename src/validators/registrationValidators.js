@@ -12,8 +12,8 @@ Ex: {
 */
 export function validateRegistrationData(registration) {
   let error = false;
-  error = !isAlpha(registration.firstName) ? true : error;
-  error = !isAlpha(registration.lastName) ? true : error;
+  error = !isAlpha(registration.first_name) ? true : error;
+  error = !isAlpha(registration.last_name) ? true : error;
   error = !isEmail(registration.email) ? true : error;
   error = registration.password.length < 6 ? true : error;
   error = registration.password !== registration.confirmPassword ? true : error;
