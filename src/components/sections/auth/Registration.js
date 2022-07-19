@@ -13,7 +13,7 @@ import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
 import TextButton from "../../buttons/TextButton";
 import UserService from "../../../service/UserService";
-import { validateRegistration } from "../../../validators/registrationValidators";
+import { validateRegistrationData } from "../../../validators/registrationValidators";
 
 export default function Registration() {
   function onChange(e) {
