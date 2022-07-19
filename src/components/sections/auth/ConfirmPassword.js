@@ -14,10 +14,14 @@ import ReusableButton from "../../buttons/ReusableButton";
 import React, { useState } from "react";
 import TextButton from "../../buttons/TextButton";
 
-export default function ConfirmPassword() {
+export default function ConfirmPassword({ nextStep, prevStep, setStep }) {
   function onChange(e) {
     console.log(e.target.value);
   }
+  function onClick(e) {
+    setStep("Login");
+  }
+
   return (
     <Wrapper>
       <TextWrapper>
@@ -35,10 +39,18 @@ export default function ConfirmPassword() {
           label="Confirm Password"
           placeholder="Please confirm your new password"
         />
-        <ReusableButton title="Reset Password" />
+        <ReusableButton
+          title="Reset Password"
+          path=""
+          onClick={(e) => onClick(e)}
+        />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
-          <TextButton title="Login"></TextButton>
+          <TextButton
+            title="Login"
+            path=""
+            onClick={() => setStep("Login")}
+          ></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>
@@ -57,9 +69,9 @@ const Wrapper = styled.div`
   }
 `;
 const TextButtonWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 170px auto;
+  display: flex;
   align-items: start;
+  gap: 10px;
 `;
 
 const Title = styled(H4)`
@@ -70,7 +82,6 @@ const Title = styled(H4)`
 
 const Subtitle = styled(SmallText)`
   padding: 15px 0;
-  // border: 1px red solid;
   color: ${themes.light.text1};
 `;
 
