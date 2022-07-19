@@ -12,6 +12,7 @@ import {
   validateRegistrationResponse,
 } from "../../../validators/registrationValidators";
 import UserService from "../../../service/UserService";
+import StatusAlert from "../../alerts/StatusAlert";
 
 export default function Registration() {
   const [firstName, setFirstName] = useState("");
@@ -19,6 +20,13 @@ export default function Registration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [alert, setAlert] = useState({ visible: false });
+
+  function renderError() {
+    return (
+      <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
+    );
+  }
 
   async function onClick(e) {
     e.preventDefault();
@@ -42,9 +50,16 @@ export default function Registration() {
       setConfirmPassword("");
     } else {
       // throw error
+      setAlert({
+        visible: true,
+        status: "Error",
+        title: "Error",
+        subtitle: "404",
+      });
     }
   }
 
+  console.log(alert.visible);
   return (
     <Wrapper>
       <TextWrapper>
@@ -81,7 +96,9 @@ export default function Registration() {
           placeholder="Please confirm your password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <ReusableButton title="Register" onClick={(e) => onClick(e)} />
+        <ReusableButton title="Register" onClick={(e) => onClick(e)}>
+          {alert.visible ? <h2>where is this?</h2> : console.log("hi")}
+        </ReusableButton>
         <TextButtonWrapper>
           <Subtitle>Already Registered?</Subtitle>
           <TextButton title="Login"></TextButton>
