@@ -12,6 +12,8 @@ import ReusableTextField from "../../textfield/ReusableTextField";
 import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
 import TextButton from "../../buttons/TextButton";
+import UserService from "../../../service/UserService";
+import { validateRegistration } from "../../../validators/registrationValidators";
 
 export default function Registration() {
   function onChange(e) {
@@ -19,6 +21,7 @@ export default function Registration() {
   }
   function onClick() {
     console.log("clicked!");
+    console.log(UserService.getUrl());
     // FIXME: function will unmount component and mount a new one
   }
 
