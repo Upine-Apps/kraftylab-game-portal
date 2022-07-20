@@ -39,7 +39,10 @@ export default function Registration() {
       password: password,
     };
 
-    if (!validateRegistrationData({ ...body, confirmPassword })) {
+    const validateBody = validateRegistrationData({ ...body, confirmPassword });
+
+    if (validateBody.error == false) {
+      // if (!validateRegistrationData({ ...body, confirmPassword })) {
       let response = await UserService.registerUser(body);
       validateRegistrationResponse(response);
 
@@ -52,9 +55,10 @@ export default function Registration() {
       // throw error
       setAlert({
         visible: true,
-        status: "Error",
-        title: "Error",
-        subtitle: "404",
+        status: validateBody.status,
+        title: validateBody.title,
+        subtitle: validateBody.subtitle,
+        key: validateBody.key,
       });
     }
   }
@@ -65,6 +69,7 @@ export default function Registration() {
       status={alert.status}
       title={alert.title}
       subtitle={alert.subtitle}
+      key={alert.key}
     />
   ) : (
     console.log("hi")
