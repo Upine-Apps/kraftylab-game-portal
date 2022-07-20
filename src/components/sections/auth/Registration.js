@@ -15,12 +15,18 @@ import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
 export default function Registration() {
+  const emptyAlert = {
+    visible: false,
+    status: "",
+    title: "",
+    subtitle: "",
+  };
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [alert, setAlert] = useState({ visible: false });
+  const [alert, setAlert] = useState(emptyAlert);
 
   function renderError() {
     return (
@@ -42,17 +48,28 @@ export default function Registration() {
     const validateBody = validateRegistrationData({ ...body, confirmPassword });
 
     if (validateBody.error == false) {
-      // if (!validateRegistrationData({ ...body, confirmPassword })) {
+      console.log("before registeruser");
       let response = await UserService.registerUser(body);
+      console.log("after registeruser");
       validateRegistrationResponse(response);
+      console.log("response", response);
 
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
+      if (validateRegistrationResponse(response)) {
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setAlert(emptyAlert);
+      } else {
+        setAlert({
+          visible: true,
+          status: "Error",
+          title: "Failed to register",
+          subtitle: "Try again",
+        });
+      }
     } else {
-      // throw error
       setAlert({
         visible: true,
         status: validateBody.status,
@@ -63,7 +80,7 @@ export default function Registration() {
     }
   }
 
-  console.log(alert.visible);
+  console.log(alert);
   const popup = alert.visible ? (
     <StatusAlert
       status={alert.status}
@@ -72,7 +89,7 @@ export default function Registration() {
       key={alert.key}
     />
   ) : (
-    console.log("hi")
+    <></>
   );
 
   return (

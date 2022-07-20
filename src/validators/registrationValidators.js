@@ -1,4 +1,4 @@
-import { isAlpha, isEmail } from "./validationUtilities";
+import { isAlpha, isEmail, isPassword } from "./validationUtilities";
 
 /*
 Pass in an object to validateRegistration with your registration info
@@ -19,24 +19,26 @@ export function validateRegistrationData(registration) {
     subtitle: "",
   };
 
+  // check for empty string map thru object
+
   body =
     !isEmail(registration.email) && body.error == false
       ? {
           error: true,
           status: "Error",
           title: "Incorrect email",
-          subtitle: "Ensure your email has no spaces.",
+          subtitle: "Enter a valid email format",
           key: Math.random(),
         }
       : body;
 
   body =
-    registration.password.length <= 6 && body.error == false
+    !isPassword(registration.password) && body.error == false
       ? {
           error: true,
           status: "Error",
-          title: "Invalid password",
-          subtitle: "Password must have more than 6 characters.",
+          title: "Invalid Password",
+          subtitle: "Password must have more than 6 characters",
           key: Math.random(),
         }
       : body;
@@ -47,16 +49,11 @@ export function validateRegistrationData(registration) {
       ? {
           error: true,
           status: "Error",
-          title: "Invalid password",
-          subtitle: "Passwords do not match.",
+          title: "Invalid Password",
+          subtitle: "Passwords do not match",
           key: Math.random(),
         }
       : body;
-  // error = !isAlpha(registration.first_name) ? true : error;
-  // error = !isAlpha(registration.last_name) ? true : error;
-  // error = !isEmail(registration.email) ? true : error;
-  // error = registration.password.length < 6 ? true : error;
-  // error = registration.password !== registration.confirmPassword ? true : error;
   return body;
 }
 

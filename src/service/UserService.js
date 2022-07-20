@@ -13,14 +13,14 @@ export default class UserService {
     without making an instance of the class
   */
 
-  static registerUser(obj) {
+  static async registerUser(obj) {
     const headers = {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Request-Headers": "content-type",
     };
 
-    const res = axios.post("http://localhost:3000/user", obj, {
+    const res = await axios.post(this.hostUrl, obj, {
       headers,
     });
 

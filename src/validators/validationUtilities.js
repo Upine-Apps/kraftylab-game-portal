@@ -4,3 +4,6 @@ export function isEmail(email) {
 export function isAlpha(str) {
   return /^[a-zA-Z]*$/.test(str);
 }
+export function isPassword(str) {
+  return str.length > 6;
+}
