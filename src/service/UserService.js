@@ -27,10 +27,9 @@ export default class UserService {
       const res = await axios.post(this.hostUrl, obj, {
         headers: this.headers,
       });
-      return res;
+      return res.data;
     } catch (error) {
-      console.log(error);
-      return false;
+      return error.response.data;
     }
   }
 }

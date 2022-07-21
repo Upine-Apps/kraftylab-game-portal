@@ -27,7 +27,6 @@ export function validateRegistrationData(registration) {
     subtitle: "",
   };
 
-  // check for empty string
   body =
     (isEmpty(first_name) ||
       isEmpty(last_name) ||

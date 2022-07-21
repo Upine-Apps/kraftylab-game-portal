@@ -31,7 +31,6 @@ export default function Registration() {
 
   async function onClick(e) {
     e.preventDefault();
-    console.log("here");
 
     const body = {
       email: email,
@@ -45,15 +44,22 @@ export default function Registration() {
 
     if (validateBody.error === false) {
       let response = await UserService.registerUser(body);
-      console.log(response);
 
-      if (validateRegistrationResponse(response.status)) {
+      if (validateRegistrationResponse(response)) {
         setFirstName("");
         setLastName("");
         setEmail("");
         setPassword("");
         setConfirmPassword("");
         setAlert(emptyAlert);
+      } else if (response.status == 500) {
+        setAlert({
+          visible: true,
+          status: "Error",
+          title: "Account exists",
+          subtitle: "You are already registered, please sign in",
+          key: Math.random(),
+        });
       } else {
         setAlert({
           visible: true,
