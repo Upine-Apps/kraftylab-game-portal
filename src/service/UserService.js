@@ -1,10 +1,19 @@
 import axios from "axios";
 
 export default class UserService {
-  static hostUrl = "http://localhost:3000/user"; //local url
+  static hostUrl = "http://localhost:3000/user"; // local url
+  static headers = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Request-Headers": "content-type",
+  };
 
   static getUrl() {
     return this.hostUrl;
+  }
+
+  static getHeaders() {
+    return this.headers;
   }
 
   /*
@@ -14,16 +23,14 @@ export default class UserService {
   */
 
   static async registerUser(obj) {
-    const headers = {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Request-Headers": "content-type",
-    };
-
-    const res = await axios.post(this.hostUrl, obj, {
-      headers,
-    });
-
-    return res;
+    try {
+      const res = await axios.post(this.hostUrl, obj, {
+        headers: this.headers,
+      });
+      return res;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 }

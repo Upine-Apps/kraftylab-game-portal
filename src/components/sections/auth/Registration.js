@@ -20,6 +20,7 @@ export default function Registration() {
     status: "",
     title: "",
     subtitle: "",
+    key: 0,
   };
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -28,14 +29,9 @@ export default function Registration() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [alert, setAlert] = useState(emptyAlert);
 
-  function renderError() {
-    return (
-      <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
-    );
-  }
-
   async function onClick(e) {
     e.preventDefault();
+    console.log("here");
 
     const body = {
       email: email,
@@ -47,14 +43,11 @@ export default function Registration() {
 
     const validateBody = validateRegistrationData({ ...body, confirmPassword });
 
-    if (validateBody.error == false) {
-      console.log("before registeruser");
+    if (validateBody.error === false) {
       let response = await UserService.registerUser(body);
-      console.log("after registeruser");
-      validateRegistrationResponse(response);
-      console.log("response", response);
+      console.log(response);
 
-      if (validateRegistrationResponse(response)) {
+      if (validateRegistrationResponse(response.status)) {
         setFirstName("");
         setLastName("");
         setEmail("");
@@ -67,6 +60,7 @@ export default function Registration() {
           status: "Error",
           title: "Failed to register",
           subtitle: "Try again",
+          key: Math.random(),
         });
       }
     } else {
@@ -80,21 +74,20 @@ export default function Registration() {
     }
   }
 
-  console.log(alert);
-  const popup = alert.visible ? (
-    <StatusAlert
-      status={alert.status}
-      title={alert.title}
-      subtitle={alert.subtitle}
-      key={alert.key}
-    />
-  ) : (
-    <></>
-  );
+  function displayAlert() {
+    return (
+      <StatusAlert
+        status={alert.status}
+        title={alert.title}
+        subtitle={alert.subtitle}
+        key={alert.key}
+      />
+    );
+  }
 
   return (
     <Wrapper>
-      {popup}
+      {alert.visible ? displayAlert() : ""}
       <TextWrapper>
         <Subtitle>Hello! 👋</Subtitle>
         <Title>Register your new account</Title>

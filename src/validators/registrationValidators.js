@@ -1,4 +1,4 @@
-import { isAlpha, isEmail, isPassword } from "./validationUtilities";
+import { isAlpha, isEmail, isPassword, isEmpty } from "./validationUtilities";
 
 /*
 Pass in an object to validateRegistration with your registration info
@@ -12,6 +12,14 @@ Ex: {
 */
 export function validateRegistrationData(registration) {
   // let error = false;
+  const {
+    first_name,
+    last_name,
+    email,
+    password,
+    confirmPassword,
+  } = registration;
+
   let body = {
     error: false,
     status: "",
@@ -19,10 +27,25 @@ export function validateRegistrationData(registration) {
     subtitle: "",
   };
 
-  // check for empty string map thru object
+  // check for empty string
+  body =
+    (isEmpty(first_name) ||
+      isEmpty(last_name) ||
+      isEmpty(email) ||
+      isEmpty(password) ||
+      isEmpty(confirmPassword)) &&
+    body.error === false
+      ? {
+          error: true,
+          status: "Error",
+          title: "Empty field",
+          subtitle: "One or more fields are empty.",
+          key: Math.random(),
+        }
+      : body;
 
   body =
-    !isEmail(registration.email) && body.error == false
+    !isEmail(email) && body.error === false
       ? {
           error: true,
           status: "Error",
@@ -33,7 +56,7 @@ export function validateRegistrationData(registration) {
       : body;
 
   body =
-    !isPassword(registration.password) && body.error == false
+    !isPassword(password) && body.error === false
       ? {
           error: true,
           status: "Error",
@@ -44,8 +67,7 @@ export function validateRegistrationData(registration) {
       : body;
 
   body =
-    registration.password !== registration.confirmPassword &&
-    body.error == false
+    password !== confirmPassword && body.error === false
       ? {
           error: true,
           status: "Error",

@@ -5,5 +5,9 @@ export function isAlpha(str) {
   return /^[a-zA-Z]*$/.test(str);
 }
 export function isPassword(str) {
-  return str.length > 6;
+  return str.length >= 6;
+}
+export function isEmpty(str) {
+  console.log("is", str, "empty?", str === "");
+  return str === "";
 }
