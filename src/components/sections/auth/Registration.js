@@ -14,7 +14,7 @@ import {
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
-export default function Registration() {
+export default function Registration({ setStep }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -43,6 +43,7 @@ export default function Registration() {
     const validateBody = validateRegistrationData({ ...body, confirmPassword });
 
     if (validateBody.error === false) {
+      console.log(body);
       let response = await UserService.registerUser(body);
 
       if (validateRegistrationResponse(response)) {
@@ -52,6 +53,9 @@ export default function Registration() {
         setPassword("");
         setConfirmPassword("");
         setAlert(emptyAlert);
+
+        // UA-027 blocked
+        setStep("Verification");
       } else if (response.status == 500) {
         setAlert({
           visible: true,
