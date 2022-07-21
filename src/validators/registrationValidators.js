@@ -11,7 +11,6 @@ Ex: {
     }
 */
 export function validateRegistrationData(registration) {
-  // let error = false;
   const {
     first_name,
     last_name,
