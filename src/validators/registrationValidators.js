@@ -1,4 +1,4 @@
-import { isAlpha, isEmail } from "./validationUtilities";
+import { isAlpha, isEmail, isPassword, isEmpty } from "./validationUtilities";
 
 /*
 Pass in an object to validateRegistration with your registration info
@@ -11,13 +11,70 @@ Ex: {
     }
 */
 export function validateRegistrationData(registration) {
-  let error = false;
-  error = !isAlpha(registration.firstName) ? true : error;
-  error = !isAlpha(registration.lastName) ? true : error;
-  error = !isEmail(registration.email) ? true : error;
-  error = registration.password.length < 6 ? true : error;
-  error = registration.password !== registration.confirmPassword ? true : error;
-  return error;
+  const {
+    first_name,
+    last_name,
+    email,
+    password,
+    confirmPassword,
+  } = registration;
+
+  let body = {
+    error: false,
+    status: "",
+    title: "",
+    subtitle: "",
+  };
+
+  body =
+    (isEmpty(first_name) ||
+      isEmpty(last_name) ||
+      isEmpty(email) ||
+      isEmpty(password) ||
+      isEmpty(confirmPassword)) &&
+    body.error === false
+      ? {
+          error: true,
+          status: "Error",
+          title: "Empty field",
+          subtitle: "One or more fields are empty.",
+          key: Math.random(),
+        }
+      : body;
+
+  body =
+    !isEmail(email) && body.error === false
+      ? {
+          error: true,
+          status: "Error",
+          title: "Incorrect email",
+          subtitle: "Enter a valid email format",
+          key: Math.random(),
+        }
+      : body;
+
+  body =
+    !isPassword(password) && body.error === false
+      ? {
+          error: true,
+          status: "Error",
+          title: "Invalid Password",
+          subtitle: "Password must have more than 6 characters",
+          key: Math.random(),
+        }
+      : body;
+
+  body =
+    password !== confirmPassword && body.error === false
+      ? {
+          error: true,
+          status: "Error",
+          title: "Invalid Password",
+          subtitle: "Passwords do not match",
+          key: Math.random(),
+        }
+      : body;
+  return body;
 }
 
 export function validateRegistrationResponse(response) {

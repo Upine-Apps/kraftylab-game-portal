@@ -3,9 +3,9 @@ import styled, { keyframes } from "styled-components";
 import { BodyMain, MediumText } from "../styles/TextStyles";
 
 export default function StatusAlert(props) {
-  const { status, title, subtitle } = props;
+  const { status, title, subtitle, key } = props;
   return (
-    <Wrapper status={status}>
+    <Wrapper key={key} status={status}>
       <IconWrapper>
         <Icon src={getStatusIcon(status)} />
       </IconWrapper>
