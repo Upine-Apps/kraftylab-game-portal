@@ -2,15 +2,20 @@ import React from "react";
 import { Link } from "gatsby";
 import styled from "styled-components";
 import { Caption } from "../styles/TextStyles";
+import DefaultSpinner from "../spinners/DefaultSpinner";
 
 export default function ReusableButton(props) {
-  const { title, onClick, path } = props;
+  const { title, onClick, path, spinner } = props;
 
   function returnLink(title, path, onClick) {
     return (
       <Link to={path}>
         <ButtonWrapper onClick={onClick}>
-          <Title>{title || "Submit"}</Title>
+          {spinner === false ? (
+            <Title>{title || "Submit"}</Title>
+          ) : (
+            <DefaultSpinner />
+          )}
         </ButtonWrapper>
       </Link>
     );
@@ -19,7 +24,11 @@ export default function ReusableButton(props) {
   function returnNoLink(title, onClick) {
     return (
       <ButtonWrapper onClick={onClick}>
-        <Title>{title || "Submit"}</Title>
+        {spinner === false ? (
+          <Title>{title || "Submit"}</Title>
+        ) : (
+          <DefaultSpinner />
+        )}
       </ButtonWrapper>
     );
   }

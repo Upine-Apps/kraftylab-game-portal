@@ -28,6 +28,7 @@ export default function Registration({ setStep }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [alert, setAlert] = useState(emptyAlert);
+  const [spinner, setSpinner] = useState(false);
 
   async function onClick(e) {
     e.preventDefault();
@@ -43,8 +44,9 @@ export default function Registration({ setStep }) {
     const validateBody = validateRegistrationData({ ...body, confirmPassword });
 
     if (validateBody.error === false) {
-      console.log(body);
+      setSpinner(true);
       let response = await UserService.registerUser(body);
+      setSpinner(false);
 
       if (validateRegistrationResponse(response)) {
         setFirstName("");
@@ -132,7 +134,11 @@ export default function Registration({ setStep }) {
           placeholder="Please confirm your password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <ReusableButton title="Register" onClick={(e) => onClick(e)} />
+        <ReusableButton
+          title="Register"
+          onClick={(e) => onClick(e)}
+          spinner={spinner}
+        />
         <TextButtonWrapper>
           <Subtitle>Already Registered?</Subtitle>
           <TextButton
