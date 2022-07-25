@@ -27,6 +27,7 @@ function TestHero() {
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
+      <ReusableButton title="Login" path="/" />
       <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
       <DefaultSpinner />
 
