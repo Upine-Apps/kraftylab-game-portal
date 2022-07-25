@@ -7,8 +7,8 @@ import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
-import GameCard from "../../cards/GameCard";
-// import LoginPage from "../../sections/auth/LoginPage";
+import DefaultSpinner from "../../spinners/DefaultSpinner";
+
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -27,7 +27,9 @@ function TestHero() {
 
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
+      <ReusableButton title="Login" path="/" />
       <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
+      <DefaultSpinner />
 
       <ReusableTextField title="Code" />
       <form>
@@ -45,7 +47,7 @@ function TestHero() {
 export default TestHero;
 
 const Wrapper = styled.div`
-  display: grid
+  display: grid;
   position: relative;
   max-width: 1234px;
   margin: 0 auto;
@@ -56,6 +58,7 @@ const Wrapper = styled.div`
   @media (max-width: 450px) {
     grid-template-columns: auto;
   }
+  background-color: black;
 `;
 
 const Title = styled(H1)`
