@@ -14,10 +14,14 @@ import ReusableButton from "../../buttons/ReusableButton";
 import React, { useState } from "react";
 import TextButton from "../../buttons/TextButton";
 
-export default function Login() {
+export default function Login({ setStep }) {
   function onChange(e) {
     console.log(e.target.value);
   }
+  function onClick(e) {
+    setStep("");
+  }
+
   return (
     <Wrapper>
       <TextWrapper>
@@ -31,11 +35,17 @@ export default function Login() {
           label="Password"
           placeholder="Please enter your password"
         />
-        <ReusableButton title="Login" />
-        <TextButton title="Forgot Password?"></TextButton>
+        <ReusableButton title="Login" onClick={(e) => onClick(e)} />
+        <TextButton
+          title="Forgot Password?"
+          onClick={() => setStep("ForgotPassword")}
+        ></TextButton>
         <TextButtonWrapper>
           <Subtitle>Not registered?</Subtitle>
-          <TextButton title="Create an account"></TextButton>
+          <TextButton
+            title="Create an account"
+            onClick={() => setStep("Registration")}
+          ></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>
@@ -44,7 +54,7 @@ export default function Login() {
 
 const Wrapper = styled.div`
   justify-items: center;
-  margin: 0 auto; // look into what this is doing
+  margin: 0 auto;
   max-width: 400px;
   @media (max-width: 450px) {
     vertical-align: middle;
@@ -52,12 +62,11 @@ const Wrapper = styled.div`
     padding: 0 30px;
     max-width: none;
   }
-  // border: 1px red solid;
 `;
 const TextButtonWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 98px auto;
+  display: flex;
   align-items: start;
+  gap: 10px;
 `;
 
 const Title = styled(H4)`
@@ -68,7 +77,6 @@ const Title = styled(H4)`
 
 const Subtitle = styled(SmallText)`
   padding: 15px 0;
-  // border: 1px red solid;
   color: ${themes.light.text1};
 `;
 
