@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 
 export default function DefaultSpinner() {
-  return <SpinnerWrapper></SpinnerWrapper>;
+  return <SpinnerWrapper />;
 }
 
 const rotation = keyframes`
@@ -11,12 +11,12 @@ const rotation = keyframes`
 `;
 
 const SpinnerWrapper = styled.div`
-  border: 5px solid fff;
+  border: 2px solid white;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
   animation: ${rotation} 1s linear infinite;
-  width: 48px;
-  height: 48px;
+  width: 16px;
+  height: 16px;
 `;
