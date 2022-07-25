@@ -19,6 +19,7 @@ import {
   validateVerificationResponse,
 } from "../../../validators/verificationValidators";
 import StatusAlert from "../../alerts/StatusAlert";
+import UserService from "../../../service/UserService";
 
 export default function Verification() {
   const emptyAlert = {
