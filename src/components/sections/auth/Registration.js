@@ -10,7 +10,7 @@ import TextButton from "../../buttons/TextButton";
 import {
   validateRegistrationData,
   validateRegistrationResponse,
-} from "../../../validators/registrationValidators";
+} from "../../../validators/authValidators";
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 

@@ -16,7 +16,7 @@ import TextButton from "../../buttons/TextButton";
 import {
   validateLoginData,
   validateLoginResponse,
-} from "../../../validators/registrationValidators";
+} from "../../../validators/authValidators";
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
@@ -41,7 +41,7 @@ export default function Login({ setStep }) {
     };
 
     const validateBody = validateLoginData(body);
-
+    
     if (validateBody.error === false) {
       let response = await UserService.loginUser(body);
 
