@@ -4,6 +4,7 @@ import BackButton from "../../buttons/mobile/BackButton";
 import { useState, useEffect } from "react";
 import Registration from "./Registration";
 import ConfirmPassword from "./ConfirmPassword";
+import ForgotPassword from "./ForgotPassword";
 
 export default function AuthSection() {
   const [screenSize, getDimension] = useState({
@@ -41,6 +42,7 @@ export default function AuthSection() {
         <ScreenWrapper>
           {/* <Registration /> */}
           <ConfirmPassword />
+          {/* <ForgotPassword /> */}
         </ScreenWrapper>
       </ContentWrapper>
     </Wrapper>

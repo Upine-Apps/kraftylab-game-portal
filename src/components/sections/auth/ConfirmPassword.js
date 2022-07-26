@@ -1,51 +1,95 @@
 import styled from "styled-components";
-import {
-  MediumText,
-  Caption,
-  SmallText,
-  AuthTitle,
-  H4,
-  H3,
-} from "../../styles/TextStyles";
+import { SmallText, H4 } from "../../styles/TextStyles";
 import { themes } from "../../styles/ColorStyles";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
 import React, { useState } from "react";
 import TextButton from "../../buttons/TextButton";
-import { validateConfirmPassword } from "../../../validators/registrationValidators";
+import {
+  validateConfirmPasswordData,
+  validateConfirmPasswordResponse,
+} from "../../../validators/registrationValidators";
 import UserService from "../../../service/UserService";
-import { validateConfirmPasswordResponse } from "../../../validators/registrationValidators";
+import StatusAlert from "../../alerts/StatusAlert";
+
 export default function ConfirmPassword() {
+  const emptyAlert = {
+    visible: false,
+    status: "",
+    title: "",
+    subtitle: "",
+    key: 0,
+  };
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [code, setCode] = useState("");
-
-  function onChange(e) {
-    console.log(e.target.value);
-  }
+  const [alert, setAlert] = useState(emptyAlert);
 
   async function onClick(e) {
     e.preventDefault();
     const body = {
-      username: "shamer@upineapps.com",
+      username: "tristanigos@gmail.com", // fixme, should get from ForgotPassword
       code: code,
       password: password,
     };
 
-    if (!validateConfirmPassword({ ...body, confirmPassword })) {
+    const validateBody = validateConfirmPasswordData({
+      ...body,
+      confirmPassword,
+    });
+
+    if (validateBody.error === false) {
       let response = await UserService.confirmPassword(body);
       console.log(response);
-      validateConfirmPasswordResponse(response);
-      setPassword("");
-      setConfirmPassword("");
-      setCode("");
+
+      if (validateConfirmPasswordResponse(response)) {
+        setPassword("");
+        setConfirmPassword("");
+        setCode("");
+        setAlert(emptyAlert);
+      } else if (response.status == 500) {
+        setAlert({
+          visible: true,
+          status: "Error",
+          title: "Incorrect code",
+          subtitle: "The code is incorrect, or it has expired",
+          key: Math.random(),
+        });
+      } else {
+        setAlert({
+          visible: true,
+          status: "Error",
+          title: "Failed to register",
+          subtitle: "Try again",
+          key: Math.random(),
+        });
+      }
     } else {
-      console.log("error");
+      setAlert({
+        visible: true,
+        status: validateBody.status,
+        title: validateBody.title,
+        subtitle: validateBody.subtitle,
+        key: validateBody.key,
+      });
     }
   }
+
+  function displayAlert() {
+    return (
+      <StatusAlert
+        status={alert.status}
+        title={alert.title}
+        subtitle={alert.subtitle}
+        key={alert.key}
+      />
+    );
+  }
+
   return (
     <Wrapper>
+      {alert.visible ? displayAlert() : ""}
       <TextWrapper>
         <Subtitle>Whew! 👋</Subtitle>
         <Title>Create new password</Title>
