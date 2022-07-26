@@ -2,8 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import BackButton from "../../buttons/mobile/BackButton";
 import { useState, useEffect } from "react";
+import Verification from "./Verification";
 import Registration from "./Registration";
 import Login from "./Login";
+import ConfirmPassword from "./ConfirmPassword";
+import ForgotPassword from "./ForgotPassword";
 
 export default function AuthSection() {
   const [screenSize, getDimension] = useState({
