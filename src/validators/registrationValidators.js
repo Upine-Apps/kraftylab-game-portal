@@ -1,3 +1,4 @@
+import { badEmailAlert, emptyFieldAlert } from "../data/alertData";
 import { isAlpha, isEmail, isPassword, isEmpty } from "./validationUtilities";
 
 /*
@@ -10,6 +11,14 @@ Ex: {
      confirmPassword: 'bananas'
     }
 */
+
+var defaultBody = {
+  error: false,
+  status: "",
+  title: "",
+  subtitle: "",
+};
+
 export function validateRegistrationData(registration) {
   // let error = false;
   const {
@@ -81,9 +90,12 @@ export function validateRegistrationData(registration) {
 export function validateRegistrationResponse(response) {
   return response.status === 200;
 }
+export function validateConfirmPasswordResponse(response) {
+  return response.status === 200;
+}
 
-export function validateLoginData(login) {
-  const { username, password } = login;
+export function validateConfirmPasswordData(passwordData) {
+  const { code, password, confirmPassword } = passwordData;
 
   let body = {
     error: false,
@@ -93,7 +105,8 @@ export function validateLoginData(login) {
   };
 
   body =
-    (isEmpty(username) || isEmpty(password)) && body.error === false
+    (isEmpty(code) || isEmpty(password) || isEmpty(confirmPassword)) &&
+    body.error === false
       ? {
           error: true,
           status: "Error",
@@ -104,18 +117,6 @@ export function validateLoginData(login) {
       : body;
 
   body =
-    !isEmail(username) && body.error === false
-      ? {
-          error: true,
-          status: "Error",
-          title: "Incorrect email",
-          subtitle: "Enter a valid email format",
-          key: Math.random(),
-        }
-      : body;
-
-  // do we want this validation to appear? or should it be incorrect password given from backend
-  body =
     !isPassword(password) && body.error === false
       ? {
           error: true,
@@ -125,9 +126,33 @@ export function validateLoginData(login) {
           key: Math.random(),
         }
       : body;
+
+  body =
+    password !== confirmPassword && body.error === false
+      ? {
+          error: true,
+          status: "Error",
+          title: "Invalid Password",
+          subtitle: "Passwords do not match",
+          key: Math.random(),
+        }
+      : body;
+
   return body;
 }
 
-export function validateLoginResponse(response) {
+export function validateForgotPasswordData(forgotPasswordData) {
+  const { username } = forgotPasswordData;
+  let body = defaultBody;
+
+  /* Could probably make this a function and map the data to isEmpty*/
+  body = isEmpty(username) && body.error === false ? emptyFieldAlert : body;
+
+  body = !isEmail(username) && body.error === false ? badEmailAlert : body;
+
+  return body;
+}
+
+export function validateForgotPasswordResponse(response) {
   return response.status === 200;
 }

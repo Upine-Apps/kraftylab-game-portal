@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import BackButton from "../../buttons/mobile/BackButton";
 import { useState, useEffect } from "react";
+import Verification from "./Verification";
 import Registration from "./Registration";
 import ForgotPassword from "./ForgotPassword";
 import ConfirmPassword from "./ConfirmPassword";
