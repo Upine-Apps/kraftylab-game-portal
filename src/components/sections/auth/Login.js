@@ -25,11 +25,17 @@ export default function Login() {
         <Title>Login to your account</Title>
       </TextWrapper>
       <FormWrapper>
-        <ReusableTextField title="Email" onChange={onChange} />
+        <ReusableTextField
+          title="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <CustomPasswordField
           name="Password"
           label="Password"
           placeholder="Please enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <ReusableButton title="Login" />
         <TextButton title="Forgot Password?"></TextButton>
