@@ -32,4 +32,15 @@ export default class UserService {
       return error.response.data;
     }
   }
+
+  static async loginUser(obj) {
+    try {
+      const res = await axios.post(`${this.hostUrl}/login`, obj, {
+        headers: this.headers,
+      });
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 }

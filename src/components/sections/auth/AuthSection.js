@@ -65,6 +65,8 @@ export default function AuthSection() {
       <ContentWrapper>
         {screenSize.dynamicWidth > 450 ? renderDesktop() : ""}
         <ScreenWrapper>
+          {/* <Registration /> */}
+          <Login />
           {/* ADD YOUR COMPONENT HERE INSTEAD OF SCREEN COMPONENT
             SCREEN COMPONENT IS JUST THERE TO SHOW YOU THE RED BOX IT SHOULD TAKE UP. 
             !!!!REMOVE SCREEN COMPONENT AND GRAPHIC!!!
