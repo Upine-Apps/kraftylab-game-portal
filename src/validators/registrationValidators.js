@@ -145,15 +145,9 @@ export function validateForgotPasswordData(forgotPasswordData) {
   let body = defaultBody;
 
   /* Could probably make this a function and map the data to isEmpty*/
-  body =
-    isEmpty(username) && body.error === false
-      ? { ...emptyFieldAlert, error: true }
-      : body;
+  body = isEmpty(username) && body.error === false ? emptyFieldAlert : body;
 
-  body =
-    !isEmail(username) && body.error === false
-      ? { ...badEmailAlert, error: true }
-      : body;
+  body = !isEmail(username) && body.error === false ? badEmailAlert : body;
 
   return body;
 }

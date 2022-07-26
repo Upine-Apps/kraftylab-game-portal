@@ -42,7 +42,7 @@ export default function AuthSection() {
         {screenSize.dynamicWidth > 450 ? renderDesktop() : ""}
         <ScreenWrapper>
           {/* <Registration /> */}
-          <ConfirmPassword />
+          <ForgotPassword />
           {/* <ForgotPassword /> */}
         </ScreenWrapper>
       </ContentWrapper>

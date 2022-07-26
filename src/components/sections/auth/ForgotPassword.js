@@ -10,10 +10,9 @@ import {
 } from "../../styles/TextStyles";
 import { themes } from "../../styles/ColorStyles";
 import ReusableTextField from "../../textfield/ReusableTextField";
-import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
 import TextButton from "../../buttons/TextButton";
-import axios from "axios";
+import StatusAlert from "../../alerts/StatusAlert";
 import { emptyAlert, failedForgotPassword } from "../../../data/alertData";
 import {
   validateForgotPasswordData,
@@ -48,8 +47,19 @@ export default function ForgotPassword() {
     }
   }
 
+  function displayAlert() {
+    return (
+      <StatusAlert
+        status={alert.status}
+        title={alert.title}
+        subtitle={alert.subtitle}
+        key={alert.key}
+      />
+    );
+  }
   return (
     <Wrapper>
+      {alert.visible ? displayAlert() : ""}
       <TextWrapper>
         <Subtitle> Uh oh! 👋</Subtitle>
         <Title>Forgot Password?</Title>
