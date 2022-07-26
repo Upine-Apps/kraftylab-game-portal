@@ -41,7 +41,6 @@ export default function ConfirmPassword({ setStep }) {
 
     if (validateBody.error === false) {
       let response = await UserService.confirmPassword(body);
-      console.log(response);
 
       if (validateConfirmPasswordResponse(response)) {
         setPassword("");

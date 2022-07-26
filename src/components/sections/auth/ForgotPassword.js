@@ -14,11 +14,8 @@ import ReusableButton from "../../buttons/ReusableButton";
 import TextButton from "../../buttons/TextButton";
 
 export default function ForgotPassword({ setStep }) {
-  function onChange(e) {
-    console.log(e.target.value);
-  }
+  function onChange(e) {}
   function onClick() {
-    console.log("clicked!");
     // FIXME: function will unmount component and mount a new one
     setStep("ConfirmPassword"); // add when response from backend is a success
   }
