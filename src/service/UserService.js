@@ -31,6 +31,15 @@ export default class UserService {
       return error.response.data;
     }
   }
+
+  static async verifyUser(obj) {
+    try {
+      const res = await axios.post(`${this.hostUrl}/validate-email`, obj, {
+        headers: this.headers,
+      });
+    } catch (error) {}
+  }
+
   static async confirmPassword(obj) {
     try {
       const res = await axios.post(
@@ -44,5 +53,6 @@ export default class UserService {
     } catch (error) {
       return error.response.data;
     }
+
   }
 }
