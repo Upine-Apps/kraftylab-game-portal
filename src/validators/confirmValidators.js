@@ -14,6 +14,8 @@ export function validateConfirmPasswordResponse(response) {
   return response.status === 200;
 }
 
+// FIXME: git merge master then fix conflicts
+
 export function validateConfirmPasswordData(passwordData) {
   const { code, password, confirmPassword } = passwordData;
 
