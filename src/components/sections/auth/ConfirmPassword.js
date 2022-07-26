@@ -1,20 +1,19 @@
-import React from "react";
 import styled from "styled-components";
 import { SmallText, H4 } from "../../styles/TextStyles";
-import { useState } from "react";
 import { themes } from "../../styles/ColorStyles";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
+import React, { useState } from "react";
 import TextButton from "../../buttons/TextButton";
 import {
-  validateRegistrationData,
-  validateRegistrationResponse,
+  validateConfirmPasswordData,
+  validateConfirmPasswordResponse,
 } from "../../../validators/registrationValidators";
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
-export default function Registration() {
+export default function ConfirmPassword() {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -22,42 +21,39 @@ export default function Registration() {
     subtitle: "",
     key: 0,
   };
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [code, setCode] = useState("");
   const [alert, setAlert] = useState(emptyAlert);
 
   async function onClick(e) {
     e.preventDefault();
-
     const body = {
-      email: email,
-      first_name: firstName,
-      last_name: lastName,
-      validated: false,
+      username: "tristanigos@gmail.com", // fixme, should get from ForgotPassword
+      code: code,
       password: password,
     };
 
-    const validateBody = validateRegistrationData({ ...body, confirmPassword });
+    const validateBody = validateConfirmPasswordData({
+      ...body,
+      confirmPassword,
+    });
 
     if (validateBody.error === false) {
-      let response = await UserService.registerUser(body);
+      let response = await UserService.confirmPassword(body);
+      console.log(response);
 
-      if (validateRegistrationResponse(response)) {
-        setFirstName("");
-        setLastName("");
-        setEmail("");
+      if (validateConfirmPasswordResponse(response)) {
         setPassword("");
         setConfirmPassword("");
+        setCode("");
         setAlert(emptyAlert);
       } else if (response.status == 500) {
         setAlert({
           visible: true,
           status: "Error",
-          title: "Account exists",
-          subtitle: "You are already registered, please sign in",
+          title: "Incorrect code",
+          subtitle: "The code is incorrect, or it has expired",
           key: Math.random(),
         });
       } else {
@@ -95,43 +91,34 @@ export default function Registration() {
     <Wrapper>
       {alert.visible ? displayAlert() : ""}
       <TextWrapper>
-        <Subtitle>Hello! 👋</Subtitle>
-        <Title>Register your new account</Title>
+        <Subtitle>Whew! 👋</Subtitle>
+        <Title>Create new password</Title>
       </TextWrapper>
       <FormWrapper>
-        <ReusableTextField
-          title="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <ReusableTextField
-          title="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <ReusableTextField
-          title="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
         <CustomPasswordField
-          name="Password"
-          label="Password"
-          value={password}
-          placeholder="Please enter your password"
+          name="New Password"
+          label="New Password"
+          placeholder="Please enter your new password"
           onChange={(e) => setPassword(e.target.value)}
         />
         <CustomPasswordField
           name="Confirm Password"
           label="Confirm Password"
-          value={confirmPassword}
-          placeholder="Please confirm your password"
+          placeholder="Please confirm your new password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <ReusableButton title="Register" onClick={(e) => onClick(e)} />
+        <ReusableTextField
+          title="Code"
+          onChange={(e) => setCode(e.target.value)}
+        />
+        <ReusableButton
+          title="Reset Password"
+          path=""
+          onClick={(e) => onClick(e)}
+        />
         <TextButtonWrapper>
-          <Subtitle>Already Registered?</Subtitle>
-          <TextButton title="Login"></TextButton>
+          <Subtitle>Remember your password?</Subtitle>
+          <TextButton title="Login" path=""></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>
@@ -140,7 +127,7 @@ export default function Registration() {
 
 const Wrapper = styled.div`
   justify-items: center;
-  margin: 0 auto;
+  margin: 0 auto; // look into what this is doing
   max-width: 400px;
   @media (max-width: 450px) {
     vertical-align: middle;
@@ -149,10 +136,14 @@ const Wrapper = styled.div`
     max-width: none;
   }
 `;
+const TextButtonWrapper = styled.div`
+  display: flex;
+  align-items: start;
+  gap: 10px;
+`;
 
 const Title = styled(H4)`
   padding-bottom: 25px;
-
   background-clip: text;
   -webkit-background-clip: text;
 `;
@@ -160,12 +151,6 @@ const Title = styled(H4)`
 const Subtitle = styled(SmallText)`
   padding: 15px 0;
   color: ${themes.light.text1};
-`;
-
-const TextButtonWrapper = styled.div`
-  display: flex;
-  align-items: start;
-  gap: 10px;
 `;
 
 const TextWrapper = styled.div`

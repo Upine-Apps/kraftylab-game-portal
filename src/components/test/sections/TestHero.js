@@ -7,8 +7,6 @@ import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
-import GameCard from "../../cards/GameCard";
-// import LoginPage from "../../sections/auth/LoginPage";
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -45,7 +43,7 @@ function TestHero() {
 export default TestHero;
 
 const Wrapper = styled.div`
-  display: grid
+  display: grid;
   position: relative;
   max-width: 1234px;
   margin: 0 auto;

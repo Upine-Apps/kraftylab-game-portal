@@ -14,37 +14,38 @@ import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
 import TextButton from "../../buttons/TextButton";
 import axios from "axios";
-
-function isEmail(str) {
-  return /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/.test(str);
-}
+import { emptyAlert, failedForgotPassword } from "../../../data/alertData";
+import {
+  validateForgotPasswordData,
+  validateForgotPasswordResponse,
+} from "../../../validators/registrationValidators";
+import UserService from "../../../service/UserService";
 
 export default function ForgotPassword() {
   const [recoveryEmail, setEmail] = useState("");
+  const [alert, setAlert] = useState(emptyAlert);
+
   async function onClick(e) {
     e.preventDefault();
 
-    let error = false;
-    error = !isEmail(recoveryEmail) ? true : error;
-    if (!error) {
-      const body = {
-        username: recoveryEmail,
-      };
-      const headers = {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Request-Headers": "content-type",
-      };
-      let response = await axios.post(
-        "http://localhost:3000/user/start-forgot-password",
-        body,
-        { headers }
-      );
-      console.log(response);
-      setEmail("");
+    const body = {
+      username: recoveryEmail,
+    };
+
+    const validateBody = validateForgotPasswordData(body);
+
+    if (validateBody.error === false) {
+      let response = await UserService.startForgotPassword(body);
+
+      if (validateForgotPasswordResponse(response)) {
+        setEmail("");
+        setAlert(emptyAlert);
+      } else if (response.status == 500) {
+        setAlert(failedForgotPassword);
+      }
+    } else {
+      setAlert(validateBody);
     }
-    console.log("clicked!");
-    // FIXME: function will unmount component and mount a new one
   }
 
   return (
