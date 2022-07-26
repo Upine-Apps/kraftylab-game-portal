@@ -10,11 +10,11 @@ import TextButton from "../../buttons/TextButton";
 import {
   validateRegistrationData,
   validateRegistrationResponse,
-} from "../../../validators/registrationValidators";
+} from "../../../validators/authValidators";
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
-export default function Registration() {
+export default function Registration({ setStep }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -52,6 +52,7 @@ export default function Registration() {
         setPassword("");
         setConfirmPassword("");
         setAlert(emptyAlert);
+        setStep("Verification");
       } else if (response.status == 500) {
         setAlert({
           visible: true,
@@ -131,7 +132,10 @@ export default function Registration() {
         <ReusableButton title="Register" onClick={(e) => onClick(e)} />
         <TextButtonWrapper>
           <Subtitle>Already Registered?</Subtitle>
-          <TextButton title="Login"></TextButton>
+          <TextButton
+            title="Login"
+            onClick={() => setStep("Login")}
+          ></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>
