@@ -80,3 +80,14 @@ export function validateRegistrationData(registration) {
 export function validateRegistrationResponse(response) {
   return response.status === 200;
 }
+export function validateConfirmPasswordResponse(response) {
+  return response.status === 200;
+}
+
+export function validateConfirmPassword(passwordData) {
+  let error = false;
+  error = passwordData.password.length < 6 ? true : error;
+  error = passwordData.code.length == 6 ? true : error;
+  error = passwordData.password !== passwordData.confirmPassword ? true : error;
+  return error;
+}

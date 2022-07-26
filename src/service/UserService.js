@@ -1,13 +1,12 @@
 import axios from "axios";
 
 export default class UserService {
-  static hostUrl = "http://localhost:3000/user"; // local url
+  static hostUrl = "http://localhost:3000/user"; //local url
   static headers = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Request-Headers": "content-type",
   };
-
   static getUrl() {
     return this.hostUrl;
   }
@@ -31,5 +30,18 @@ export default class UserService {
     } catch (error) {
       return error.response.data;
     }
+  }
+  static async confirmPassword(obj) {
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Request-Headers": "content-type",
+    };
+    const res = axios.post(`${this.hostUrl}/complete-forgot-password`, obj, {
+      headers,
+    });
+    console.log(headers);
+    console.log(this.hostUrl);
+    return res;
   }
 }

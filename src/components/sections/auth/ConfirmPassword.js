@@ -13,10 +13,36 @@ import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
 import React, { useState } from "react";
 import TextButton from "../../buttons/TextButton";
-
+import { validateConfirmPassword } from "../../../validators/registrationValidators";
+import UserService from "../../../service/UserService";
+import { validateConfirmPasswordResponse } from "../../../validators/registrationValidators";
 export default function ConfirmPassword() {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [code, setCode] = useState("");
+
   function onChange(e) {
     console.log(e.target.value);
+  }
+
+  async function onClick(e) {
+    e.preventDefault();
+    const body = {
+      username: "shamer@upineapps.com",
+      code: code,
+      password: password,
+    };
+
+    if (!validateConfirmPassword({ ...body, confirmPassword })) {
+      let response = await UserService.confirmPassword(body);
+      console.log(response);
+      validateConfirmPasswordResponse(response);
+      setPassword("");
+      setConfirmPassword("");
+      setCode("");
+    } else {
+      console.log("error");
+    }
   }
   return (
     <Wrapper>
@@ -29,13 +55,23 @@ export default function ConfirmPassword() {
           name="New Password"
           label="New Password"
           placeholder="Please enter your new password"
+          onChange={(e) => setPassword(e.target.value)}
         />
         <CustomPasswordField
           name="Confirm Password"
           label="Confirm Password"
           placeholder="Please confirm your new password"
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <ReusableButton title="Reset Password" path="" />
+        <ReusableTextField
+          title="Code"
+          onChange={(e) => setCode(e.target.value)}
+        />
+        <ReusableButton
+          title="Reset Password"
+          path=""
+          onClick={(e) => onClick(e)}
+        />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
           <TextButton title="Login" path=""></TextButton>
