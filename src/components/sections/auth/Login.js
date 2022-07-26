@@ -16,7 +16,7 @@ import TextButton from "../../buttons/TextButton";
 import {
   validateLoginData,
   validateLoginResponse,
-} from "../../../validators/loginValidators";
+} from "../../../validators/authValidators";
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 

@@ -112,18 +112,6 @@ export function validateLoginData(login) {
           key: Math.random(),
         }
       : body;
-
-  // do we want this validation to appear? or should it be incorrect password given from backend
-  body =
-    !isPassword(password) && body.error === false
-      ? {
-          error: true,
-          status: "Error",
-          title: "Invalid Password",
-          subtitle: "Password must have more than 6 characters",
-          key: Math.random(),
-        }
-      : body;
   return body;
 }
 
