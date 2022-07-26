@@ -2,17 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import BackButton from "../../buttons/mobile/BackButton";
 import { useState, useEffect } from "react";
-import Verification from "./Verification";
 import Registration from "./Registration";
-import Login from "./Login";
-import ConfirmPassword from "./ConfirmPassword";
 import ForgotPassword from "./ForgotPassword";
+import ConfirmPassword from "./ConfirmPassword";
+import Login from "./Login";
+import Verification from "./Verification";
 
 export default function AuthSection() {
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
   });
+  const [step, setStep] = useState("Login");
+  const [email, setEmail] = useState("");
 
   const setDimension = () => {
     getDimension({
@@ -37,20 +39,28 @@ export default function AuthSection() {
     );
   }
 
+  function renderSwitch(param) {
+    switch (param) {
+      case "Login":
+        return <Login setStep={setStep} />;
+      case "Registration":
+        return <Registration setStep={setStep} />;
+      case "Verification":
+        return <Verification setStep={setStep} />;
+      case "ForgotPassword":
+        return <ForgotPassword setStep={setStep} setEmail={setEmail} />;
+      case "ConfirmPassword":
+        return <ConfirmPassword setStep={setStep} email={email} />;
+      default:
+        return <Login setStep={setStep} />;
+    }
+  }
+
   return (
     <Wrapper>
       <ContentWrapper>
         {screenSize.dynamicWidth > 450 ? renderDesktop() : ""}
-        <ScreenWrapper>
-          {/* <Registration /> */}
-          <Login />
-          {/* ADD YOUR COMPONENT HERE INSTEAD OF SCREEN COMPONENT
-            SCREEN COMPONENT IS JUST THERE TO SHOW YOU THE RED BOX IT SHOULD TAKE UP. 
-            !!!!REMOVE SCREEN COMPONENT AND GRAPHIC!!!
-            MAKE SURE YOU LOOK AT HOW I ADDED WIDTH AND HEIGHT FOR THE COMPONENT
-            WE WANT THIS TO BE FLEXIBLE WITH WHATEVER BOX WE PUT IT IN
-            DON'T HARDCODE WIDTHS AND HEIGHTS W PIXELS!!!! USE PERCENTAGES */}
-        </ScreenWrapper>
+        <ScreenWrapper>{renderSwitch(step)}</ScreenWrapper>
       </ContentWrapper>
     </Wrapper>
   );

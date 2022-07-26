@@ -20,7 +20,7 @@ import {
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
-export default function Login() {
+export default function Login({ setStep }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -41,7 +41,7 @@ export default function Login() {
     };
 
     const validateBody = validateLoginData(body);
-
+    
     if (validateBody.error === false) {
       let response = await UserService.loginUser(body);
 
@@ -109,10 +109,16 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <ReusableButton title="Login" onClick={(e) => onClick(e)} />
-        <TextButton title="Forgot Password?"></TextButton>
+        <TextButton
+          title="Forgot Password?"
+          onClick={() => setStep("ForgotPassword")}
+        ></TextButton>
         <TextButtonWrapper>
           <Subtitle>Not registered?</Subtitle>
-          <TextButton title="Create an account"></TextButton>
+          <TextButton
+            title="Create an account"
+            onClick={() => setStep("Registration")}
+          ></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>

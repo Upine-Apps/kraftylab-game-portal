@@ -13,7 +13,7 @@ import {
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
-export default function ConfirmPassword() {
+export default function ConfirmPassword({ setStep }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -41,13 +41,13 @@ export default function ConfirmPassword() {
 
     if (validateBody.error === false) {
       let response = await UserService.confirmPassword(body);
-      console.log(response);
 
       if (validateConfirmPasswordResponse(response)) {
         setPassword("");
         setConfirmPassword("");
         setCode("");
         setAlert(emptyAlert);
+        setStep("Login");
       } else if (response.status == 500) {
         setAlert({
           visible: true,
@@ -118,7 +118,11 @@ export default function ConfirmPassword() {
         />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
-          <TextButton title="Login" path=""></TextButton>
+          <TextButton
+            title="Login"
+            path=""
+            onClick={() => setStep("Login")}
+          ></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>

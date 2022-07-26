@@ -21,7 +21,7 @@ import {
 import StatusAlert from "../../alerts/StatusAlert";
 import UserService from "../../../service/UserService";
 
-export default function Verification() {
+export default function Verification({ setStep }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -49,6 +49,7 @@ export default function Verification() {
       if (validateVerificationResponse(response)) {
         setVerificationCode("");
         setAlert(emptyAlert);
+        setStep("Login");
       } else if (response.status == 500) {
         setAlert({
           visible: true,
@@ -96,7 +97,10 @@ export default function Verification() {
         <ReusableButton title="Verify" onClick={onClick} />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
-          <TextButton title="Login"></TextButton>
+          <TextButton
+            title="Login"
+            onClick={() => setStep("Login")}
+          ></TextButton>
         </TextButtonWrapper>
       </FormWrapper>
     </Wrapper>
