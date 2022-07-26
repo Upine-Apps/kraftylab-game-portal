@@ -35,6 +35,7 @@ function TestHero() {
         {/* <ReusableTextField onChange={onChange} /> */}
         {/* <input type="submit" /> */}
       </form>
+      {/* <LoginPage></LoginPage> */}
     </Wrapper>
   );
 }
@@ -42,7 +43,7 @@ function TestHero() {
 export default TestHero;
 
 const Wrapper = styled.div`
-  display: grid
+  display: grid;
   position: relative;
   max-width: 1234px;
   margin: 0 auto;
