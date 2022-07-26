@@ -14,6 +14,7 @@ export default function AuthSection() {
     dynamicHeight: window.innerHeight,
   });
   const [step, setStep] = useState("Login");
+  const [email, setEmail] = useState("");
 
   const setDimension = () => {
     getDimension({
@@ -48,9 +49,9 @@ export default function AuthSection() {
       case "Verification":
         return <Verification setStep={setStep} />;
       case "ForgotPassword":
-        return <ForgotPassword setStep={setStep} />;
+        return <ForgotPassword setStep={setStep} setEmail={setEmail} />;
       case "ConfirmPassword":
-        return <ConfirmPassword setStep={setStep} />;
+        return <ConfirmPassword setStep={setStep} email={email} />;
       default:
         return <Login setStep={setStep} />;
     }
