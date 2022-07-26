@@ -10,14 +10,12 @@ Ex: {
      confirmPassword: 'bananas'
     }
 */
-export function validateRegistrationData(registration) {
-  const {
-    first_name,
-    last_name,
-    email,
-    password,
-    confirmPassword,
-  } = registration;
+export function validateConfirmPasswordResponse(response) {
+  return response.status === 200;
+}
+
+export function validateConfirmPasswordData(passwordData) {
+  const { code, password, confirmPassword } = passwordData;
 
   let body = {
     error: false,
@@ -27,28 +25,13 @@ export function validateRegistrationData(registration) {
   };
 
   body =
-    (isEmpty(first_name) ||
-      isEmpty(last_name) ||
-      isEmpty(email) ||
-      isEmpty(password) ||
-      isEmpty(confirmPassword)) &&
+    (isEmpty(code) || isEmpty(password) || isEmpty(confirmPassword)) &&
     body.error === false
       ? {
           error: true,
           status: "Error",
           title: "Empty field",
           subtitle: "One or more fields are empty.",
-          key: Math.random(),
-        }
-      : body;
-
-  body =
-    !isEmail(email) && body.error === false
-      ? {
-          error: true,
-          status: "Error",
-          title: "Incorrect email",
-          subtitle: "Enter a valid email format",
           key: Math.random(),
         }
       : body;
@@ -74,9 +57,6 @@ export function validateRegistrationData(registration) {
           key: Math.random(),
         }
       : body;
-  return body;
-}
 
-export function validateRegistrationResponse(response) {
-  return response.status === 200;
+  return body;
 }

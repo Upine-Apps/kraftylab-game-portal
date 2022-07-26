@@ -9,7 +9,7 @@ import TextButton from "../../buttons/TextButton";
 import {
   validateConfirmPasswordData,
   validateConfirmPasswordResponse,
-} from "../../../validators/registrationValidators";
+} from "../../../validators/confirmValidators";
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
