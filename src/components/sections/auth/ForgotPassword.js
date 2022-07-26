@@ -20,7 +20,7 @@ export default function ForgotPassword({ setStep }) {
   function onClick() {
     console.log("clicked!");
     // FIXME: function will unmount component and mount a new one
-    setStep("ConfirmPassword");
+    setStep("ConfirmPassword"); // add when response from backend is a success
   }
 
   return (
