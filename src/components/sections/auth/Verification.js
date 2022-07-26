@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import {
   MediumText,
   Caption,
@@ -12,24 +13,84 @@ import ReusableTextField from "../../textfield/ReusableTextField";
 import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
 import TextButton from "../../buttons/TextButton";
+import axios from "axios";
+import {
+  validateVerificationData,
+  validateVerificationResponse,
+} from "../../../validators/verificationValidators";
+import StatusAlert from "../../alerts/StatusAlert";
+import UserService from "../../../service/UserService";
 
-export default function Verification({ setStep }) {
-  function onChange(e) {
-    console.log(e.target.value);
+export default function Verification() {
+  const emptyAlert = {
+    visible: false,
+    status: "",
+    title: "",
+    subtitle: "",
+    key: 0,
+  };
+  const [verificationCode, setVerificationCode] = useState("");
+  const [alert, setAlert] = useState(emptyAlert);
+
+  async function onClick(e) {
+    e.preventDefault();
+
+    var body = {
+      username: "shamer@upineapps.com",
+      code: verificationCode,
+    };
+
+    const validateBody = validateVerificationData(body);
+
+    if (validateBody.error === false) {
+      body.code = parseInt(body.code);
+      let response = await UserService.verifyUser(body);
+
+      if (validateVerificationResponse(response)) {
+        setVerificationCode("");
+        setAlert(emptyAlert);
+      } else if (response.status == 500) {
+        setAlert({
+          visible: true,
+          status: "Error",
+          title: "Error verifying",
+          subtitle: "Couldn't verify account. Please try again later",
+          key: Math.random(),
+        });
+      }
+    } else {
+      setAlert({
+        visible: true,
+        status: validateBody.status,
+        title: validateBody.title,
+        subtitle: validateBody.subtitle,
+        key: validateBody.key,
+      });
+    }
   }
-  function onClick() {
-    console.log("clicked!");
-    // FIXME: function will unmount component and mount a new one
-    setStep("Login");
+
+  function displayAlert() {
+    return (
+      <StatusAlert
+        status={alert.status}
+        title={alert.title}
+        subtitle={alert.subtitle}
+        key={alert.key}
+      />
+    );
   }
 
   return (
     <Wrapper>
+      {alert.visible ? displayAlert() : ""}
       <TextWrapper>
         <Subtitle>Almost there! 👋</Subtitle>
         <Title>Verification</Title>
-        <Subtitle>Enter the 4-digit code sent to your email address.</Subtitle>
-        <ReusableTextField title="Code" onChange={onChange} />
+        <Subtitle>Enter the 6-digit code sent to your email address.</Subtitle>
+        <ReusableTextField
+          title="Code"
+          onChange={(e) => setVerificationCode(e.target.value)}
+        />
       </TextWrapper>
       <FormWrapper>
         <ReusableButton title="Verify" onClick={onClick} />

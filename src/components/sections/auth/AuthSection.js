@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import BackButton from "../../buttons/mobile/BackButton";
 import { useState, useEffect } from "react";
+import Verification from "./Verification";
 import Registration from "./Registration";
 import ForgotPassword from "./ForgotPassword";
 import ConfirmPassword from "./ConfirmPassword";
@@ -65,13 +66,9 @@ export default function AuthSection() {
       <ContentWrapper>
         {screenSize.dynamicWidth > 450 ? renderDesktop() : ""}
         <ScreenWrapper>
-          {/* ADD YOUR COMPONENT HERE INSTEAD OF SCREEN COMPONENT
-            SCREEN COMPONENT IS JUST THERE TO SHOW YOU THE RED BOX IT SHOULD TAKE UP. 
-            !!!!REMOVE SCREEN COMPONENT AND GRAPHIC!!!
-            MAKE SURE YOU LOOK AT HOW I ADDED WIDTH AND HEIGHT FOR THE COMPONENT
-            WE WANT THIS TO BE FLEXIBLE WITH WHATEVER BOX WE PUT IT IN
-            DON'T HARDCODE WIDTHS AND HEIGHTS W PIXELS!!!! USE PERCENTAGES */}
-          {renderSwitch(step)}
+          {/* <Registration /> */}
+          <ConfirmPassword />
+          {/* <ForgotPassword /> */}
         </ScreenWrapper>
       </ContentWrapper>
     </Wrapper>

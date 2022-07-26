@@ -11,3 +11,6 @@ export function isEmpty(str) {
   console.log("is", str, "empty?", str === "");
   return str === "";
 }
+export function isNumeric(code) {
+  return typeof code === "number";
+}
