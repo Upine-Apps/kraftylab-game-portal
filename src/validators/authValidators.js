@@ -1,3 +1,4 @@
+import { badEmailAlert, emptyFieldAlert } from "../data/alertData";
 import { isAlpha, isEmail, isPassword, isEmpty } from "./validationUtilities";
 
 /*
@@ -10,6 +11,14 @@ Ex: {
      confirmPassword: 'bananas'
     }
 */
+
+var defaultBody = {
+  error: false,
+  status: "",
+  title: "",
+  subtitle: "",
+};
+
 export function validateRegistrationData(registration) {
   const {
     first_name,
@@ -165,6 +174,18 @@ export function validateLoginData(login) {
   return body;
 }
 
-export function validateLoginResponse(response) {
+export function validateForgotPasswordData(forgotPasswordData) {
+  const { username } = forgotPasswordData;
+  let body = defaultBody;
+
+  /* Could probably make this a function and map the data to isEmpty*/
+  body = isEmpty(username) && body.error === false ? emptyFieldAlert : body;
+
+  body = !isEmail(username) && body.error === false ? badEmailAlert : body;
+
+  return body;
+}
+
+export function validateForgotPasswordResponse(response) {
   return response.status === 200;
 }

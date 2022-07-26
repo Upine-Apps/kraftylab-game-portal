@@ -15,11 +15,20 @@ export default class UserService {
     return this.headers;
   }
 
-  /*
-    Add your other user methods here. 
-    Make sure you prefix them with `static` so we can access them
-    without making an instance of the class
-  */
+  static async startForgotPassword(obj) {
+    try {
+      const res = await axios.post(
+        `${this.hostUrl}/start-forgot-password`,
+        obj,
+        {
+          headers: this.headers,
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 
   static async registerUser(obj) {
     try {

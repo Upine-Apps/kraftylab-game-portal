@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import {
   MediumText,
   Caption,
@@ -9,24 +10,64 @@ import {
 } from "../../styles/TextStyles";
 import { themes } from "../../styles/ColorStyles";
 import ReusableTextField from "../../textfield/ReusableTextField";
-import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
 import TextButton from "../../buttons/TextButton";
+import StatusAlert from "../../alerts/StatusAlert";
+import { emptyAlert, failedForgotPassword } from "../../../data/alertData";
+import {
+  validateForgotPasswordData,
+  validateForgotPasswordResponse,
+} from "../../../validators/registrationValidators";
+import UserService from "../../../service/UserService";
 
-export default function ForgotPassword({ setStep }) {
-  function onChange(e) {}
-  function onClick() {
-    // FIXME: function will unmount component and mount a new one
-    setStep("ConfirmPassword"); // add when response from backend is a success
+export default function ForgotPassword() {
+  const [recoveryEmail, setEmail] = useState("");
+  const [alert, setAlert] = useState(emptyAlert);
+
+  async function onClick(e) {
+    e.preventDefault();
+
+    const body = {
+      username: recoveryEmail,
+    };
+
+    const validateBody = validateForgotPasswordData(body);
+
+    if (validateBody.error === false) {
+      let response = await UserService.startForgotPassword(body);
+
+      if (validateForgotPasswordResponse(response)) {
+        setEmail("");
+        setAlert(emptyAlert);
+      } else if (response.status == 500) {
+        setAlert(failedForgotPassword);
+      }
+    } else {
+      setAlert(validateBody);
+    }
   }
 
+  function displayAlert() {
+    return (
+      <StatusAlert
+        status={alert.status}
+        title={alert.title}
+        subtitle={alert.subtitle}
+        key={alert.key}
+      />
+    );
+  }
   return (
     <Wrapper>
+      {alert.visible ? displayAlert() : ""}
       <TextWrapper>
-        <Subtitle>Uh oh! 👋</Subtitle>
+        <Subtitle> Uh oh! 👋</Subtitle>
         <Title>Forgot Password?</Title>
         <Subtitle>Enter the email associated with this account.</Subtitle>
-        <ReusableTextField title="Email" onChange={onChange} />
+        <ReusableTextField
+          title="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </TextWrapper>
       <FormWrapper>
         <ReusableButton title="Submit" onClick={onClick} />
