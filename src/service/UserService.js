@@ -28,7 +28,26 @@ export default class UserService {
       });
       return res.data;
     } catch (error) {
-      return error.response.data;
+      if (error.response) {
+        return error.response.data;
+      } else {
+        return error;
+      }
+    }
+  }
+
+  static async loginUser(obj) {
+    try {
+      const res = await axios.post(`${this.hostUrl}/login`, obj, {
+        headers: this.headers,
+      });
+      return res.data;
+    } catch (error) {
+      if (error.response) {
+        return error.response.data;
+      } else {
+        return error;
+      }
     }
   }
 
@@ -37,7 +56,14 @@ export default class UserService {
       const res = await axios.post(`${this.hostUrl}/validate-email`, obj, {
         headers: this.headers,
       });
-    } catch (error) {}
+      return res.data;
+    } catch (error) {
+      if (error.response) {
+        return error.response.data;
+      } else {
+        return error;
+      }
+    }
   }
 
   static async confirmPassword(obj) {
@@ -51,8 +77,11 @@ export default class UserService {
       );
       return res.data;
     } catch (error) {
-      return error.response.data;
+      if (error.response) {
+        return error.response.data;
+      } else {
+        return error;
+      }
     }
-
   }
 }

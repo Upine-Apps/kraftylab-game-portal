@@ -13,13 +13,84 @@ import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
 import React, { useState } from "react";
 import TextButton from "../../buttons/TextButton";
+import {
+  validateLoginData,
+  validateLoginResponse,
+} from "../../../validators/authValidators";
+import UserService from "../../../service/UserService";
+import StatusAlert from "../../alerts/StatusAlert";
 
 export default function Login() {
-  function onChange(e) {
-    console.log(e.target.value);
+  const emptyAlert = {
+    visible: false,
+    status: "",
+    title: "",
+    subtitle: "",
+    key: 0,
+  };
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState(emptyAlert);
+
+  async function onClick(e) {
+    e.preventDefault();
+
+    const body = {
+      username: username,
+      password: password,
+    };
+
+    const validateBody = validateLoginData(body);
+
+    if (validateBody.error === false) {
+      let response = await UserService.loginUser(body);
+
+      if (validateLoginResponse(response)) {
+        setUsername("");
+        setPassword("");
+        setAlert(emptyAlert);
+      } else if (response.status == 500) {
+        setAlert({
+          visible: true,
+          status: "Error",
+          title: response.message,
+          subtitle: "Please try again",
+          key: Math.random(),
+        });
+      } else {
+        setAlert({
+          visible: true,
+          status: "Error",
+          title: "Failed to login",
+          subtitle: "Try again",
+          key: Math.random(),
+        });
+      }
+    } else {
+      setAlert({
+        visible: true,
+        status: validateBody.status,
+        title: validateBody.title,
+        subtitle: validateBody.subtitle,
+        key: validateBody.key,
+      });
+    }
   }
+
+  function displayAlert() {
+    return (
+      <StatusAlert
+        status={alert.status}
+        title={alert.title}
+        subtitle={alert.subtitle}
+        key={alert.key}
+      />
+    );
+  }
+
   return (
     <Wrapper>
+      {alert.visible ? displayAlert() : ""}
       <TextWrapper>
         <Subtitle>Welcome back! 👋</Subtitle>
         <Title>Login to your account</Title>
@@ -27,8 +98,8 @@ export default function Login() {
       <FormWrapper>
         <ReusableTextField
           title="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <CustomPasswordField
           name="Password"
@@ -37,7 +108,7 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <ReusableButton title="Login" />
+        <ReusableButton title="Login" onClick={(e) => onClick(e)} />
         <TextButton title="Forgot Password?"></TextButton>
         <TextButtonWrapper>
           <Subtitle>Not registered?</Subtitle>
