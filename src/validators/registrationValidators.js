@@ -80,3 +80,53 @@ export function validateRegistrationData(registration) {
 export function validateRegistrationResponse(response) {
   return response.status === 200;
 }
+export function validateConfirmPasswordResponse(response) {
+  return response.status === 200;
+}
+
+export function validateConfirmPasswordData(passwordData) {
+  const { code, password, confirmPassword } = passwordData;
+
+  let body = {
+    error: false,
+    status: "",
+    title: "",
+    subtitle: "",
+  };
+
+  body =
+    (isEmpty(code) || isEmpty(password) || isEmpty(confirmPassword)) &&
+    body.error === false
+      ? {
+          error: true,
+          status: "Error",
+          title: "Empty field",
+          subtitle: "One or more fields are empty.",
+          key: Math.random(),
+        }
+      : body;
+
+  body =
+    !isPassword(password) && body.error === false
+      ? {
+          error: true,
+          status: "Error",
+          title: "Invalid Password",
+          subtitle: "Password must have more than 6 characters",
+          key: Math.random(),
+        }
+      : body;
+
+  body =
+    password !== confirmPassword && body.error === false
+      ? {
+          error: true,
+          status: "Error",
+          title: "Invalid Password",
+          subtitle: "Passwords do not match",
+          key: Math.random(),
+        }
+      : body;
+
+  return body;
+}
