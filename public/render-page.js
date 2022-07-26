@@ -1,12 +1,12 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("C:\\Users\\tatew\\Desktop\\Upine\\Clients\\KraftyLab\\kraftylab-game-portal\\node_modules\\@reach\\router\\index.js"), require("fs"), require("C:\\Users\\tatew\\Desktop\\Upine\\Clients\\KraftyLab\\kraftylab-game-portal\\node_modules\\lodash\\merge.js"), require("path"), require("react"), require("react-dom/server"), require("react-helmet"));
+		module.exports = factory(require("/Users/shamerzahir/Upine Apps/kraftylab-game-portal/node_modules/@reach/router/index.js"), require("fs"), require("/Users/shamerzahir/Upine Apps/kraftylab-game-portal/node_modules/lodash/merge.js"), require("path"), require("react"), require("react-dom/server"), require("react-helmet"));
 	else if(typeof define === 'function' && define.amd)
-		define("lib", ["C:\\Users\\tatew\\Desktop\\Upine\\Clients\\KraftyLab\\kraftylab-game-portal\\node_modules\\@reach\\router\\index.js", "fs", "C:\\Users\\tatew\\Desktop\\Upine\\Clients\\KraftyLab\\kraftylab-game-portal\\node_modules\\lodash\\merge.js", "path", "react", "react-dom/server", "react-helmet"], factory);
+		define("lib", ["/Users/shamerzahir/Upine Apps/kraftylab-game-portal/node_modules/@reach/router/index.js", "fs", "/Users/shamerzahir/Upine Apps/kraftylab-game-portal/node_modules/lodash/merge.js", "path", "react", "react-dom/server", "react-helmet"], factory);
 	else if(typeof exports === 'object')
-		exports["lib"] = factory(require("C:\\Users\\tatew\\Desktop\\Upine\\Clients\\KraftyLab\\kraftylab-game-portal\\node_modules\\@reach\\router\\index.js"), require("fs"), require("C:\\Users\\tatew\\Desktop\\Upine\\Clients\\KraftyLab\\kraftylab-game-portal\\node_modules\\lodash\\merge.js"), require("path"), require("react"), require("react-dom/server"), require("react-helmet"));
+		exports["lib"] = factory(require("/Users/shamerzahir/Upine Apps/kraftylab-game-portal/node_modules/@reach/router/index.js"), require("fs"), require("/Users/shamerzahir/Upine Apps/kraftylab-game-portal/node_modules/lodash/merge.js"), require("path"), require("react"), require("react-dom/server"), require("react-helmet"));
 	else
-		root["lib"] = factory(root["C:\\Users\\tatew\\Desktop\\Upine\\Clients\\KraftyLab\\kraftylab-game-portal\\node_modules\\@reach\\router\\index.js"], root["fs"], root["C:\\Users\\tatew\\Desktop\\Upine\\Clients\\KraftyLab\\kraftylab-game-portal\\node_modules\\lodash\\merge.js"], root["path"], root["react"], root["react-dom/server"], root["react-helmet"]);
+		root["lib"] = factory(root["/Users/shamerzahir/Upine Apps/kraftylab-game-portal/node_modules/@reach/router/index.js"], root["fs"], root["/Users/shamerzahir/Upine Apps/kraftylab-game-portal/node_modules/lodash/merge.js"], root["path"], root["react"], root["react-dom/server"], root["react-helmet"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE__reach_router__, __WEBPACK_EXTERNAL_MODULE_fs__, __WEBPACK_EXTERNAL_MODULE_lodash_merge__, __WEBPACK_EXTERNAL_MODULE_path__, __WEBPACK_EXTERNAL_MODULE_react__, __WEBPACK_EXTERNAL_MODULE_react_dom_server__, __WEBPACK_EXTERNAL_MODULE_react_helmet__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -125,7 +125,7 @@ var plugins = [{
   plugin: __webpack_require__(/*! ./node_modules/gatsby-plugin-manifest/gatsby-ssr */ "./node_modules/gatsby-plugin-manifest/gatsby-ssr.js"),
   options: {
     "plugins": [],
-    "icon": "C:\\Users\\tatew\\Desktop\\Upine\\Clients\\KraftyLab\\kraftylab-game-portal/static/favicon.png",
+    "icon": "/Users/shamerzahir/Upine Apps/kraftylab-game-portal/static/favicon.png",
     "legacy": true,
     "theme_color_in_head": true,
     "cache_busting_mode": "query",
@@ -31753,9 +31753,9 @@ function y(){return(y=Object.assign||function(e){for(var t=1;t<arguments.length;
 /***/ }),
 
 /***/ "@reach/router":
-/*!**************************************************************************************************************************************!*\
-  !*** external "C:\\Users\\tatew\\Desktop\\Upine\\Clients\\KraftyLab\\kraftylab-game-portal\\node_modules\\@reach\\router\\index.js" ***!
-  \**************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** external "/Users/shamerzahir/Upine Apps/kraftylab-game-portal/node_modules/@reach/router/index.js" ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -31775,9 +31775,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_fs__;
 /***/ }),
 
 /***/ "lodash/merge":
-/*!******************************************************************************************************************************!*\
-  !*** external "C:\\Users\\tatew\\Desktop\\Upine\\Clients\\KraftyLab\\kraftylab-game-portal\\node_modules\\lodash\\merge.js" ***!
-  \******************************************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** external "/Users/shamerzahir/Upine Apps/kraftylab-game-portal/node_modules/lodash/merge.js" ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

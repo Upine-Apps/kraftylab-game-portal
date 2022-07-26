@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import StatusAlert from "../../alerts/StatusAlert";
 import SlideShowButton from "../../buttons/SlideShowButton";
 import ReusableButton from "../../buttons/ReusableButton";
 import StatusAlert from "../../alerts/StatusAlert";
