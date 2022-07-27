@@ -10,3 +10,6 @@ export function isPassword(str) {
 export function isEmpty(str) {
   return str === "";
 }
+export function isNumeric(code) {
+  return typeof code === "number";
+}
