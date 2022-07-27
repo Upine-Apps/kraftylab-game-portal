@@ -11,5 +11,5 @@ export function isEmpty(str) {
   return str === "";
 }
 export function isNumeric(code) {
-  return typeof code === "number";
+  return !isNaN(parseInt(code));
 }

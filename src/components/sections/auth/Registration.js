@@ -14,7 +14,7 @@ import {
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
-export default function Registration({ setStep }) {
+export default function Registration({ setStep, setRegistrationUsername }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -46,6 +46,7 @@ export default function Registration({ setStep }) {
       let response = await UserService.registerUser(body);
 
       if (validateRegistrationResponse(response)) {
+        setRegistrationUsername(email);
         setFirstName("");
         setLastName("");
         setEmail("");

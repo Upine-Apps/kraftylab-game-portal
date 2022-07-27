@@ -14,7 +14,11 @@ export default function AuthSection() {
     dynamicHeight: window.innerHeight,
   });
   const [step, setStep] = useState("Login");
+  // This value is to pass the username from forgot password to confirm password
   const [username, setUsername] = useState("");
+
+  // This value is to pass the username from registration to verfication
+  const [registrationUsername, setRegistrationUsername] = useState("");
 
   const setDimension = () => {
     getDimension({
@@ -44,9 +48,19 @@ export default function AuthSection() {
       case "Login":
         return <Login setStep={setStep} />;
       case "Registration":
-        return <Registration setStep={setStep} />;
+        return (
+          <Registration
+            setStep={setStep}
+            setRegistrationUsername={setRegistrationUsername}
+          />
+        );
       case "Verification":
-        return <Verification setStep={setStep} />;
+        return (
+          <Verification
+            setStep={setStep}
+            registrationUsername={registrationUsername}
+          />
+        );
       case "ForgotPassword":
         return <ForgotPassword setStep={setStep} setUsername={setUsername} />;
       case "ConfirmPassword":
