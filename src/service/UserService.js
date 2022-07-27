@@ -68,7 +68,6 @@ export default class UserService {
       return res.data;
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data);
         return error.response.data;
       } else {
         return error;
