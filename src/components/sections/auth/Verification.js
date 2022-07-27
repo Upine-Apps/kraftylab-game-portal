@@ -21,7 +21,7 @@ import {
 import StatusAlert from "../../alerts/StatusAlert";
 import UserService from "../../../service/UserService";
 
-export default function Verification({ setStep }) {
+export default function Verification({ setStep, registrationUsername }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -36,14 +36,13 @@ export default function Verification({ setStep }) {
     e.preventDefault();
 
     var body = {
-      username: "shamer@upineapps.com",
+      username: registrationUsername,
       code: verificationCode,
     };
 
     const validateBody = validateVerificationData(body);
 
     if (validateBody.error === false) {
-      body.code = parseInt(body.code);
       let response = await UserService.verifyUser(body);
 
       if (validateVerificationResponse(response)) {

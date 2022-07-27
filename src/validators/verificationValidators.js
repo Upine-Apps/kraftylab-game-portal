@@ -6,19 +6,8 @@ import {
   isNumeric,
 } from "./validationUtilities";
 
-/*
-Pass in an object to validateRegistration with your registration info
-Ex: {
-     firstName: 'Tate',
-     lastName: 'Walker,
-     email: 'tate@upinapps.com,
-     password: 'bananas',
-     confirmPassword: 'bananas'
-    }
-*/
 export function validateVerificationData(verification) {
   const { username, code } = verification;
-
   let body = {
     error: false,
     status: "",
@@ -43,7 +32,7 @@ export function validateVerificationData(verification) {
           error: true,
           status: "Error",
           title: "Incorrect code",
-          subtitle: "Enter a valid code",
+          subtitle: "Code should only contain numbers",
           key: Math.random(),
         }
       : body;
