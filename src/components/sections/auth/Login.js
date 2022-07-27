@@ -19,6 +19,7 @@ import {
 } from "../../../validators/authValidators";
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
+import { navigate } from "gatsby";
 
 export default function Login({ setStep }) {
   const emptyAlert = {
@@ -41,7 +42,7 @@ export default function Login({ setStep }) {
     };
 
     const validateBody = validateLoginData(body);
-    
+
     if (validateBody.error === false) {
       let response = await UserService.loginUser(body);
 
@@ -49,6 +50,7 @@ export default function Login({ setStep }) {
         setUsername("");
         setPassword("");
         setAlert(emptyAlert);
+        navigate("/game-portal");
       } else if (response.status == 500) {
         setAlert({
           visible: true,
