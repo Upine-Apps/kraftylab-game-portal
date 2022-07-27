@@ -17,6 +17,6 @@ const SpinnerWrapper = styled.div`
   display: inline-block;
   box-sizing: border-box;
   animation: ${rotation} 1s linear infinite;
-  width: 14.5px;
-  height: 14.5px;
+  width: 15px;
+  height: 15px;
 `;

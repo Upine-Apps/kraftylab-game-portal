@@ -31,6 +31,7 @@ export default function Verification({ setStep }) {
   };
   const [verificationCode, setVerificationCode] = useState("");
   const [alert, setAlert] = useState(emptyAlert);
+  const [spinner, setSpinner] = useState(false);
 
   async function onClick(e) {
     e.preventDefault();
@@ -44,7 +45,9 @@ export default function Verification({ setStep }) {
 
     if (validateBody.error === false) {
       body.code = parseInt(body.code);
+      setSpinner(true);
       let response = await UserService.verifyUser(body);
+      setSpinner(false);
 
       if (validateVerificationResponse(response)) {
         setVerificationCode("");
@@ -94,7 +97,11 @@ export default function Verification({ setStep }) {
         />
       </TextWrapper>
       <FormWrapper>
-        <ReusableButton title="Verify" onClick={onClick} />
+        <ReusableButton
+          title="Verify"
+          onClick={(e) => onClick(e)}
+          spinner={spinner}
+        />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
           <TextButton
