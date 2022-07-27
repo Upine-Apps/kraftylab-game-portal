@@ -32,6 +32,7 @@ export default function Login({ setStep }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState(emptyAlert);
+  const [spinner, setSpinner] = useState(false);
 
   async function onClick(e) {
     e.preventDefault();
@@ -44,7 +45,9 @@ export default function Login({ setStep }) {
     const validateBody = validateLoginData(body);
 
     if (validateBody.error === false) {
+      setSpinner(true);
       let response = await UserService.loginUser(body);
+      setSpinner(false);
 
       if (validateLoginResponse(response)) {
         setUsername("");
@@ -110,7 +113,11 @@ export default function Login({ setStep }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <ReusableButton title="Login" onClick={(e) => onClick(e)} />
+        <ReusableButton
+          title="Login"
+          onClick={(e) => onClick(e)}
+          spinner={spinner}
+        />
         <TextButton
           title="Forgot Password?"
           onClick={() => setStep("ForgotPassword")}

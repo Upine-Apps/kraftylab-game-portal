@@ -25,6 +25,7 @@ export default function ConfirmPassword({ setStep, username }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [code, setCode] = useState("");
   const [alert, setAlert] = useState(emptyAlert);
+  const [spinner, setSpinner] = useState(false);
 
   async function onClick(e) {
     e.preventDefault();
@@ -40,7 +41,9 @@ export default function ConfirmPassword({ setStep, username }) {
     });
 
     if (validateBody.error === false) {
+      setSpinner(true);
       let response = await UserService.confirmPassword(body);
+      setSpinner(false);
 
       if (validateConfirmPasswordResponse(response)) {
         setPassword("");
@@ -115,6 +118,7 @@ export default function ConfirmPassword({ setStep, username }) {
           title="Reset Password"
           path=""
           onClick={(e) => onClick(e)}
+          spinner={spinner}
         />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>

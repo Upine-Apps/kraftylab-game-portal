@@ -18,6 +18,7 @@ export default function ForgotPassword(props) {
   const { setUsername, setStep } = props;
   const [email, setEmail] = useState("");
   const [alert, setAlert] = useState(emptyAlert);
+  const [spinner, setSpinner] = useState(false);
 
   async function onClick(e) {
     e.preventDefault();
@@ -29,7 +30,9 @@ export default function ForgotPassword(props) {
     const validateBody = validateForgotPasswordData(body);
 
     if (validateBody.error === false) {
+      setSpinner(true);
       let response = await UserService.startForgotPassword(body);
+      setSpinner(false);
 
       if (validateForgotPasswordResponse(response)) {
         setUsername(email);
@@ -67,7 +70,11 @@ export default function ForgotPassword(props) {
         />
       </TextWrapper>
       <FormWrapper>
-        <ReusableButton title="Submit" onClick={(e) => onClick(e)} />
+        <ReusableButton
+          title="Submit"
+          onClick={(e) => onClick(e)}
+          spinner={spinner}
+        />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
           <TextButton
