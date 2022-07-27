@@ -1,13 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import {
-  MediumText,
-  Caption,
-  SmallText,
-  AuthTitle,
-  H4,
-} from "../../styles/TextStyles";
+import { useState } from "react";
+import { SmallText, H4 } from "../../styles/TextStyles";
 import { themes } from "../../styles/ColorStyles";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import ReusableButton from "../../buttons/ReusableButton";
@@ -17,18 +11,19 @@ import { emptyAlert, failedForgotPassword } from "../../../data/alertData";
 import {
   validateForgotPasswordData,
   validateForgotPasswordResponse,
-} from "../../../validators/registrationValidators";
+} from "../../../validators/authValidators";
 import UserService from "../../../service/UserService";
 
-export default function ForgotPassword() {
-  const [recoveryEmail, setEmail] = useState("");
+export default function ForgotPassword(props) {
+  const { setUsername, setStep } = props;
+  const [email, setEmail] = useState("");
   const [alert, setAlert] = useState(emptyAlert);
 
   async function onClick(e) {
     e.preventDefault();
 
     const body = {
-      username: recoveryEmail,
+      username: email,
     };
 
     const validateBody = validateForgotPasswordData(body);
@@ -37,8 +32,10 @@ export default function ForgotPassword() {
       let response = await UserService.startForgotPassword(body);
 
       if (validateForgotPasswordResponse(response)) {
+        setUsername(email);
         setEmail("");
         setAlert(emptyAlert);
+        setStep("ConfirmPassword");
       } else if (response.status == 500) {
         setAlert(failedForgotPassword);
       }
@@ -70,7 +67,7 @@ export default function ForgotPassword() {
         />
       </TextWrapper>
       <FormWrapper>
-        <ReusableButton title="Submit" onClick={onClick} />
+        <ReusableButton title="Submit" onClick={(e) => onClick(e)} />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
           <TextButton

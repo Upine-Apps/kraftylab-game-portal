@@ -13,7 +13,7 @@ import {
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
-export default function ConfirmPassword({ setStep }) {
+export default function ConfirmPassword({ setStep, username }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -29,7 +29,7 @@ export default function ConfirmPassword({ setStep }) {
   async function onClick(e) {
     e.preventDefault();
     const body = {
-      username: "tristanigos@gmail.com", // fixme, should get from ForgotPassword
+      username: username, // fixme, should get from ForgotPassword
       code: code,
       password: password,
     };
