@@ -174,6 +174,10 @@ export function validateLoginData(login) {
   return body;
 }
 
+export function validateLoginResponse(response) {
+  return response.status === 200;
+}
+
 export function validateForgotPasswordData(forgotPasswordData) {
   const { username } = forgotPasswordData;
   let body = defaultBody;
