@@ -7,6 +7,7 @@ export default function GameHeader() {
   return (
     <Wrapper>
       <Title>Krafty Lab Games</Title>
+      {/* FIXME: add navbar */}
     </Wrapper>
   )
 }

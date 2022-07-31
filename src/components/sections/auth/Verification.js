@@ -21,7 +21,7 @@ import {
 import StatusAlert from "../../alerts/StatusAlert";
 import UserService from "../../../service/UserService";
 
-export default function Verification() {
+export default function Verification({ setStep, registrationUsername }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -31,24 +31,27 @@ export default function Verification() {
   };
   const [verificationCode, setVerificationCode] = useState("");
   const [alert, setAlert] = useState(emptyAlert);
+  const [spinner, setSpinner] = useState(false);
 
   async function onClick(e) {
     e.preventDefault();
 
     var body = {
-      username: "shamer@upineapps.com",
+      username: registrationUsername,
       code: verificationCode,
     };
 
     const validateBody = validateVerificationData(body);
 
     if (validateBody.error === false) {
-      body.code = parseInt(body.code);
+      setSpinner(true);
       let response = await UserService.verifyUser(body);
+      setSpinner(false);
 
       if (validateVerificationResponse(response)) {
         setVerificationCode("");
         setAlert(emptyAlert);
+        setStep("Login");
       } else if (response.status == 500) {
         setAlert({
           visible: true,
@@ -93,7 +96,11 @@ export default function Verification() {
         />
       </TextWrapper>
       <FormWrapper>
-        <ReusableButton title="Verify" onClick={onClick} />
+        <ReusableButton
+          title="Verify"
+          onClick={(e) => onClick(e)}
+          spinner={spinner}
+        />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>
           <TextButton

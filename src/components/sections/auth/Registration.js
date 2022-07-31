@@ -10,11 +10,11 @@ import TextButton from "../../buttons/TextButton";
 import {
   validateRegistrationData,
   validateRegistrationResponse,
-} from "../../../validators/registrationValidators";
+} from "../../../validators/authValidators";
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
-export default function Registration({ setStep }) {
+export default function Registration({ setStep, setRegistrationUsername }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -49,14 +49,13 @@ export default function Registration({ setStep }) {
       setSpinner(false);
 
       if (validateRegistrationResponse(response)) {
+        setRegistrationUsername(email);
         setFirstName("");
         setLastName("");
         setEmail("");
         setPassword("");
         setConfirmPassword("");
         setAlert(emptyAlert);
-
-        // UA-027 blocked
         setStep("Verification");
       } else if (response.status == 500) {
         setAlert({

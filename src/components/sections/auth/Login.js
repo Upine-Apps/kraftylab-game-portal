@@ -16,11 +16,12 @@ import TextButton from "../../buttons/TextButton";
 import {
   validateLoginData,
   validateLoginResponse,
-} from "../../../validators/loginValidators";
+} from "../../../validators/authValidators";
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
+import { navigate } from "gatsby";
 
-export default function Login() {
+export default function Login({ setStep }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -31,6 +32,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState(emptyAlert);
+  const [spinner, setSpinner] = useState(false);
 
   async function onClick(e) {
     e.preventDefault();
@@ -43,12 +45,23 @@ export default function Login() {
     const validateBody = validateLoginData(body);
 
     if (validateBody.error === false) {
+      setSpinner(true);
       let response = await UserService.loginUser(body);
+      setSpinner(false);
 
       if (validateLoginResponse(response)) {
         setUsername("");
         setPassword("");
-        setAlert(emptyAlert);
+        setAlert({
+          visible: true,
+          status: "Success",
+          title: response.message,
+          subtitle: "Logged in Successfully",
+          key: Math.random(),
+        });
+        setTimeout(function () {
+          navigate("/game-portal");
+        }, 2000);
       } else if (response.status == 500) {
         setAlert({
           visible: true,
@@ -108,8 +121,15 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <ReusableButton title="Login" onClick={(e) => onClick(e)} />
-        <TextButton title="Forgot Password?"></TextButton>
+        <ReusableButton
+          title="Login"
+          onClick={(e) => onClick(e)}
+          spinner={spinner}
+        />
+        <TextButton
+          title="Forgot Password?"
+          onClick={() => setStep("ForgotPassword")}
+        ></TextButton>
         <TextButtonWrapper>
           <Subtitle>Not registered?</Subtitle>
           <TextButton

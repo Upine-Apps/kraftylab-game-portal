@@ -9,11 +9,11 @@ import TextButton from "../../buttons/TextButton";
 import {
   validateConfirmPasswordData,
   validateConfirmPasswordResponse,
-} from "../../../validators/confirmValidators";
+} from "../../../validators/authValidators";
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 
-export default function ConfirmPassword() {
+export default function ConfirmPassword({ setStep, username }) {
   const emptyAlert = {
     visible: false,
     status: "",
@@ -25,11 +25,12 @@ export default function ConfirmPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [code, setCode] = useState("");
   const [alert, setAlert] = useState(emptyAlert);
+  const [spinner, setSpinner] = useState(false);
 
   async function onClick(e) {
     e.preventDefault();
     const body = {
-      username: "tristanigos@gmail.com", // fixme, should get from ForgotPassword
+      username: username, // fixme, should get from ForgotPassword
       code: code,
       password: password,
     };
@@ -40,14 +41,16 @@ export default function ConfirmPassword() {
     });
 
     if (validateBody.error === false) {
+      setSpinner(true);
       let response = await UserService.confirmPassword(body);
-      console.log(response);
+      setSpinner(false);
 
       if (validateConfirmPasswordResponse(response)) {
         setPassword("");
         setConfirmPassword("");
         setCode("");
         setAlert(emptyAlert);
+        setStep("Login");
       } else if (response.status == 500) {
         setAlert({
           visible: true,
@@ -115,6 +118,7 @@ export default function ConfirmPassword() {
           title="Reset Password"
           path=""
           onClick={(e) => onClick(e)}
+          spinner={spinner}
         />
         <TextButtonWrapper>
           <Subtitle>Remember your password?</Subtitle>

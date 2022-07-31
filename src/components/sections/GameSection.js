@@ -5,6 +5,9 @@ import { H3 } from "../styles/TextStyles"
 import ReusableTextField from "../textfield/ReusableTextField"
 import GameCard from "../cards/GameCard"
 
+import { gameRecentData } from "../../data/gameRecentData"
+import { gameAllData } from "../../data/gameAllData"
+
 export default function GameSection() {
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
@@ -33,9 +36,8 @@ export default function GameSection() {
       </GraphicWrapper>
     )
   }
-  const gameCardColor =
-    "radial-gradient(218.51% 281.09% at 100% 100%, rgba(253, 63, 51, 0.7) 0%, rgba(76, 0, 200, 0.7) 45.83%, rgba(76, 0, 200, 0.7) 100%)"
 
+  // FIXME: add media queries and figure out grid a little bit more
   return (
     <Wrapper>
       <ContentWrapper>
@@ -43,16 +45,13 @@ export default function GameSection() {
           <LeftColumnWrapper>
             <LeftColumnTitle>Recent</LeftColumnTitle>
             <LeftGameCardWrapper>
-              <GameCard
-                title="Icebreakers"
-                description="Get to know each other!"
-                color={gameCardColor}
-              />
-              <GameCard
-                title="Icebreakers"
-                description="Get to know each other!"
-                color={gameCardColor}
-              />
+              {gameRecentData.map((item, index) => (
+                <GameCard
+                  title={item.title}
+                  description={item.description}
+                  color={item.color}
+                />
+              ))}
             </LeftGameCardWrapper>
           </LeftColumnWrapper>
         </ScreenWrapper>
@@ -60,26 +59,13 @@ export default function GameSection() {
           <RightColumnWrapper>
             <RightColumnTitle>All Games</RightColumnTitle>
             <RightGameCardWrapper>
-              <GameCard
-                title="Icebreakers"
-                description="Get to know each other!"
-                color={gameCardColor}
-              />
-              <GameCard
-                title="Icebreakers"
-                description="Get to know each other!"
-                color={gameCardColor}
-              />
-              <GameCard
-                title="Icebreakers"
-                description="Get to know each other!"
-                color={gameCardColor}
-              />
-              <GameCard
-                title="Icebreakers"
-                description="Get to know each other!"
-                color={gameCardColor}
-              />
+              {gameAllData.map((item, index) => (
+                <GameCard
+                  title={item.title}
+                  description={item.description}
+                  color={item.color}
+                />
+              ))}
             </RightGameCardWrapper>
           </RightColumnWrapper>
         </ScreenWrapper>

@@ -141,6 +141,44 @@ export function validateConfirmPasswordData(passwordData) {
   return body;
 }
 
+export function validateLoginData(login) {
+  const { username, password } = login;
+
+  let body = {
+    error: false,
+    status: "",
+    title: "",
+    subtitle: "",
+  };
+
+  body =
+    (isEmpty(username) || isEmpty(password)) && body.error === false
+      ? {
+          error: true,
+          status: "Error",
+          title: "Empty field",
+          subtitle: "One or more fields are empty.",
+          key: Math.random(),
+        }
+      : body;
+
+  body =
+    !isEmail(username) && body.error === false
+      ? {
+          error: true,
+          status: "Error",
+          title: "Incorrect email",
+          subtitle: "Enter a valid email format",
+          key: Math.random(),
+        }
+      : body;
+  return body;
+}
+
+export function validateLoginResponse(response) {
+  return response.status === 200;
+}
+
 export function validateForgotPasswordData(forgotPasswordData) {
   const { username } = forgotPasswordData;
   let body = defaultBody;

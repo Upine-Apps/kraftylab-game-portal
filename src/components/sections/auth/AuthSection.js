@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import BackButton from "../../buttons/mobile/BackButton";
 import { useState, useEffect } from "react";
-import Verification from "./Verification";
 import Registration from "./Registration";
 import ForgotPassword from "./ForgotPassword";
 import ConfirmPassword from "./ConfirmPassword";
@@ -14,11 +13,12 @@ export default function AuthSection() {
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
   });
-
-  // https://medium.com/how-to-react/create-multi-step-form-in-react-with-validation-4ac09129a3a8
-  // https://blog.devgenius.io/create-a-multi-step-form-with-reactjs-322aa97a2968#d22e
-  // https://stackoverflow.com/questions/46592833/how-to-use-switch-statement-inside-a-react-component
   const [step, setStep] = useState("Login");
+  // This value is to pass the username from forgot password to confirm password
+  const [username, setUsername] = useState("");
+
+  // This value is to pass the username from registration to verfication
+  const [registrationUsername, setRegistrationUsername] = useState("");
 
   const setDimension = () => {
     getDimension({
@@ -44,18 +44,27 @@ export default function AuthSection() {
   }
 
   function renderSwitch(param) {
-    console.log("step =", param);
     switch (param) {
       case "Login":
         return <Login setStep={setStep} />;
       case "Registration":
-        return <Registration setStep={setStep} />;
+        return (
+          <Registration
+            setStep={setStep}
+            setRegistrationUsername={setRegistrationUsername}
+          />
+        );
       case "Verification":
-        return <Verification setStep={setStep} />;
+        return (
+          <Verification
+            setStep={setStep}
+            registrationUsername={registrationUsername}
+          />
+        );
       case "ForgotPassword":
-        return <ForgotPassword setStep={setStep} />;
+        return <ForgotPassword setStep={setStep} setUsername={setUsername} />;
       case "ConfirmPassword":
-        return <ConfirmPassword setStep={setStep} />;
+        return <ConfirmPassword setStep={setStep} username={username} />;
       default:
         return <Login setStep={setStep} />;
     }
@@ -65,11 +74,7 @@ export default function AuthSection() {
     <Wrapper>
       <ContentWrapper>
         {screenSize.dynamicWidth > 450 ? renderDesktop() : ""}
-        <ScreenWrapper>
-          {/* <Registration /> */}
-          <ConfirmPassword />
-          {/* <ForgotPassword /> */}
-        </ScreenWrapper>
+        <ScreenWrapper>{renderSwitch(step)}</ScreenWrapper>
       </ContentWrapper>
     </Wrapper>
   );
