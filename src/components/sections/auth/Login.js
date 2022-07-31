@@ -52,8 +52,16 @@ export default function Login({ setStep }) {
       if (validateLoginResponse(response)) {
         setUsername("");
         setPassword("");
-        setAlert(emptyAlert);
-        navigate("/game-portal");
+        setAlert({
+          visible: true,
+          status: "Success",
+          title: response.message,
+          subtitle: "Logged in Successfully",
+          key: Math.random(),
+        });
+        setTimeout(function () {
+          navigate("/game-portal");
+        }, 2000);
       } else if (response.status == 500) {
         setAlert({
           visible: true,
