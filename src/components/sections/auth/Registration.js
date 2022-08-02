@@ -55,8 +55,16 @@ export default function Registration({ setStep, setRegistrationUsername }) {
         setEmail("");
         setPassword("");
         setConfirmPassword("");
-        setAlert(emptyAlert);
-        setStep("Verification");
+        setAlert({
+          visible: true,
+          status: "Success",
+          title: "Successfully registered",
+          subtitle: "Go ahead and log in!",
+          key: Math.random(),
+        });
+        setTimeout(function () {
+          setStep("/game-portal");
+        }, 2000);
       } else if (response.status == 500) {
         setAlert({
           visible: true,
