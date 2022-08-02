@@ -52,8 +52,8 @@ export default function ConfirmPassword({ setStep, username }) {
         setAlert({
           visible: true,
           status: "Success",
-          title: "Successfully reset password",
-          subtitle: "Log in with your new password",
+          title: "Reset Password",
+          subtitle: "Returning to login",
           key: Math.random(),
         });
         setTimeout(function () {
