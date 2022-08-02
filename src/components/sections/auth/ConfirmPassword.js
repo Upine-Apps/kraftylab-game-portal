@@ -49,8 +49,16 @@ export default function ConfirmPassword({ setStep, username }) {
         setPassword("");
         setConfirmPassword("");
         setCode("");
-        setAlert(emptyAlert);
-        setStep("Login");
+        setAlert({
+          visible: true,
+          status: "Success",
+          title: "Reset Password",
+          subtitle: "Returning to login",
+          key: Math.random(),
+        });
+        setTimeout(function () {
+          setStep("Login");
+        }, 2000);
       } else if (response.status == 500) {
         setAlert({
           visible: true,
