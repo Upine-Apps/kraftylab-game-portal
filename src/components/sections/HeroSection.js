@@ -117,14 +117,14 @@ const Wrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  width: 600px;
+  width: 300px;
   padding-top: 100px;
   display: grid;
   margin: 0 auto;
   align-content: end;
-  justify-content: center;
+  justify-content: initial;
   grid-template-rows: auto auto;
-  gap: 30px;
+  gap: 15px;
   @media (max-width: 450px) {
     grid-template-columns: auto;
     max-width: 450px;
