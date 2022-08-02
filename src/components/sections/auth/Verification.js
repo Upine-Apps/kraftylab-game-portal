@@ -53,7 +53,7 @@ export default function Verification({ setStep, registrationUsername }) {
         setAlert({
           visible: true,
           status: "Success",
-          title: "Successfully registered",
+          title: "Registered!",
           subtitle: "Go ahead and log in!",
           key: Math.random(),
         });
