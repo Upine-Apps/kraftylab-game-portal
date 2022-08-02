@@ -11,10 +11,10 @@ export default function ReusableButton(props) {
     return (
       <Link to={path}>
         <ButtonWrapper onClick={onClick}>
-          {spinner === false ? (
-            <Title>{title || "Submit"}</Title>
-          ) : (
+          {spinner === true ? (
             <DefaultSpinner />
+          ) : (
+            <Title>{title || "Submit"}</Title>
           )}
         </ButtonWrapper>
       </Link>
@@ -24,10 +24,10 @@ export default function ReusableButton(props) {
   function returnNoLink(title, onClick) {
     return (
       <ButtonWrapper onClick={onClick}>
-        {spinner === false ? (
-          <Title>{title || "Submit"}</Title>
-        ) : (
+        {spinner === true ? (
           <DefaultSpinner />
+        ) : (
+          <Title>{title || "Submit"}</Title>
         )}
       </ButtonWrapper>
     );
