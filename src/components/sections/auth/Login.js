@@ -55,8 +55,8 @@ export default function Login({ setStep }) {
         setAlert({
           visible: true,
           status: "Success",
-          title: response.message,
-          subtitle: "Logged in Successfully",
+          title: "Success",
+          subtitle: "Logged in successfully",
           key: Math.random(),
         });
         setTimeout(function () {
