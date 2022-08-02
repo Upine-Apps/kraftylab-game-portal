@@ -50,8 +50,16 @@ export default function Verification({ setStep, registrationUsername }) {
 
       if (validateVerificationResponse(response)) {
         setVerificationCode("");
-        setAlert(emptyAlert);
-        setStep("Login");
+        setAlert({
+          visible: true,
+          status: "Success",
+          title: "Successfully registered",
+          subtitle: "Go ahead and log in!",
+          key: Math.random(),
+        });
+        setTimeout(function () {
+          setStep("Login");
+        }, 2000);
       } else if (response.status == 500) {
         setAlert({
           visible: true,
