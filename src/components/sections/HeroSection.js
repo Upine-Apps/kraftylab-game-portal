@@ -5,6 +5,7 @@ import { H1, H3, MediumText } from "../styles/TextStyles";
 import ReusableButton from "../buttons/ReusableButton";
 import GameCard from "../cards/GameCard";
 import SlideShowButton from "../buttons/SlideShowButton";
+import ImageSlider from "../buttons/ImageSlider";
 
 function HeroSection() {
   const gameCardColor =
@@ -30,13 +31,7 @@ function HeroSection() {
         <RightColumnWrapper>
           <RightColumnTitle>Most Popular</RightColumnTitle>
           <GameCardWrapper>
-            <SlideShowButton direction="left" />
-            <GameCard
-              title="Icebreakers"
-              description="Get to know each other!"
-              color={gameCardColor}
-            />
-            <SlideShowButton direction="right" />
+            <ImageSlider></ImageSlider>
           </GameCardWrapper>
         </RightColumnWrapper>
       </ContentWrapper>

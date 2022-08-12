@@ -42,7 +42,6 @@ const TextWrapper = styled.div`
   gap: 30px;
   align-self: center;
   @media (max-width: 450px) {
-    
   }
 `;
 
