@@ -42,7 +42,7 @@ const ButtonWrapper = styled.button`
   width: 100%;
   background: #0067ff;
   border: 1px solid #0056d7;
-  border-radius: 4px;
+  border-radius: 24px; // changed, consider making new button component or mess around with border-radius and height, and color
   flex-direction: row;
   justify-content: center;
   align-items: center;
