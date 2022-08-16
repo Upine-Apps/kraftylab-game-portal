@@ -20,7 +20,13 @@ export default function GameCard(props) {
     </Wrapper>
   );
 }
-
+export const allGameData = [
+  {
+    title: { title },
+    description: { description },
+    color: { color },
+  },
+];
 const Wrapper = styled.div`
   position: relative;
   display: grid;
