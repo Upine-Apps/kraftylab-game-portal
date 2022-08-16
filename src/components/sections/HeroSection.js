@@ -3,9 +3,8 @@ import styled, { keyframes } from "styled-components";
 import { themes } from "../styles/ColorStyles";
 import { H1, H3, MediumText } from "../styles/TextStyles";
 import ReusableButton from "../buttons/ReusableButton";
-import GameCard from "../cards/GameCard";
-import SlideShowButton from "../buttons/SlideShowButton";
 import ImageSlider from "../buttons/ImageSlider";
+import { gameAllData } from "../../data/gameAllData";
 
 function HeroSection() {
   const gameCardColor =
@@ -30,9 +29,7 @@ function HeroSection() {
         <DividerWrapper></DividerWrapper>
         <RightColumnWrapper>
           <RightColumnTitle>Most Popular</RightColumnTitle>
-          <GameCardWrapper>
-            <ImageSlider></ImageSlider>
-          </GameCardWrapper>
+          <ImageSlider slides={gameAllData} />
         </RightColumnWrapper>
       </ContentWrapper>
     </Wrapper>
