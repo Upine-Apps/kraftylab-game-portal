@@ -9,17 +9,17 @@ const ImageSlider = ({ slides }) => {
 
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
-    clearInterval(timer);
+    clearInterval(timer); //without this the buttons can mess up the autoplay
   };
 
   const prevSlide = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
-    clearInterval(timer);
+    clearInterval(timer); //without this the buttons can mess up the autoplay
   };
 
   var timer = setInterval(function () {
     nextSlide();
-  }, 5000);
+  }, 5000); //this needs to be 500ms faster than line 26 or the animation breaks
 
   setTimeout(function () {
     clearInterval(timer);
