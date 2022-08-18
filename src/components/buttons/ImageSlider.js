@@ -9,10 +9,12 @@ const ImageSlider = ({ slides }) => {
 
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
+    clearInterval(timer);
   };
 
   const prevSlide = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
+    clearInterval(timer);
   };
 
   var timer = setInterval(function () {
