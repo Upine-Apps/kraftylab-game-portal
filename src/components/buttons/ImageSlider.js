@@ -15,6 +15,14 @@ const ImageSlider = ({ slides }) => {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
 
+  var timer = setInterval(function () {
+    nextSlide();
+  }, 2500);
+
+  setTimeout(function () {
+    clearInterval(timer);
+  }, 3000);
+
   if (!Array.isArray(slides) || slides.length <= 0) {
     return null;
   }
@@ -65,12 +73,12 @@ const Wrapper = styled.div`
     gap: 10px;
   }
   .item {
-    opacity: 0;
+    opacity: 0.3;
     transition-duration: 1s ease;
   }
   .item-active {
     opacity: 1;
-    transition-duration: 1s;
+    transition-duration: 2s;
     transform: scale(1.08);
   }
 `;
