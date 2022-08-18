@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BiRightArrow, BiLeftArrow } from "react-icons/bi";
 export default function SlideShowButton(props) {
-  const direction = props.direction;
+  const { direction, onClick } = props;
   const button =
     direction == "left" ? (
       <BiLeftArrow className="react-icons" />
@@ -11,7 +11,7 @@ export default function SlideShowButton(props) {
     );
 
   return (
-    <Wrapper>
+    <Wrapper onClick={onClick}>
       <IconWrapper direction={direction}>{button}</IconWrapper>
     </Wrapper>
   );
