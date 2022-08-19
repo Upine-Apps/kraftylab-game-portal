@@ -37,7 +37,7 @@ function TestHero() {
         color={color}
         category="Sports"
         subcategory="Baseball"
-        question="What is your favorite baseball park?"
+        question="Would you rather always have a full phone battery or oijeaoijaefoij oijaef oijf efeoifj"
       />
 
       <ReusableTextField title="Code" />

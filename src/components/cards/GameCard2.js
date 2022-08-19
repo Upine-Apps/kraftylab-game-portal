@@ -25,22 +25,26 @@ export default function GameCard2(props) {
 
 const Header = styled.div`
   display: flex;
+  margin-bottom: 15px;
 `;
 const HeaderText = styled.div``;
 const Image = styled.div`
   margin-left: auto;
   img {
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
   }
 `;
+
+// fixme: add a fixed width, not a fixed height (add min-height)
 
 const Wrapper = styled.div`
   position: relative;
   display: grid;
-  width: 100%;
-  height: 100%;
-  padding: 20px;
+  width: 600px;
+  min-height: 250px;
+  padding: 15px 0;
+  justify-content: center;
   background: ${(props) => (props.color ? props.color : "black")};
   border: 0.5px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0px 30px 60px rgba(99, 30, 187, 0.5);
@@ -79,9 +83,10 @@ const SubCategory = styled(BodyMain)`
 `;
 
 const Question = styled(BodyMain)`
-  font-size: 44px;
+  font-size: 36px;
   font-weight: 700;
-  margin-bottom: 25px;
+  width: 550px;
+  word-wrap: break-word;
   color: ${themes.dark.text1};
   text-align: center;
   @media (max-width: 450px) {
