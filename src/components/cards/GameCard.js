@@ -10,11 +10,12 @@ import {
 import { themes } from "../styles/ColorStyles";
 
 export default function GameCard(props) {
-  const { title, description, color } = props;
+  const { title, description, color, icon } = props;
   return (
     <Wrapper color={color}>
       <TextWrapper>
         <GameTitle>{title}</GameTitle>
+        <IconWrapper>{icon}</IconWrapper>
         <Description>{description}</Description>
       </TextWrapper>
     </Wrapper>
@@ -63,4 +64,18 @@ const Description = styled(SmallText)`
   @media (max-width: 450px) {
     font-size: 24px;
   }
+`;
+const IconWrapper = styled.div`
+  position: relative;
+  /* border: 1px solid white; */
+  position: static;
+  width: 20px;
+  height: 24px;
+  left: 56px;
+  top: 20px;
+  transform: translateY(50px);
+  margin: auto;
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  justify-items: center;
 `;

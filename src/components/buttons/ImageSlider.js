@@ -34,6 +34,7 @@ const ImageSlider = ({ slides }) => {
                   title={item.title}
                   description={item.description}
                   color={item.color}
+                  icon={item.icon}
                 />
               )}
             </div>
