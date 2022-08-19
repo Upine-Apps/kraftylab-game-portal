@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { BodyMain, SmallText } from "../styles/TextStyles";
 import { themes } from "../styles/ColorStyles";
+import { IoRefresh } from "react-icons/io5";
 
 export default function GameCard2(props) {
   const { category, subcategory, question, color } = props;
   return (
     <Wrapper color={color}>
-      <TextWrapper>
+      <ContentWrapper>
         <Header>
           <HeaderText>
             <Category>{category}</Category>
@@ -18,11 +19,25 @@ export default function GameCard2(props) {
           </Image>
         </Header>
         <Question>{question}</Question>
-      </TextWrapper>
+        {/* <Refresh /> */}
+        <IconWrapper>
+          <IoRefresh />
+        </IconWrapper>
+      </ContentWrapper>
     </Wrapper>
   );
 }
 
+const IconWrapper = styled.button`
+  margin-left: auto;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+`;
 const Header = styled.div`
   display: flex;
   margin-bottom: 15px;
@@ -35,8 +50,6 @@ const Image = styled.div`
     height: 70px;
   }
 `;
-
-// fixme: add a fixed width, not a fixed height (add min-height)
 
 const Wrapper = styled.div`
   position: relative;
@@ -52,7 +65,7 @@ const Wrapper = styled.div`
   border-radius: 30px;
 `;
 
-const TextWrapper = styled.div`
+const ContentWrapper = styled.div`
   position: relative;
   width: 100%;
   display: grid;
@@ -91,25 +104,5 @@ const Question = styled(BodyMain)`
   text-align: center;
   @media (max-width: 450px) {
     font-size: 36px;
-  }
-`;
-
-const GameTitle = styled(BodyMain)`
-  font-size: 56px;
-  font-weight: 700;
-  color: ${themes.dark.text1};
-  text-align: start;
-  @media (max-width: 450px) {
-    font-size: 36px;
-  }
-`;
-
-const Description = styled(SmallText)`
-  font-weight: 400;
-  font-size: 28px;
-  color: rgba(255, 255, 255, 0.8);
-  text-align: start;
-  @media (max-width: 450px) {
-    font-size: 24px;
   }
 `;
