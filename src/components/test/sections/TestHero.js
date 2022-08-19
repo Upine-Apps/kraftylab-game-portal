@@ -39,7 +39,7 @@ function TestHero() {
         <ReusableTextField2
           title="Response"
           placeholder="Enter your response!"
-          onChange={(e) => onChange(e)}
+          onChange={(e) => setResponse(e.target.value)}
           value={response}
         />
         <ReusableTextField title="Last Name" onChange={onChange} />
