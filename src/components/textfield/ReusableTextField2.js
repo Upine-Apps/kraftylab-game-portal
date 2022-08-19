@@ -45,11 +45,3 @@ const InputField = styled.input`
     text-align: center;
   }
 `;
-
-const Label = styled(SmallText)`
-  margin-bottom: 6px;
-  text-align: left;
-
-  color: black;
-  line-height: 16px;
-`;
