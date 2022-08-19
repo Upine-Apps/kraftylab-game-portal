@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import SlideShowButton from "../../buttons/SlideShowButton";
 import ReusableButton from "../../buttons/ReusableButton";
+import ReusableButton2 from "../../buttons/ReusableButton2";
 import StatusAlert from "../../alerts/StatusAlert";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
@@ -28,6 +29,7 @@ function TestHero() {
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
       <ReusableButton title="Login" path="/" />
+      <ReusableButton2 title="Login" color="Red" />
       <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
       <DefaultSpinner />
 
@@ -49,7 +51,7 @@ export default TestHero;
 const Wrapper = styled.div`
   display: grid;
   position: relative;
-  max-width: 1234px;
+  max-width: 100px;
   margin: 0 auto;
   padding: 40px 30px 150px;
   display: grid;
