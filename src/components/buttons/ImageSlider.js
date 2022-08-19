@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GameCard from "../cards/GameCard";
 import SlideShowButton from "./SlideShowButton";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const ImageSlider = ({ slides }) => {
   const [current, setCurrent] = useState(0);
@@ -54,6 +54,12 @@ const ImageSlider = ({ slides }) => {
     </Wrapper>
   );
 };
+const animation = keyframes`
+  0% {opacity: 0;}
+  20% {opacity: 1;}
+  80% {opacity: 1;}
+  100% {opacity: 0;} 
+  `;
 
 export default ImageSlider;
 
@@ -79,9 +85,9 @@ const Wrapper = styled.div`
     transition-duration: 3s ease;
   }
   .item-active {
-    opacity: 1;
-    transition-duration: 4.5s;
+    transition-duration: 2s;
     transform: scale(1.08);
+    animation: ${animation} 5s forwards;
   }
 `;
 const GameCardWrapper = styled.div``;
