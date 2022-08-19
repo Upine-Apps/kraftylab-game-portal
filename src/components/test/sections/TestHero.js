@@ -8,10 +8,13 @@ import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
+import GameCard2 from "../../cards/GameCard2";
 
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const color =
+    "radial-gradient(218.51% 281.09% at 100% 100%, rgba(253, 233, 51, 0.6) 0%, rgba(52, 200, 0, 0.6) 45.83%, rgba(0, 200, 200, 0.6) 100%)";
 
   function onChange(e) {
     console.log(e.target.name, e.target.value);
@@ -30,6 +33,12 @@ function TestHero() {
       <ReusableButton title="Login" path="/" />
       <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
       <DefaultSpinner />
+      <GameCard2
+        color={color}
+        category="Sports"
+        subcategory="Baseball"
+        question="What is your favorite baseball park?"
+      />
 
       <ReusableTextField title="Code" />
       <form>
