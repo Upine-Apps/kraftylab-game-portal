@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import SlideShowButton from "../../buttons/SlideShowButton";
 import ReusableButton from "../../buttons/ReusableButton";
+import ReusableButton2 from "../../buttons/ReusableButton2";
 import StatusAlert from "../../alerts/StatusAlert";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import { themes } from "../../styles/ColorStyles";
@@ -19,8 +20,8 @@ function TestHero() {
 
   return (
     <Wrapper>
-      <Title>Test page</Title>
-      <Subtitle>Test out your components here</Subtitle>
+      {/* <Title>Test page</Title> */}
+      {/* <Subtitle>Test out your components here</Subtitle> */}
 
       <SlideShowButton direction="left" />
       <SlideShowButton direction="right" />
@@ -28,6 +29,10 @@ function TestHero() {
       <Password type="password" label="Password" placeholder="Enter Password" />
       <ReusableButton title="Login" />
       <ReusableButton title="Login" path="/" />
+      <ButtonWrapper>
+        <ReusableButton2 title="Login" color="Red" />
+      </ButtonWrapper>
+
       <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
       <DefaultSpinner />
 
@@ -46,10 +51,12 @@ function TestHero() {
 
 export default TestHero;
 
+const ButtonWrapper = styled.div`
+  max-width: 100px;
+`;
 const Wrapper = styled.div`
   display: grid;
   position: relative;
-  max-width: 1234px;
   margin: 0 auto;
   padding: 40px 30px 150px;
   display: grid;
