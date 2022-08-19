@@ -4,6 +4,7 @@ import SlideShowButton from "../../buttons/SlideShowButton";
 import ReusableButton from "../../buttons/ReusableButton";
 import StatusAlert from "../../alerts/StatusAlert";
 import ReusableTextField from "../../textfield/ReusableTextField";
+import ReusableTextField2 from "../../textfield/ReusableTextField2";
 import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
@@ -12,6 +13,7 @@ import DefaultSpinner from "../../spinners/DefaultSpinner";
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [response, setResponse] = useState("");
 
   function onChange(e) {
     console.log(e.target.name, e.target.value);
@@ -34,6 +36,12 @@ function TestHero() {
       <ReusableTextField title="Code" />
       <form>
         <ReusableTextField title="First Name" onChange={onChange} />
+        <ReusableTextField2
+          title="Response"
+          placeholder="Enter your response!"
+          onChange={(e) => onChange(e)}
+          value={response}
+        />
         <ReusableTextField title="Last Name" onChange={onChange} />
         <ReusableTextField title="Email" onChange={onChange} />
         {/* <ReusableTextField onChange={onChange} /> */}
