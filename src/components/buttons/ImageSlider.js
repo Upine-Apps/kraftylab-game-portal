@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GameCard from "../cards/GameCard";
 import SlideShowButton from "./SlideShowButton";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const ImageSlider = ({ slides }) => {
   const [current, setCurrent] = useState(0);
@@ -9,11 +9,21 @@ const ImageSlider = ({ slides }) => {
 
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
+    clearInterval(timer); //without this the buttons can mess up the autoplay
   };
 
   const prevSlide = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
+    clearInterval(timer); //without this the buttons can mess up the autoplay
   };
+
+  var timer = setInterval(function () {
+    nextSlide();
+  }, 5000); //this needs to be 500ms faster than line 26 or the animation breaks
+
+  setTimeout(function () {
+    clearInterval(timer);
+  }, 5500);
 
   if (!Array.isArray(slides) || slides.length <= 0) {
     return null;
@@ -45,6 +55,12 @@ const ImageSlider = ({ slides }) => {
     </Wrapper>
   );
 };
+const animation = keyframes`
+  0% {opacity: 0;}
+  20% {opacity: 1;}
+  80% {opacity: 1;}
+  100% {opacity: 0;} 
+  `;
 
 export default ImageSlider;
 
@@ -66,13 +82,13 @@ const Wrapper = styled.div`
     gap: 10px;
   }
   .item {
-    opacity: 0;
-    transition-duration: 1s ease;
+    opacity: 0.2;
+    transition-duration: 3s ease;
   }
   .item-active {
-    opacity: 1;
-    transition-duration: 1s;
+    transition-duration: 2s;
     transform: scale(1.08);
+    animation: ${animation} 5s forwards;
   }
 `;
 const GameCardWrapper = styled.div``;
