@@ -68,9 +68,9 @@ const Description = styled(SmallText)`
   }
 `;
 const IconWrapper = styled.div`
-  position: relative;
-  position: static;
+  position: absolute;
   display: grid;
   grid-template-rows: auto auto auto auto;
-  justify-items: center;
+  justify-items: right;
+  margin-left: 350px;
 `;
