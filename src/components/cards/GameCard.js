@@ -33,7 +33,7 @@ const Wrapper = styled.div`
   background: ${(props) => (props.color ? props.color : "black")};
   border: 0.5px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0px 30px 60px rgba(99, 30, 187, 0.5);
-  backdrop-filter: blur(40px);
+  //backdrop-filter: blur(40px);//
   border-radius: 30px;
 `;
 
@@ -51,7 +51,7 @@ const TextWrapper = styled.div`
 const GameTitle = styled(BodyMain)`
   font-size: 56px;
   font-weight: 700;
-  color: ${themes.dark.text1};
+  color: black;
   text-align: start;
   @media (max-width: 450px) {
     font-size: 36px;
@@ -61,19 +61,16 @@ const GameTitle = styled(BodyMain)`
 const Description = styled(SmallText)`
   font-weight: 400;
   font-size: 28px;
-  color: rgba(255, 255, 255, 0.8);
+  color: black;
   text-align: start;
   @media (max-width: 450px) {
     font-size: 24px;
   }
 `;
 const IconWrapper = styled.div`
-position: relative;
-width: 100%;
-display: grid;
-grid-template-rows: auto auto;
-gap: 30px;
-align-self: right;
-@media (max-width: 450px) {
-}
+  position: relative;
+  position: static;
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  justify-items: center;
 `;
