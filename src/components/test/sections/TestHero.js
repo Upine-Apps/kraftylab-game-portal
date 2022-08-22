@@ -58,7 +58,7 @@ const Wrapper = styled.div`
   @media (max-width: 450px) {
     grid-template-columns: auto;
   }
-  background-color: black;
+  background-color: lightblue;
 `;
 
 const Title = styled(H1)`
