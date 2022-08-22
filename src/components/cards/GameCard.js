@@ -68,16 +68,12 @@ const Description = styled(SmallText)`
   }
 `;
 const IconWrapper = styled.div`
-  position: relative;
-  /* border: 1px solid white; */
-  position: static;
-  width: 20px;
-  height: 24px;
-  left: 56px;
-  top: 20px;
-  transform: translateY(50px);
-  margin: auto;
-  display: grid;
-  grid-template-rows: auto auto auto auto;
-  justify-items: center;
+position: relative;
+width: 100%;
+display: grid;
+grid-template-rows: auto auto;
+gap: 30px;
+align-self: right;
+@media (max-width: 450px) {
+}
 `;
