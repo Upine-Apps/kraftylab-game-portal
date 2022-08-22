@@ -15,7 +15,9 @@ export default function GameCard(props) {
     <Wrapper color={color}>
       <TextWrapper>
         <GameTitle>{title}</GameTitle>
-        <IconWrapper>{icon}</IconWrapper>
+        <IconWrapper>
+          <img src={icon} alt="Icon" className="iceBreakerIcon" />
+        </IconWrapper>
         <Description>{description}</Description>
       </TextWrapper>
     </Wrapper>
