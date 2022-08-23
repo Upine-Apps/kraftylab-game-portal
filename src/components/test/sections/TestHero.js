@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import SlideShowButton from "../../buttons/SlideShowButton";
 import ReusableButton from "../../buttons/ReusableButton";
@@ -8,19 +8,41 @@ import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
-
+import DropDownButton from "../../buttons/DropDownBox";
+import MenuTooltip from "../../tooltips/MenuTooltip";
+import MenuButton from "../../buttons/MenuButton";
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const tooltipRef = useRef();
 
   function onChange(e) {
     console.log(e.target.name, e.target.value);
+  }
+  function handleClick(event) {
+    setIsOpen(!isOpen);
+    event.preventDefault();
   }
 
   return (
     <Wrapper>
       <Title>Test page</Title>
       <Subtitle>Test out your components here</Subtitle>
+
+      <HamburgerWrapper>
+        <MenuButton
+          item={{
+            title: "Drop Down",
+            icon: "/images/icons/hamburger.svg",
+            link: "/",
+          }}
+          onClick={(event) => handleClick(event)}
+        />
+      </HamburgerWrapper>
+      <div ref={tooltipRef}>
+        <MenuTooltip isOpen={isOpen} />
+      </div>
 
       <SlideShowButton direction="left" />
       <SlideShowButton direction="right" />
@@ -108,4 +130,10 @@ const NameWrapper = styled.div`
       text-align: left;
     }
   }
+`;
+
+const HamburgerWrapper = styled.div`
+  @media (max-width: 768px) {
+    display: block;
+  } ;
 `;
