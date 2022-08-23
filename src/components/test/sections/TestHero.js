@@ -8,9 +8,8 @@ import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
-import DropDownButton from "../../buttons/DropDownBox";
 import MenuTooltip from "../../tooltips/MenuTooltip";
-import MenuButton from "../../buttons/MenuButton";
+
 function TestHero() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -29,20 +28,6 @@ function TestHero() {
     <Wrapper>
       <Title>Test page</Title>
       <Subtitle>Test out your components here</Subtitle>
-
-      <HamburgerWrapper>
-        <MenuButton
-          item={{
-            title: "Drop Down",
-            icon: "/images/icons/hamburger.svg",
-            link: "/",
-          }}
-          onClick={(event) => handleClick(event)}
-        />
-      </HamburgerWrapper>
-      <div ref={tooltipRef}>
-        <MenuTooltip isOpen={isOpen} />
-      </div>
 
       <SlideShowButton direction="left" />
       <SlideShowButton direction="right" />
