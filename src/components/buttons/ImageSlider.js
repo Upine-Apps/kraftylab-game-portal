@@ -9,14 +9,14 @@ const ImageSlider = ({ slides }) => {
 
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
-    //clearInterval(timer); //without this the buttons can mess up the autoplay
+    clearInterval(timer); //without this the buttons can mess up the autoplay
   };
 
   const prevSlide = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
-    //clearInterval(timer); //without this the buttons can mess up the autoplay
+    clearInterval(timer); //without this the buttons can mess up the autoplay
   };
-  /*
+
   var timer = setInterval(function () {
     nextSlide();
   }, 5000); //this needs to be 500ms faster than line 26 or the animation breaks
@@ -24,7 +24,7 @@ const ImageSlider = ({ slides }) => {
   setTimeout(function () {
     clearInterval(timer);
   }, 5500);
-*/
+
   if (!Array.isArray(slides) || slides.length <= 0) {
     return null;
   }
@@ -88,7 +88,7 @@ const Wrapper = styled.div`
   .item-active {
     transition-duration: 2s;
     transform: scale(1.08);
-    //animation: ${animation} 5s forwards;
+    animation: ${animation} 5s forwards;
   }
 `;
 const GameCardWrapper = styled.div``;
