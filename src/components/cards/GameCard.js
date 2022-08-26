@@ -1,37 +1,39 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  BodyIntro,
-  BodyMain,
-  Caption,
-  MediumText,
-  SmallText,
-} from "../styles/TextStyles";
-import { themes } from "../styles/ColorStyles";
+import { MediumText, H2 } from "../styles/TextStyles";
 
 export default function GameCard(props) {
-  const { title, description, color } = props;
+  const { title, description, color, icon } = props;
   return (
     <Wrapper color={color}>
-      <TextWrapper>
-        <GameTitle>{title}</GameTitle>
-        <Description>{description}</Description>
-      </TextWrapper>
+      <CardWrapper>
+        <TextWrapper>
+          <GameTitle>{title}</GameTitle>
+          <Description>{description}</Description>
+        </TextWrapper>
+        <IconWrapper>
+          <img src={icon} alt="Icon" className="iceBreakerIcon" />
+        </IconWrapper>
+      </CardWrapper>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   position: relative;
-  display: grid;
   width: 100%;
-  height: 100%;
+  height: 247px;
   padding: 20px;
   background: ${(props) => (props.color ? props.color : "black")};
   border: 0.5px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0px 30px 60px rgba(99, 30, 187, 0.5);
-  backdrop-filter: blur(40px);
   border-radius: 30px;
+`;
+
+const CardWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 `;
 
 const TextWrapper = styled.div`
@@ -39,28 +41,14 @@ const TextWrapper = styled.div`
   width: 100%;
   display: grid;
   grid-template-rows: auto auto;
-  gap: 30px;
-  align-self: center;
-  @media (max-width: 450px) {
-  }
+  gap: 35px;
 `;
 
-const GameTitle = styled(BodyMain)`
-  font-size: 56px;
-  font-weight: 700;
-  color: ${themes.dark.text1};
+const GameTitle = styled(H2)`
+  height: 100px;
   text-align: start;
-  @media (max-width: 450px) {
-    font-size: 36px;
-  }
+  padding-top: 30px;
 `;
 
-const Description = styled(SmallText)`
-  font-weight: 400;
-  font-size: 28px;
-  color: rgba(255, 255, 255, 0.8);
-  text-align: start;
-  @media (max-width: 450px) {
-    font-size: 24px;
-  }
-`;
+const Description = styled(MediumText)``;
+const IconWrapper = styled.div``;
