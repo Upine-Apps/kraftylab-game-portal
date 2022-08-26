@@ -8,6 +8,7 @@ import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
+import dropDownBox from "../../buttons/DropDownBox";
 import MenuTooltip from "../../tooltips/MenuTooltip";
 
 function TestHero() {
@@ -28,6 +29,8 @@ function TestHero() {
     <Wrapper>
       <Title>Test page</Title>
       <Subtitle>Test out your components here</Subtitle>
+
+      <dropDownBox></dropDownBox>
 
       <SlideShowButton direction="left" />
       <SlideShowButton direction="right" />
