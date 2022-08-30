@@ -8,14 +8,29 @@ import { themes } from "../../styles/ColorStyles";
 import { H1, MediumText } from "../../styles/TextStyles";
 import Password from "../../textfield/CustomPasswordField";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
-import dropDownBox from "../../buttons/DropDownBox";
+import DropDownBox from "../../buttons/DropDownBox";
 import MenuTooltip from "../../tooltips/MenuTooltip";
 
 function TestHero() {
+  const options = ["dog", "cat", "mouse"];
+  const options2 = ["red", "green", "blue"];
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedDropdown, setSelectedDropdown] = useState(options[0]);
+  const [selectedDropdown2, setSelectedDropdown2] = useState(options2[0]);
   const tooltipRef = useRef();
+
+  function onChangeDropdown(e) {
+    console.log(selectedDropdown);
+    setSelectedDropdown(e);
+    console.log(selectedDropdown);
+  }
+  function onChangeDropdown2(e) {
+    console.log(selectedDropdown2);
+    setSelectedDropdown2(e);
+    console.log(selectedDropdown2);
+  }
 
   function onChange(e) {
     console.log(e.target.name, e.target.value);
@@ -25,11 +40,19 @@ function TestHero() {
     event.preventDefault();
   }
 
+  function showAnswer() {
+    console.log(selectedDropdown);
+  }
+
+  function showAnswer2() {
+    console.log(selectedDropdown2);
+  }
+
   return (
     <Wrapper>
       <Title>Test page</Title>
       <Subtitle>Test out your components here</Subtitle>
-
+      {/* 
       <dropDownBox></dropDownBox>
 
       <SlideShowButton direction="left" />
@@ -46,10 +69,23 @@ function TestHero() {
         <ReusableTextField title="First Name" onChange={onChange} />
         <ReusableTextField title="Last Name" onChange={onChange} />
         <ReusableTextField title="Email" onChange={onChange} />
-        {/* <ReusableTextField onChange={onChange} /> */}
-        {/* <input type="submit" /> */}
-      </form>
+        
+      {/* <input type="submit" /> */}
+      {/* </form> */}
       {/* <LoginPage></LoginPage> */}
+
+      <DropDownBox
+        options={options}
+        selected={selectedDropdown}
+        onChange={(e) => onChangeDropdown(e)}
+      />
+      <DropDownBox
+        options={options2}
+        selected={selectedDropdown2}
+        onChange={(e) => onChangeDropdown2(e)}
+      />
+      <ReusableButton title="Click me!" onClick={showAnswer} />
+      <ReusableButton title="Click me too!" onClick={showAnswer2} />
     </Wrapper>
   );
 }
