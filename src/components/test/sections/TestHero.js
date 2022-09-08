@@ -78,13 +78,11 @@ function TestHero() {
         options={options}
         selected={selectedDropdown}
         onChange={(e) => onChangeDropdown(e)}
-        isOpen={isOpen}
       />
       <DropDownBox
         options={options2}
         selected={selectedDropdown2}
         onChange={(e) => onChangeDropdown2(e)}
-        isOpen={isOpen}
       />
       <ReusableButton title="Click me!" onClick={showAnswer} />
       <ReusableButton title="Click me too!" onClick={showAnswer2} />

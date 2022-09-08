@@ -5,26 +5,20 @@ import styled from "styled-components";
 import { useState } from "react";
 
 export default function DropDownBox(props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [bord, setBord] = useState("10px 10px 10px 10px");
   const { options, selected, onChange } = props;
 
-  const handleOnChange = (e) => {
-    setIsOpen(!isOpen);
-    onChange(e);
-  };
-
   return (
-    <DropdownWrapper onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>
+    <DropdownWrapper>
       <Dropdown
         options={options}
-        onChange={(e) => handleOnChange(e)}
+        onChange={(e) => onChange(e)}
         value={selected}
         placeholder="Select an option"
         className="dropdown-class"
         menuClassName="menu-class"
         placeholderClassName="placeholder-class"
         controlClassName="control-class"
+        arrowClassName="arrow-class"
       />
     </DropdownWrapper>
   );
@@ -34,39 +28,48 @@ const DropdownWrapper = styled.div`
   padding: 10px;
 
   .control-class {
+    height: 60px;
     background-color: white;
-    border: 1px solid gray;
-
+    outline: 0.5px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     text-align: start;
-    padding: 20px 0 20px 10px;
-
+    padding-top: 15px;
     font-size: 24px;
-    /* border-radius: ${(props) =>
-      props.isOpen ? "10px 10px 0 0" : "10px"}; */
-    -webkit-transition: none !important;
-    -moz-transition: none !important;
-    -o-transition: none !important;
-    transition: none !important;
   }
   .placeholder-class {
   }
   .dropdown-class {
-    /* margin-top: 25px; */
     background-color: red;
     border-radius: 25px;
   }
   .menu-class {
     margin-top: 25px;
+    outline: 0.5px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     text-align: start;
     font-size: 24px;
-    /* outline: 1px solid white; */
-    border: 0px;
+
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 0 10px 10px 0;
+    }
 
     ::-webkit-scrollbar-thumb {
-      border-radius: 20px; /* roundness of the scroll thumb */
+      background: #0067ff;
+      border-radius: 0 10px 10px 0;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0067ee;
     }
     scrollbar-width: thin;
+  }
+  .arrow-class {
+    margin-top: 12.5px;
   }
 `;
