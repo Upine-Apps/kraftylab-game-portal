@@ -1,21 +1,21 @@
-import React, { useRef, useState } from "react"
-import { Link } from "gatsby"
-import styled from "styled-components"
-import { snugMenuData } from "../../data/menuData"
-import MenuButton from "../buttons/MenuButton"
-import SnugMenuTooltip from "../tooltips/SnugMenuTooltip"
-import { useEffect } from "react"
+import React, { useRef, useState } from "react";
+import { Link } from "gatsby";
+import styled from "styled-components";
+import { snugMenuData } from "../../data/menuData";
+import MenuButton from "../buttons/MenuButton";
+import SnugMenuTooltip from "../tooltips/SnugMenuTooltip";
+import { useEffect } from "react";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const ref = useRef()
+  const ref = useRef();
 
-  const tooltipRef = useRef()
+  const tooltipRef = useRef();
 
   function handleClick(event) {
-    setIsOpen(!isOpen)
-    event.preventDefault()
+    setIsOpen(!isOpen);
+    event.preventDefault();
   }
 
   function handleClickOutside(event) {
@@ -24,17 +24,17 @@ export default function Header() {
       !ref.current.contains(event.target) &&
       !tooltipRef.current.contains(event.target)
     ) {
-      setIsOpen(false)
+      setIsOpen(false);
     }
   }
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <Wrapper>
@@ -47,7 +47,7 @@ export default function Header() {
         {snugMenuData.map((item, index) =>
           item.link === "/account" ? (
             <MenuButton
-              onClick={event => handleClick(event)}
+              onClick={(event) => handleClick(event)}
               item={item}
               key={index}
             />
@@ -58,7 +58,7 @@ export default function Header() {
         <HamburgerWrapper>
           <MenuButton
             item={{ title: "", icon: "/images/icons/hamburger.svg", link: "/" }}
-            onClick={event => handleClick(event)}
+            onClick={(event) => handleClick(event)}
           />
         </HamburgerWrapper>
       </MenuWrapper>
@@ -66,7 +66,7 @@ export default function Header() {
         <SnugMenuTooltip isOpen={isOpen} />
       </div>
     </Wrapper>
-  )
+  );
 }
 
 const LinkWrapper = styled.div`
@@ -74,7 +74,7 @@ const LinkWrapper = styled.div`
   @media (max-width: 450px) {
     width: 44px;
   }
-`
+`;
 
 const Wrapper = styled.div`
   position: absolute;
@@ -93,12 +93,12 @@ const Wrapper = styled.div`
     top: 20px;
     padding: 0 20px;
   }
-`
+`;
 
 const MenuWrapper = styled.div`
   display: grid;
   gap: 30px;
-  grid-template-columns: repeat(${props => props.count}, auto);
+  grid-template-columns: repeat(${(props) => props.count}, auto);
 
   @media (max-width: 768px) {
     > a {
@@ -106,11 +106,11 @@ const MenuWrapper = styled.div`
     }
     grid-template-columns: auto;
   }
-`
+`;
 
 const HamburgerWrapper = styled.div`
   display: none;
   @media (max-width: 768px) {
     display: block;
   } ;
-`
+`;

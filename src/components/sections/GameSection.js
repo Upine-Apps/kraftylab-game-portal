@@ -1,43 +1,45 @@
-import React from "react"
-import styled from "styled-components"
-import { useState, useEffect } from "react"
-import { H3 } from "../styles/TextStyles"
-import ReusableTextField from "../textfield/ReusableTextField"
-import GameCard from "../cards/GameCard"
+import React from "react";
+import styled from "styled-components";
+import { useState, useEffect } from "react";
+import { H3 } from "../styles/TextStyles";
+import ReusableTextField from "../textfield/ReusableTextField";
+import GameCard from "../cards/GameCard";
 
-import { gameRecentData } from "../../data/gameRecentData"
-import { gameAllData } from "../../data/gameAllData"
+import { gameRecentData } from "../../data/gameRecentData";
+import { gameAllData } from "../../data/gameAllData";
 
 export default function GameSection() {
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
-  })
+  });
 
   const setDimension = () => {
     getDimension({
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight,
-    })
-  }
+    });
+  };
+
+  const enterGame = () => {
+    console.log("Clicked");
+  };
 
   useEffect(() => {
-    window.addEventListener("resize", setDimension)
+    window.addEventListener("resize", setDimension);
 
     return () => {
-      window.removeEventListener("resize", setDimension)
-    }
-  }, [screenSize])
+      window.removeEventListener("resize", setDimension);
+    };
+  }, [screenSize]);
 
   function renderDesktop() {
     return (
       <GraphicWrapper>
         <Graphic src="images/auth/auth-graphic.svg" />
       </GraphicWrapper>
-    )
+    );
   }
-
-  // FIXME: add media queries and figure out grid a little bit more
   return (
     <Wrapper>
       <ContentWrapper>
@@ -50,6 +52,10 @@ export default function GameSection() {
                   title={item.title}
                   description={item.description}
                   color={item.color}
+                  icon={item.icon}
+                  iconSize={"60px"}
+                  onClick={enterGame}
+                  path={item.path ? item.path : null}
                 />
               ))}
             </LeftGameCardWrapper>
@@ -64,6 +70,9 @@ export default function GameSection() {
                   title={item.title}
                   description={item.description}
                   color={item.color}
+                  icon={item.icon}
+                  iconSize={"60px"}
+                  path={item.path ? item.path : null}
                 />
               ))}
             </RightGameCardWrapper>
@@ -71,13 +80,14 @@ export default function GameSection() {
         </ScreenWrapper>
       </ContentWrapper>
     </Wrapper>
-  )
+  );
 }
 
 const Wrapper = styled.div`
-  height: 100%;
+  position: absolute;
   width: 100%;
-`
+  top: 200px;
+`;
 
 const ContentWrapper = styled.div`
   display: grid;
@@ -87,7 +97,7 @@ const ContentWrapper = styled.div`
   @media (max-width: 450px) {
     display: inline;
   }
-`
+`;
 
 const GraphicWrapper = styled.div`
   display: grid;
@@ -98,12 +108,12 @@ const GraphicWrapper = styled.div`
   @media (max-width: 450px) {
     display: hidden;
   }
-`
+`;
 
 const Graphic = styled.img`
   width: 75%;
   height: 100%;
-`
+`;
 
 const ScreenWrapper = styled.div`
   @media (max-width: 450px) {
@@ -113,7 +123,7 @@ const ScreenWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
   }
-`
+`;
 
 const LeftColumnWrapper = styled.div`
   margin: 0 auto;
@@ -124,7 +134,7 @@ const LeftColumnWrapper = styled.div`
     padding: 0 30px;
     max-width: none;
   }
-`
+`;
 
 const RightColumnWrapper = styled.div`
   margin: 0 auto;
@@ -136,7 +146,7 @@ const RightColumnWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
   }
-`
+`;
 
 const LeftColumnTitle = styled(H3)`
   text-align: left;
@@ -144,7 +154,7 @@ const LeftColumnTitle = styled(H3)`
   margin-bottom: 20px;
   padding-bottom: 20px;
   width: 300px;
-`
+`;
 
 const RightColumnTitle = styled(H3)`
   text-align: left;
@@ -152,17 +162,17 @@ const RightColumnTitle = styled(H3)`
   margin-bottom: 20px;
   padding-bottom: 20px;
   width: 300px;
-`
+`;
 
 const LeftGameCardWrapper = styled.div`
   grid-row-gap: 25px;
   display: grid;
   grid-template-rows: 50% 50%;
-`
+`;
 
 const RightGameCardWrapper = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
   grid-column-gap: 25px;
   grid-row-gap: 25px;
-`
+`;
