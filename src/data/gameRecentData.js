@@ -9,7 +9,7 @@ export const gameRecentData = [
       "radial-gradient(218.51% 281.09% at 100% 100%, rgba(179, 202, 248, 0.6) 0%, rgba(181, 205, 251, 0.6) 45.83%, rgba(253, 63, 51, 0.6) 100%)",
 
     icon: "images/icons/iceBreakerIcon.svg",
-    path: "/",
+    path: "/icebreaker",
   },
   {
     title: "Coming Soon",

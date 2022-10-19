@@ -1,8 +1,9 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-export default function DefaultSpinner() {
-  return <SpinnerWrapper />;
+export default function DefaultSpinner(props) {
+  const { isDark } = props;
+  return <SpinnerWrapper isDark={isDark} />;
 }
 
 const rotation = keyframes`
@@ -11,7 +12,7 @@ const rotation = keyframes`
 `;
 
 const SpinnerWrapper = styled.div`
-  border: 2px solid white;
+  border: ${(props) => (props.isDark ? "2px solid black" : "2px solid white")};
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;

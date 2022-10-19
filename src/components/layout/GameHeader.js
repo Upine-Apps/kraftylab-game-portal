@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <Wrapper>
       <LinkWrapper>
-        <Link to="/">
+        <Link to="/game-portal">
           <Title>Krafty Lab Games </Title>
         </Link>
       </LinkWrapper>

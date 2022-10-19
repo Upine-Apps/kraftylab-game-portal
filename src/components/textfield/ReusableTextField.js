@@ -1,20 +1,20 @@
-import React from "react"
-import styled from "styled-components"
-import { SmallText } from "../styles/TextStyles"
+import React from "react";
+import styled from "styled-components";
+import { SmallText } from "../styles/TextStyles";
 
 export default function ReusableTextField(props) {
-  const { title, onChange, value } = props
-  const type = "text"
+  const { title, onChange, value, label } = props;
+  const type = "text";
 
   return (
     <>
       <Wrapper>
-        <Label>{title || ""}</Label>
+        <Label>{label}</Label>
         <InputField
           name={title || "Field"}
           type={type}
           value={value}
-          placeholder={!title || "Please enter your " + title.toLowerCase()}
+          placeholder={title}
           onChange={(e) => onChange(e)}
           minLength="1"
           maxLength="100"
@@ -22,7 +22,7 @@ export default function ReusableTextField(props) {
         />
       </Wrapper>
     </>
-  )
+  );
 }
 
 const Wrapper = styled.div`
@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: left;
   position: relative;
-`
+`;
 
 const InputField = styled.input`
   background: #f8f8f8;
@@ -46,7 +46,7 @@ const InputField = styled.input`
     font-size: 12px;
     line-height: 21px;
   }
-`
+`;
 
 const Label = styled(SmallText)`
   margin-bottom: 6px;
@@ -54,4 +54,4 @@ const Label = styled(SmallText)`
 
   color: black;
   line-height: 16px;
-`
+`;
