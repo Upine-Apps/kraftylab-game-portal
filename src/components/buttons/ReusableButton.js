@@ -5,7 +5,7 @@ import { Caption } from "../styles/TextStyles";
 import DefaultSpinner from "../spinners/DefaultSpinner";
 
 export default function ReusableButton(props) {
-  const { title, onClick, path, spinner, width, borderRadius } = props;
+  const { title, onClick, path, spinner, width, borderRadius, color } = props;
 
   function returnLink(title, path, onClick) {
     return (
@@ -27,6 +27,7 @@ export default function ReusableButton(props) {
         onClick={onClick}
         width={width}
         borderRadius={borderRadius}
+        color={color}
       >
         {spinner === true ? (
           <DefaultSpinner />
@@ -44,8 +45,9 @@ export default function ReusableButton(props) {
 
 const ButtonWrapper = styled.button`
   width: ${(props) => (props.width ? props.width : "100%")};
-  background: #0067ff;
-  border: 1px solid #0056d7;
+  background: ${(props) => (props.color ? props.color : "#0067ff")};
+  border: ${(props) =>
+    props.color ? `1px solid ${props.color}` : "1px solid #0056d7"};
   border-radius: ${(props) =>
     props.borderRadius ? props.borderRadius : "4px"};
   flex-direction: row;
@@ -54,7 +56,6 @@ const ButtonWrapper = styled.button`
   padding: 14px 14px;
   gap: 10px;
   cursor: pointer;
-  margin-bottom: 25px;
 `;
 
 const Title = styled(Caption)`

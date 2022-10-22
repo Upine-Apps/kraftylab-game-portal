@@ -53,6 +53,7 @@ export default function IcebreakerCard(props) {
 
 const Wrapper = styled.div`
   position: relative;
+  min-width: 500px;
   padding: 15px;
   background: ${(props) => (props.color ? props.color : "black")};
   border: 0.5px solid rgba(255, 255, 255, 0.3);

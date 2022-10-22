@@ -26,4 +26,29 @@ export default class IcebreakerService {
       return error.response.data;
     }
   }
+
+  static async getIcebreakerCategories() {
+    try {
+      const res = await axios.get(`${this.hostUrl}/categories`, {
+        headers: this.headers,
+      });
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
+  static async getIcebreakerSubCategories(category) {
+    try {
+      const res = await axios.get(`${this.hostUrl}/subcategories`, {
+        params: { category: category },
+        headers: this.headers,
+      });
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 }

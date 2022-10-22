@@ -1,21 +1,17 @@
-import React from "react";
+import React, { Suspense } from "react";
 import styled, { keyframes } from "styled-components";
 import { useState, useEffect } from "react";
-import { H3 } from "../../styles/TextStyles";
 import ReusableButton from "../../buttons/ReusableButton";
 import IcebreakerCard from "../../cards/IcebreakerCard";
-import { icebreakerData } from "../../../data/icebreakerData";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import IcebreakerService from "../../../service/IcebreakerService";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
 import { ColorData } from "../../../data/colorData";
-export default function IcebreakerSection() {
+
+export default function IcebreakerSection(props) {
+  const { changeStage, setIcebreaker, role } = props;
   const [code, setCode] = useState("");
   const [icebreakers, setIcebreakers] = useState([]);
-
-  const fetchData = async () => {
-    const data = await IcebreakerService.getAllIcebreakers();
-  };
 
   const getColor = () => {
     const colors = ColorData;
@@ -24,20 +20,28 @@ export default function IcebreakerSection() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await IcebreakerService.getAllIcebreakers();
-      setIcebreakers(data.sort(() => 0.5 - Math.random()).slice(0, 20));
-      console.log(typeof icebreakers);
+    let isMounted = true;
+    IcebreakerService.getAllIcebreakers().then((response) => {
+      if (isMounted) {
+        let data = response;
+        setIcebreakers(data.sort(() => 0.5 - Math.random()).slice(0, 20));
+      }
+    });
+    return () => {
+      isMounted = false;
     };
-    const data = fetchData().catch(console.error);
   }, []);
 
   async function onHostClick(e) {
-    console.log(e);
+    role("HOST");
+    setIcebreaker(icebreakers[0]);
+    changeStage("LOBBY");
   }
 
   async function onJoinClick(e) {
-    console.log(e);
+    role("PLAYER");
+    setIcebreaker(icebreakers[0]);
+    changeStage("LOBBY");
   }
 
   const icebreakerCard = () => {
@@ -63,7 +67,7 @@ export default function IcebreakerSection() {
   //slideshow functionality
 
   const [current, setCurrent] = useState(0);
-  const length = icebreakerData.length;
+  const length = icebreakers.length;
 
   const changeSlide = (direction) => {
     if (direction == "l") {
@@ -84,15 +88,10 @@ export default function IcebreakerSection() {
     clearInterval(timer);
   }, 7500);
 
-  if (!Array.isArray(icebreakerData) || icebreakerData.length <= 0) {
-    return null;
-  }
-
   return (
     <Wrapper>
       <ContentWrapper>
         <TopWrapper>{icebreakerCard()}</TopWrapper>
-
         <BottomWrapper>
           <ButtonRowWrapper>
             <ReusableButton
@@ -182,5 +181,5 @@ const ButtonRowWrapper = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   gap: 25px;
+  padding-bottom: 20px;
 `;
-const TextFieldWrapper = styled.div``;
