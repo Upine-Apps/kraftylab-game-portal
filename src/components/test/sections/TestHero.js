@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import SlideShowButton from "../../buttons/SlideShowButton";
 import ReusableButton from "../../buttons/ReusableButton";
@@ -10,16 +10,43 @@ import Password from "../../textfield/CustomPasswordField";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
 import DropDownBox from "../../buttons/DropDownBox";
 import MenuTooltip from "../../tooltips/MenuTooltip";
+import { io } from "socket.io-client";
+import socketService from "../../../service/SocketService";
+import gameService from "../../../service/GameService";
+import GameContext from "../gameContext";
 
 function TestHero() {
   const options = ["dog", "cat", "mouse", "bird", "horse", "cow"];
   const options2 = ["red", "green", "blue"];
+  const [code, setCode] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDropdown, setSelectedDropdown] = useState(options[0]);
   const [selectedDropdown2, setSelectedDropdown2] = useState(options2[0]);
   const tooltipRef = useRef();
+  const [isJoining, setJoining] = useState(false);
+  const [playerName, setPlayerName] = useState("");
+  const [answer, setAnswer] = useState("");
+
+  const [isInRoom, setIsInRoom] = useState(false);
+  // const {setIsInRoom, isInRoom} = useContext(gameContext); TODO
+
+  const gameContextValue = {
+    isInRoom,
+    setIsInRoom,
+  };
+
+  // const connect = () => {
+  //   const socket = io("http://localhost:6969");
+  //   socket.on("connect", () => {
+  //     socket.emit("sex", { name: "peepee toucher", age: "old enough" });
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   connect();
+  // }, []);
 
   function onChangeDropdown(e) {
     console.log(selectedDropdown);
@@ -40,56 +67,79 @@ function TestHero() {
     event.preventDefault();
   }
 
-  function showAnswer() {
-    console.log(selectedDropdown);
-  }
+  const connectSocket = async () => {
+    const socket = socketService
+      .connect("http://localhost:6969")
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  function showAnswer2() {
-    console.log(selectedDropdown2);
-  }
+  const joinRoom = async () => {
+    const socket = socketService.socket;
+    if (!code || !socket) return;
+    setJoining(true);
+    const joined = await gameService.joinGameRoom(socket, code).catch((err) => {
+      alert(err); //TODO use our custom alerts
+    });
+    if (joined) setIsInRoom(true);
+    setJoining(false);
+  };
+
+  useEffect(() => {
+    connectSocket();
+    handleGameUpdate();
+  }, []);
+
+  const renderRoom = () => {
+    return (
+      <>
+        <ReusableTextField
+          title="Enter code"
+          onChange={(e) => {
+            setCode(e.target.value);
+          }}
+          value={code}
+          label="Code"
+        />
+        <ReusableButton title="Connect to room!" onClick={joinRoom} />
+      </>
+    );
+  };
+  const updateGame = async (symbol) => {
+    if (socketService.socket)
+      gameService.updateGame(socketService.socket, symbol);
+  };
+
+  const handleGameUpdate = () => {
+    if (socketService.socket)
+      gameService.onGameUpdate(socketService.socket, (playerAnswer) => {
+        console.log(playerAnswer);
+        setAnswer(playerAnswer);
+      });
+  };
+
+  const renderGame = () => {
+    return (
+      <>
+        <ReusableButton title="X" onClick={() => updateGame("X")} />
+        <ReusableButton title="O" onClick={() => updateGame("O")} />
+        <Title>{answer}</Title>
+      </>
+    );
+  };
 
   return (
-    <Wrapper>
-      <Title>Test page</Title>
-      <Subtitle>Test out your components here</Subtitle>
-      {/* 
-      <dropDownBox></dropDownBox>
-
-      <SlideShowButton direction="left" />
-      <SlideShowButton direction="right" />
-
-      <Password type="password" label="Password" placeholder="Enter Password" />
-      <ReusableButton title="Login" />
-      <ReusableButton title="Login" path="/" />
-      <StatusAlert status="Error" title="Error" subtitle="404: Not Found" />
-      <DefaultSpinner />
-
-      <ReusableTextField title="Code" />
-      <form>
-        <ReusableTextField title="First Name" onChange={onChange} />
-        <ReusableTextField title="Last Name" onChange={onChange} />
-        <ReusableTextField title="Email" onChange={onChange} />
-        
-      {/* <input type="submit" /> */}
-      {/* </form> */}
-      {/* <LoginPage></LoginPage> */}
-
-      <DropDownBox
-        options={options}
-        selected={selectedDropdown}
-        onChange={(e) => onChangeDropdown(e)}
-      />
-      <DropDownBox
-        options={options2}
-        selected={selectedDropdown2}
-        onChange={(e) => onChangeDropdown2(e)}
-      />
-      <ReusableButton title="Click me!" onClick={showAnswer} />
-      <ReusableButton title="Click me too!" onClick={showAnswer2} />
-    </Wrapper>
+    <GameContext.Provider value={gameContextValue}>
+      <Wrapper>
+        <Title>Test page</Title>
+        <Subtitle>Test out your components here</Subtitle>
+        {!isInRoom && renderRoom()}
+        {isInRoom && renderGame()}
+      </Wrapper>
+    </GameContext.Provider>
   );
 }
-
 export default TestHero;
 
 const Wrapper = styled.div`
@@ -108,6 +158,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled(H1)`
+  color: black;
   padding: 10px;
   background: linear-gradient(180deg, #ffd7ff 0%, #ffb6ff 100%);
   background-clip: text;
