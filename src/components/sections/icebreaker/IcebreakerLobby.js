@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { BodyMain, H2, H3 } from "../../styles/TextStyles";
 import ReusableButton from "../../buttons/ReusableButton";
 import IcebreakerCard from "../../cards/IcebreakerCard";
@@ -10,21 +10,23 @@ import IcebreakerService from "../../../service/IcebreakerService";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
 import { ColorData } from "../../../data/colorData";
 import SlideShowButton from "../../buttons/SlideShowButton";
+import socketService from "../../../service/SocketService";
+import GameService from "../../../service/GameService";
 export default function IcebreakerLobby(props) {
-  const { icebreaker, role, changeStage } = props;
-  const code = "KL1234";
+  const { icebreaker, isHost, changeStage, code } = props;
+  const [users, setUsers] = useState([]);
   const getColor = () => {
     const colors = ColorData;
     var randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex].color;
   };
   const userList = () => {
-    if (userData.length > 0) {
+    if (users.length > 0) {
       return (
         <ListWrapper>
-          {userData.map((item, index) => (
+          {users.map((item, index) => (
             <div key={index}>
-              <TextWrapper>{item.name}</TextWrapper>
+              <TextWrapper>{item.firstName}</TextWrapper>
             </div>
           ))}
         </ListWrapper>
@@ -35,7 +37,7 @@ export default function IcebreakerLobby(props) {
   };
 
   const showAdminContols = () => {
-    if (role === "HOST") {
+    if (isHost === true) {
       return (
         <ButtonWrapper>
           <ReusableButton
@@ -48,6 +50,25 @@ export default function IcebreakerLobby(props) {
       );
     } else {
       return <></>;
+    }
+  };
+
+  useEffect(() => {
+    handleUserUpdate();
+  }, []);
+
+  const handleUserUpdate = () => {
+    if (socketService.socket) {
+      console.log("handleUserUpdate");
+      GameService.onUserJoined(socketService.socket, (firstName, lastName) => {
+        console.log("here");
+        console.log(firstName);
+        users.push({
+          firstName,
+          lastName,
+        });
+        console.log("Users:", users);
+      });
     }
   };
 

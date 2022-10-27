@@ -11,7 +11,7 @@ import DefaultSpinner from "../../spinners/DefaultSpinner";
 import { ColorData } from "../../../data/colorData";
 import SlideShowButton from "../../buttons/SlideShowButton";
 export default function IcebreakerResults(props) {
-  const { icebreaker, role, changeStage } = props;
+  const { icebreaker, isHost, changeStage } = props;
   const code = "KL1234";
   const getColor = () => {
     const colors = ColorData;
@@ -74,7 +74,7 @@ export default function IcebreakerResults(props) {
           />
         </TopWrapper>
         {userList()}
-        <BottomWrapper>{role === "HOST" ? hostButtons() : <></>}</BottomWrapper>
+        <BottomWrapper>{isHost === true ? hostButtons() : <></>}</BottomWrapper>
       </ContentWrapper>
     </Wrapper>
   );

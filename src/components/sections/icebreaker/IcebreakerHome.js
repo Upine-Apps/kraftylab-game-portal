@@ -1,26 +1,47 @@
-import React, { Suspense } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled, { keyframes } from "styled-components";
-import { useState, useEffect } from "react";
 import ReusableButton from "../../buttons/ReusableButton";
 import IcebreakerCard from "../../cards/IcebreakerCard";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import IcebreakerService from "../../../service/IcebreakerService";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
 import { ColorData } from "../../../data/colorData";
+import socketService from "../../../service/SocketService";
+import UtilService from "../../../service/UtilService";
+import GameService from "../../../service/GameService";
+import StatusAlert from "../../alerts/StatusAlert";
+import { codeLength } from "../../../validators/validationUtilities";
+import gameContext from "../../../providers/gameContext";
+import userContext from "../../../providers/userContext";
 
-export default function IcebreakerSection(props) {
-  const { changeStage, setIcebreaker, role } = props;
-  const [code, setCode] = useState("");
+export default function IcebreakerHome(props) {
+  const emptyAlert = {
+    visible: false,
+    status: "",
+    title: "",
+    subtitle: "",
+    key: 0,
+  };
+  const { changeStage, setIcebreaker, setIsHost, setCode, code } = props;
   const [icebreakers, setIcebreakers] = useState([]);
+  const [alert, setAlert] = useState(emptyAlert);
 
-  const getColor = () => {
-    const colors = ColorData;
-    var randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex].color;
+  const { firstName, lastName } = useContext(userContext);
+  console.log(gameContext);
+  console.log("First name: ", firstName);
+  console.log("Last name: ", lastName);
+
+  const connectToSocket = async () => {
+    const socket = await socketService
+      .connect("http://localhost:6969")
+      .catch((err) => {
+        console.log("Error: ", err); //TODO use custom alert
+      });
   };
 
   useEffect(() => {
     let isMounted = true;
+    connectToSocket();
     IcebreakerService.getAllIcebreakers().then((response) => {
       if (isMounted) {
         let data = response;
@@ -32,16 +53,63 @@ export default function IcebreakerSection(props) {
     };
   }, []);
 
+  function displayAlert() {
+    return (
+      <StatusAlert
+        status={alert.status}
+        title={alert.title}
+        subtitle={alert.subtitle}
+        key={alert.key}
+      />
+    );
+  }
+
   async function onHostClick(e) {
-    role("HOST");
+    const socket = socketService.socket;
+    setIsHost(true);
+    const code = UtilService.getCode(5);
+    setCode(code);
+    await GameService.joinGameRoom(socket, code, true, firstName, lastName);
     setIcebreaker(icebreakers[0]);
     changeStage("LOBBY");
   }
 
   async function onJoinClick(e) {
-    role("PLAYER");
-    setIcebreaker(icebreakers[0]);
-    changeStage("LOBBY");
+    console.log(codeLength(code));
+    if (!codeLength(code)) {
+      setAlert({
+        visible: true,
+        status: "Error",
+        title: "Error",
+        subtitle: "Please enter a valid code",
+        key: Math.random(),
+      });
+    } else {
+      const socket = socketService.socket;
+      setIsHost(false);
+      console.log(firstName);
+      const joined = await GameService.joinGameRoom(
+        socket,
+        code,
+        false,
+        firstName,
+        lastName
+      ).catch((err) => {
+        console.log("Error: ", err); //TODO use custom alert
+        setAlert({
+          visible: true,
+          status: "Error",
+          title: "Error",
+          subtitle: err,
+          key: Math.random(),
+        });
+      });
+      if (joined) {
+        console.log("pp");
+        setIcebreaker(icebreakers[0]);
+        changeStage("LOBBY");
+      }
+    }
   }
 
   const icebreakerCard = () => {
@@ -53,7 +121,7 @@ export default function IcebreakerSection(props) {
               category={item.category}
               subcategory={item.subcategory}
               question={item.question}
-              color={getColor()}
+              color={UtilService.getColor()}
               onClick={null}
               isButtons={false}
             />
@@ -90,6 +158,7 @@ export default function IcebreakerSection(props) {
 
   return (
     <Wrapper>
+      {alert.visible ? displayAlert() : ""}
       <ContentWrapper>
         <TopWrapper>{icebreakerCard()}</TopWrapper>
         <BottomWrapper>
@@ -109,6 +178,7 @@ export default function IcebreakerSection(props) {
           </ButtonRowWrapper>
           <ReusableTextField
             title="Have a code? Enter it here!"
+            value={code}
             onChange={(e) => setCode(e.target.value)}
           />
         </BottomWrapper>

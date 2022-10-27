@@ -12,10 +12,11 @@ import { ColorData } from "../../../data/colorData";
 import TextArea from "../../textfield/TextArea";
 import DropDownBox from "../../buttons/DropDownBox";
 import IcebreakerService from "../../../service/IcebreakerService";
+import { UtilService } from "../../../service/UtilService";
 
 export default function IcebreakerGame(props) {
   // temp. pull from db
-  const { icebreaker, role, code, changeStage } = props;
+  const { icebreaker, isHost, code, changeStage } = props;
   const [icebreakers, setIcebreakers] = useState([]);
   const [current, setCurrent] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState();
@@ -78,9 +79,6 @@ export default function IcebreakerGame(props) {
       }
     });
   }, []);
-  //
-  //
-  //
 
   const getHostDropdowns = () => {
     return (
@@ -121,8 +119,8 @@ export default function IcebreakerGame(props) {
 
   return (
     <Wrapper>
-      <ContentWrapper isHost={role == "HOST"}>
-        {role === "HOST" ? getHostDropdowns() : <></>}
+      <ContentWrapper isHost={isHost == "HOST"}>
+        {isHost === true ? getHostDropdowns() : <></>}
         <TopWrapper>
           <IcebreakerCard
             category={icebreaker.category}
@@ -150,7 +148,7 @@ export default function IcebreakerGame(props) {
             />
           </ButtonWrapper>
         </BottomWrapper>
-        {role === "HOST" ? hostButtons() : <></>}
+        {isHost === true ? hostButtons() : <></>}
       </ContentWrapper>
       <TextWrapper>
         <GameCode>Game Code: {code}</GameCode>

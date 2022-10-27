@@ -22,8 +22,8 @@ function HeroSection() {
             </Subtitle>
           </TextWrapper>
           <ButtonWrapper>
-            <ReusableButton title="Login" path="" />
-            <ReusableButton title="Register" path="" />
+            <ReusableButton title="Login" path="/auth" />
+            <ReusableButton title="Register" path="/auth" />
           </ButtonWrapper>
         </LeftColumnWrapper>
         <DividerWrapper></DividerWrapper>

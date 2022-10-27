@@ -13,7 +13,7 @@ import MenuTooltip from "../../tooltips/MenuTooltip";
 import { io } from "socket.io-client";
 import socketService from "../../../service/SocketService";
 import gameService from "../../../service/GameService";
-import GameContext from "../gameContext";
+import GameContext from "../../../providers/gameContext";
 
 function TestHero() {
   const options = ["dog", "cat", "mouse", "bird", "horse", "cow"];

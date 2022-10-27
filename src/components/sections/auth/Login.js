@@ -11,7 +11,7 @@ import { themes } from "../../styles/ColorStyles";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import TextButton from "../../buttons/TextButton";
 import {
   validateLoginData,
@@ -20,6 +20,7 @@ import {
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 import { navigate } from "gatsby";
+import userContext from "../../../providers/userContext";
 
 export default function Login({ setStep }) {
   const emptyAlert = {
@@ -34,7 +35,22 @@ export default function Login({ setStep }) {
   const [alert, setAlert] = useState(emptyAlert);
   const [spinner, setSpinner] = useState(false);
 
+  const {
+    firstName,
+    // lastName,
+    setFirstName,
+    hi,
+    actuallySetName,
+    // setLastName,
+    // setUserId,
+    // setEmail,
+  } = useContext(userContext);
+
   async function onClick(e) {
+    // setFirstName("Adam");
+    hi();
+    actuallySetName("Shamer");
+    console.log(firstName);
     e.preventDefault();
 
     const body = {
@@ -50,8 +66,18 @@ export default function Login({ setStep }) {
       setSpinner(false);
 
       if (validateLoginResponse(response)) {
-        setUsername("");
-        setPassword("");
+        // localStorage.setItem('firstName', response.user.first_name)
+        // localStorage.setItem('lastName', response.user.last_name)
+
+        setFirstName(response.user.first_name);
+        // setLastName(response.user.last_name);
+        // // console.log(localStorage.getItem("firstName"));
+        // console.log(firstName);
+        // console.log(lastName);
+        // setUserId(response.user.id);
+        // setEmail(response.user.email);
+        // setUsername("");
+        // setPassword("");
         setAlert({
           visible: true,
           status: "Success",
