@@ -15,7 +15,7 @@ export default function Header() {
       </LinkWrapper>
       <MenuWrapper count={gamePortalData.length}>
         {gamePortalData.map((item, index) => (
-          <MenuButton item={item} key={index} />
+          <MenuButton item={item} key={index} onClick={item.onClick} />
         ))}
       </MenuWrapper>
     </Wrapper>

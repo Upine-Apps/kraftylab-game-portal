@@ -4,5 +4,9 @@ export const gamePortalData = [
     icon: "/images/icons/account-light.svg",
     link: "/",
   },
-  { title: "Logout", link: "/auth", icon: "" },
+  {
+    title: "Logout",
+    link: "/auth",
+    icon: "",
+  },
 ];

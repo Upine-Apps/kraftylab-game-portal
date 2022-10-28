@@ -28,6 +28,20 @@ class GameService {
       listener(firstName, lastName);
     });
   }
+
+  async updateUsers(socket, users) {
+    console.log("UpdateUsers");
+    console.log(users);
+    socket.emit("update_users", { users });
+  }
+
+  async onUpdatedUsers(socket, listener) {
+    console.log("onUpdatedUsers");
+    socket.on("on_updated_users", ({ users }) => {
+      console.log(users);
+      listener(users);
+    });
+  }
 }
 
 export default new GameService();

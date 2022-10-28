@@ -8,7 +8,8 @@ import ConfirmPassword from "./ConfirmPassword";
 import Login from "./Login";
 import Verification from "./Verification";
 
-export default function AuthSection() {
+export default function AuthSection(props) {
+  const { context } = props;
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
@@ -46,7 +47,7 @@ export default function AuthSection() {
   function renderSwitch(param) {
     switch (param) {
       case "Login":
-        return <Login setStep={setStep} />;
+        return <Login context={context} setStep={setStep} />;
       case "Registration":
         return (
           <Registration

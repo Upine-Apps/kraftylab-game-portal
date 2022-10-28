@@ -10,8 +10,7 @@ import IcebreakerLobby from "../components/sections/icebreaker/IcebreakerLobby";
 import IcebreakerResults from "../components/sections/icebreaker/IcebreakerResults";
 import GameContext from "../providers/gameContext";
 import socketService from "../service/SocketService";
-import UserContext, { UserProvider } from "../providers/userContext";
-
+import { UserContext } from "../providers/userContext";
 function IcebreakerPage() {
   const [icebreaker, setIcebreaker] = useState([]);
   const [isHost, setIsHost] = useState(false);
@@ -21,16 +20,22 @@ function IcebreakerPage() {
   const [playerName, setPlayerName] = useState("");
   const [code, setCode] = useState("");
 
-  const gameContextValue = {
-    isHost,
-    setIsHost,
-    isInRoom,
-    setIsInRoom,
-    playerName,
-    setPlayerName,
-  };
+  // const gameContextValue = {
+  //   isHost,
+  //   setIsHost,
+  //   isInRoom,
+  //   setIsInRoom,
+  //   playerName,
+  //   setPlayerName,
+  // };
 
-  const userContextValue = useContext(UserContext);
+  // const { firstName, setFirstName, lastName, setLastName } = context.useContext(
+  //   UserContext
+  // );
+  // console.log(firstName);
+  // console.log("setting first name");
+  // setFirstName("Joe MOmma");
+
   const onStageChange = (newStage) => {
     console.log(newStage);
     setStage(newStage);
@@ -40,11 +45,12 @@ function IcebreakerPage() {
     setIcebreaker(newIcebreaker);
   };
 
-  const getComponent = (item) => {
+  const getComponent = (context) => {
     switch (stage) {
       case "HOME":
         return (
           <IcebreakerHome
+            context={context}
             changeStage={(e) => onStageChange(e)}
             setIcebreaker={(e) => onIcebreakerChange(e)}
             setIsHost={(e) => setIsHost(e)}
@@ -55,6 +61,7 @@ function IcebreakerPage() {
       case "LOBBY":
         return (
           <IcebreakerLobby
+            context={context}
             icebreaker={icebreaker}
             isHost={isHost}
             changeStage={(e) => onStageChange(e)}
@@ -84,15 +91,15 @@ function IcebreakerPage() {
   };
 
   return (
-    <UserProvider>
-      <GameContext.Provider value={gameContextValue}>
+    <UserContext.Consumer>
+      {(context) => (
         <Layout>
           <SEO title="icebreaker" />
           <GameHeader />
-          {getComponent()}
+          {getComponent(context)}
         </Layout>
-      </GameContext.Provider>
-    </UserProvider>
+      )}
+    </UserContext.Consumer>
   );
 }
 

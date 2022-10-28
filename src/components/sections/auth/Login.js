@@ -11,7 +11,7 @@ import { themes } from "../../styles/ColorStyles";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import CustomPasswordField from "../../textfield/CustomPasswordField";
 import ReusableButton from "../../buttons/ReusableButton";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import TextButton from "../../buttons/TextButton";
 import {
   validateLoginData,
@@ -20,9 +20,10 @@ import {
 import UserService from "../../../service/UserService";
 import StatusAlert from "../../alerts/StatusAlert";
 import { navigate } from "gatsby";
-import userContext from "../../../providers/userContext";
+import Cookies from "universal-cookie";
 
-export default function Login({ setStep }) {
+export default function Login(props) {
+  const { context, setStep } = props;
   const emptyAlert = {
     visible: false,
     status: "",
@@ -35,22 +36,10 @@ export default function Login({ setStep }) {
   const [alert, setAlert] = useState(emptyAlert);
   const [spinner, setSpinner] = useState(false);
 
-  const {
-    firstName,
-    // lastName,
-    setFirstName,
-    hi,
-    actuallySetName,
-    // setLastName,
-    // setUserId,
-    // setEmail,
-  } = useContext(userContext);
+  const { setFirstName, setLastName, setUserId, setEmail } = context;
+  const cookies = new Cookies();
 
   async function onClick(e) {
-    // setFirstName("Adam");
-    hi();
-    actuallySetName("Shamer");
-    console.log(firstName);
     e.preventDefault();
 
     const body = {
@@ -66,18 +55,17 @@ export default function Login({ setStep }) {
       setSpinner(false);
 
       if (validateLoginResponse(response)) {
-        // localStorage.setItem('firstName', response.user.first_name)
-        // localStorage.setItem('lastName', response.user.last_name)
-
         setFirstName(response.user.first_name);
-        // setLastName(response.user.last_name);
-        // // console.log(localStorage.getItem("firstName"));
-        // console.log(firstName);
-        // console.log(lastName);
-        // setUserId(response.user.id);
-        // setEmail(response.user.email);
-        // setUsername("");
-        // setPassword("");
+        setLastName(response.user.last_name);
+        setUserId(response.user.id);
+        setEmail(response.user.email);
+        cookies.set("firstName", response.user.first_name, { path: "/" });
+        cookies.set("lastName", response.user.last_name, { path: "/" });
+        cookies.set("userId", response.user.id, { path: "/" });
+        cookies.set("email", response.user.email, { path: "/" });
+
+        setUsername("");
+        setPassword("");
         setAlert({
           visible: true,
           status: "Success",

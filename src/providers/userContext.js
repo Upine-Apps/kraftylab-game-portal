@@ -1,16 +1,22 @@
 import React, { createContext, useState } from "react";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 const UserProvider = (props) => {
   const [firstName, setFirstName] = useState("");
-  const hi = () => {
-    console.log("hi");
+  const [lastName, setLastName] = useState("");
+  const [userId, setUserId] = useState("");
+  const [email, setEmail] = useState("");
+  const providerValue = {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    userId,
+    setUserId,
+    email,
+    setEmail,
   };
-  const actuallySetName = (x) => {
-    setFirstName(x);
-  };
-  const providerValue = { firstName, setFirstName, hi, actuallySetName };
   return (
     <UserContext.Provider value={providerValue}>
       {props.children}
@@ -18,4 +24,4 @@ const UserProvider = (props) => {
   );
 };
 
-export { UserContext as default, UserProvider };
+export default ({ element }) => <UserProvider>{element}</UserProvider>;

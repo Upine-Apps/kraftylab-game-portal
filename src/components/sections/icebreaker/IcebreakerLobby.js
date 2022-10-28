@@ -13,8 +13,14 @@ import SlideShowButton from "../../buttons/SlideShowButton";
 import socketService from "../../../service/SocketService";
 import GameService from "../../../service/GameService";
 export default function IcebreakerLobby(props) {
-  const { icebreaker, isHost, changeStage, code } = props;
-  const [users, setUsers] = useState([]);
+  const { context, icebreaker, isHost, changeStage, code } = props;
+  const { firstName, lastName } = context;
+  const [users, setUsers] = useState([
+    {
+      firstName,
+      lastName,
+    },
+  ]);
   const getColor = () => {
     const colors = ColorData;
     var randomIndex = Math.floor(Math.random() * colors.length);
@@ -26,7 +32,9 @@ export default function IcebreakerLobby(props) {
         <ListWrapper>
           {users.map((item, index) => (
             <div key={index}>
-              <TextWrapper>{item.firstName}</TextWrapper>
+              <TextWrapper>
+                {item.firstName} {item.lastName}
+              </TextWrapper>
             </div>
           ))}
         </ListWrapper>
@@ -55,19 +63,44 @@ export default function IcebreakerLobby(props) {
 
   useEffect(() => {
     handleUserUpdate();
+    handleUpdatedUsers();
   }, []);
-
+  // const handleGameUpdate = () => {
+  //   if (socketService.socket)
+  //     gameService.onGameUpdate(socketService.socket, (playerAnswer) => {
+  //       console.log(playerAnswer);
+  //       setAnswer(playerAnswer);
+  //     });
+  // };
   const handleUserUpdate = () => {
     if (socketService.socket) {
       console.log("handleUserUpdate");
       GameService.onUserJoined(socketService.socket, (firstName, lastName) => {
         console.log("here");
         console.log(firstName);
-        users.push({
+        let newUsers = users;
+        newUsers.push({
           firstName,
           lastName,
         });
-        console.log("Users:", users);
+        console.log("Users:");
+        setUsers([...newUsers]);
+        console.log(users);
+        console.log("HOST", isHost);
+        if (isHost) {
+          console.log("sending updated user list");
+          GameService.updateUsers(socketService.socket, users);
+        }
+      });
+    }
+  };
+
+  const handleUpdatedUsers = () => {
+    if (socketService.socket) {
+      console.log("handleUpdatedUsers");
+      GameService.onUpdatedUsers(socketService.socket, (users) => {
+        console.log("updatedUsers", users);
+        setUsers([...users]);
       });
     }
   };

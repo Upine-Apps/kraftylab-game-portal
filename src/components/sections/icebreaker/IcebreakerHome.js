@@ -11,9 +11,7 @@ import UtilService from "../../../service/UtilService";
 import GameService from "../../../service/GameService";
 import StatusAlert from "../../alerts/StatusAlert";
 import { codeLength } from "../../../validators/validationUtilities";
-import gameContext from "../../../providers/gameContext";
-import userContext from "../../../providers/userContext";
-
+import Cookies from "universal-cookie";
 export default function IcebreakerHome(props) {
   const emptyAlert = {
     visible: false,
@@ -22,14 +20,25 @@ export default function IcebreakerHome(props) {
     subtitle: "",
     key: 0,
   };
-  const { changeStage, setIcebreaker, setIsHost, setCode, code } = props;
+  const {
+    context,
+    changeStage,
+    setIcebreaker,
+    setIsHost,
+    setCode,
+    code,
+  } = props;
   const [icebreakers, setIcebreakers] = useState([]);
   const [alert, setAlert] = useState(emptyAlert);
+  const cookies = new Cookies();
+  const { firstName, setFirstName, lastName, setLastName } = context;
 
-  const { firstName, lastName } = useContext(userContext);
-  console.log(gameContext);
-  console.log("First name: ", firstName);
-  console.log("Last name: ", lastName);
+  if (firstName === "") {
+    setFirstName(cookies.get("firstName"));
+  }
+  if (!lastName) {
+    setLastName(cookies.get("lastName"));
+  }
 
   const connectToSocket = async () => {
     const socket = await socketService
