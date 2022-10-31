@@ -51,4 +51,33 @@ export default class IcebreakerService {
       return error.response.data;
     }
   }
+
+  static async getRandomIcebreaker() {
+    try {
+      const res = await axios.get(`${this.hostUrl}`, {
+        headers: this.headers,
+      });
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
+  static async getIcebreakerByCatSubCat(category, subcategory) {
+    try {
+      let url = `${this.hostUrl}/category?category=${category}`;
+      console.log(subcategory);
+      if (subcategory) {
+        url += `&subcategory=${subcategory}`;
+      }
+      const res = await axios.get(url, {
+        headers: this.headers,
+      });
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 }

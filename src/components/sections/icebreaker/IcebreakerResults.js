@@ -1,32 +1,41 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { useState, useEffect } from "react";
-import { BodyMain, H2, H3 } from "../../styles/TextStyles";
 import ReusableButton from "../../buttons/ReusableButton";
 import IcebreakerCard from "../../cards/IcebreakerCard";
-import { icebreakerData, userData } from "../../../data/icebreakerData";
-import ReusableTextField from "../../textfield/ReusableTextField";
-import IcebreakerService from "../../../service/IcebreakerService";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
 import { ColorData } from "../../../data/colorData";
-import SlideShowButton from "../../buttons/SlideShowButton";
+import socketService from "../../../service/SocketService";
+import GameService from "../../../service/GameService";
+import IcebreakerService from "../../../service/IcebreakerService";
 export default function IcebreakerResults(props) {
-  const { icebreaker, isHost, changeStage } = props;
-  const code = "KL1234";
+  const {
+    icebreaker,
+    isHost,
+    changeStage,
+    allAnswers,
+    setAllAnswers,
+    code,
+    selectedCategory,
+    selectedSubCategory,
+    setIcebreaker,
+  } = props;
   const getColor = () => {
     const colors = ColorData;
     var randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex].color;
   };
   const userList = () => {
-    if (userData.length > 0) {
+    console.log(allAnswers);
+    if (allAnswers.length > 0) {
       return (
         <ListWrapper>
-          {userData.map((item, index) => (
+          {allAnswers.map((item, index) => (
             <ListRow key={index}>
-              <TextWrapper>{item.name}:</TextWrapper>
-
-              <TextWrapper>{item.answer}:</TextWrapper>
+              <TextWrapper>
+                {item.firstName} {item.lastName}:
+              </TextWrapper>
+              <TextWrapper>{item.answer}</TextWrapper>
             </ListRow>
           ))}
         </ListWrapper>
@@ -37,8 +46,66 @@ export default function IcebreakerResults(props) {
   };
 
   const handleEnd = () => {
-    changeStage("HOME");
+    if (socketService.socket) {
+      console.log("handleEnd");
+      GameService.handleEndSession(socketService.socket);
+      setAllAnswers([]);
+      changeStage("HOME");
+    }
   };
+
+  const handleNewRound = async () => {
+    if (socketService.socket) {
+      console.log("handleNewRound");
+      console.log(selectedCategory);
+      console.log("");
+      // const newIcebreaker = !selectedCategory
+      //   ? await IcebreakerService.getIcebreakerByCatSubCat(
+      //       selectedCategory,
+      //       selectedSubCategory
+      //     )
+      //   : await IcebreakerService.getRandomIcebreaker();
+      let newIcebreaker;
+      if (selectedCategory) {
+        newIcebreaker = await IcebreakerService.getIcebreakerByCatSubCat(
+          selectedCategory,
+          selectedSubCategory
+        );
+      } else {
+        newIcebreaker = await IcebreakerService.getRandomIcebreaker();
+      }
+      setIcebreaker(newIcebreaker);
+      GameService.handleNewRound(socketService.socket, newIcebreaker);
+      setAllAnswers([]);
+      changeStage("GAME");
+    }
+  };
+
+  const handleOnNewRound = () => {
+    if (socketService.socket) {
+      console.log("onNewRoune");
+      GameService.onNewRound(socketService.socket, (newIcebreaker) => {
+        setIcebreaker(newIcebreaker);
+        setAllAnswers([]);
+        changeStage("GAME");
+      });
+    }
+  };
+
+  const handleSessionEnded = () => {
+    if (socketService.socket) {
+      console.log("handleSessionEnded");
+      GameService.onSessionEnded(socketService.socket, () => {
+        setAllAnswers([]);
+        changeStage("HOME");
+      });
+    }
+  };
+
+  useEffect(() => {
+    handleOnNewRound();
+    handleSessionEnded();
+  }, []);
 
   const hostButtons = () => {
     return (
@@ -47,7 +114,7 @@ export default function IcebreakerResults(props) {
           title="Next Round"
           width="150px"
           borderRadius="20px"
-          onClick={() => changeStage("GAME")}
+          onClick={() => handleNewRound()}
         />
         <ReusableButton
           title="End Session"

@@ -19,6 +19,9 @@ function IcebreakerPage() {
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [playerName, setPlayerName] = useState("");
   const [code, setCode] = useState("");
+  const [allAnswers, setAllAnswers] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedSubCategory, setSelectedSubCategory] = useState();
 
   // const gameContextValue = {
   //   isHost,
@@ -63,18 +66,28 @@ function IcebreakerPage() {
           <IcebreakerLobby
             context={context}
             icebreaker={icebreaker}
+            setIcebreaker={setIcebreaker}
             isHost={isHost}
             changeStage={(e) => onStageChange(e)}
             code={code}
           />
         );
       case "GAME":
+        console.log("HOST: ", isHost);
         return (
           <IcebreakerGame
+            context={context}
             icebreaker={icebreaker}
+            setIcebreaker={setIcebreaker}
             isHost={isHost}
-            code={"KL1234"}
+            code={code}
             changeStage={(e) => onStageChange(e)}
+            setAllAnswers={setAllAnswers}
+            allAnswers={allAnswers}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            selectedSubCategory={selectedSubCategory}
+            setSelectedSubCategory={setSelectedSubCategory}
           />
         );
       case "RESULTS":
@@ -82,7 +95,13 @@ function IcebreakerPage() {
           <IcebreakerResults
             icebreaker={icebreaker}
             isHost={isHost}
+            allAnswers={allAnswers}
+            setAllAnswers={setAllAnswers}
             changeStage={(e) => onStageChange(e)}
+            code={code}
+            selectedCategory={selectedCategory}
+            selectedSubCategory={selectedSubCategory}
+            setIcebreaker={setIcebreaker}
           />
         );
       default:

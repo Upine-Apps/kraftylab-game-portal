@@ -10,7 +10,7 @@ export default function TextArea(props) {
         type="text"
         placeholder={title}
         rows={rows}
-        onChange={(e) => onChange()}
+        onChange={(e) => onChange(e)}
       />
     </MessageWrapper>
   );

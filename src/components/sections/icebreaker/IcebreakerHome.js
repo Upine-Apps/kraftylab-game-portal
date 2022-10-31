@@ -31,13 +31,23 @@ export default function IcebreakerHome(props) {
   const [icebreakers, setIcebreakers] = useState([]);
   const [alert, setAlert] = useState(emptyAlert);
   const cookies = new Cookies();
-  const { firstName, setFirstName, lastName, setLastName } = context;
+  const {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    userId,
+    setUserId,
+  } = context;
 
   if (firstName === "") {
     setFirstName(cookies.get("firstName"));
   }
   if (!lastName) {
     setLastName(cookies.get("lastName"));
+  }
+  if (!userId) {
+    setUserId(cookies.get("userId"));
   }
 
   const connectToSocket = async () => {

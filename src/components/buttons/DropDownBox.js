@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useState } from "react";
 
 export default function DropDownBox(props) {
-  const { options, selected, onChange } = props;
+  const { options, selected, onChange, placeholder } = props;
 
   return (
     <DropdownWrapper>
@@ -13,7 +13,7 @@ export default function DropDownBox(props) {
         options={options}
         onChange={(e) => onChange(e)}
         value={selected}
-        placeholder="Select an option"
+        placeholder={placeholder}
         className="dropdown-class"
         menuClassName="menu-class"
         placeholderClassName="placeholder-class"

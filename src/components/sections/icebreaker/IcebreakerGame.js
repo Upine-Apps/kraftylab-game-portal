@@ -4,39 +4,39 @@ import { useState, useEffect } from "react";
 import { BodyMain, H2, H3 } from "../../styles/TextStyles";
 import ReusableButton from "../../buttons/ReusableButton";
 import IcebreakerCard from "../../cards/IcebreakerCard";
-import { icebreakerData, userData } from "../../../data/icebreakerData";
-import ReusableTextField from "../../textfield/ReusableTextField";
-// import IcebreakerService from "../../../service/IcebreakerService";
-import DefaultSpinner from "../../spinners/DefaultSpinner";
 import { ColorData } from "../../../data/colorData";
 import TextArea from "../../textfield/TextArea";
 import DropDownBox from "../../buttons/DropDownBox";
 import IcebreakerService from "../../../service/IcebreakerService";
-import { UtilService } from "../../../service/UtilService";
-
+import socketService from "../../../service/SocketService";
+import GameService from "../../../service/GameService";
 export default function IcebreakerGame(props) {
-  // temp. pull from db
-  const { icebreaker, isHost, code, changeStage } = props;
-  const [icebreakers, setIcebreakers] = useState([]);
-  const [current, setCurrent] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState();
-  const [selectedSubCategory, setSelectedSubCategory] = useState();
+  const {
+    context,
+    icebreaker,
+    setIcebreaker,
+    isHost,
+    code,
+    changeStage,
+    setAllAnswers,
+    allAnswers,
+    selectedCategory,
+    setSelectedCategory,
+    selectedSubCategory,
+    setSelectedSubCategory,
+  } = props;
   const [answer, setAnswer] = useState();
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [subCategoryOptions, setSubCategoryOptions] = useState([]);
   const [subCategoryData, setSubCategoryData] = useState();
-  const length = icebreakers.length;
+
+  const { firstName, lastName, userId } = context;
 
   const getColor = () => {
     const colors = ColorData;
     var randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex].color;
   };
-
-  const icebreakerList = [];
-  // const getIcebreakers = async () => {
-  //   await IcebreakerService.getIcebreakersByCategory();
-  // };
 
   const onSubmitAnswer = (e) => {
     console.log(e);
@@ -53,24 +53,101 @@ export default function IcebreakerGame(props) {
     console.log(subCategoryData[`${e}.value}`]);
   }
   function onChangeSubCategory(e) {
-    setSelectedSubCategory(e);
+    setSelectedSubCategory(e.value);
   }
-
-  const changeSlide = (direction) => {
-    if (direction == "l") {
-      setCurrent(current === 0 ? length - 1 : current - 1);
-    }
-    if (direction == "r") {
-      setCurrent(current === length - 1 ? 0 : current + 1);
-    }
-  };
 
   const handleEnd = () => {
     // game end logic here
     changeStage("HOME");
   };
 
+  const filterIcebreakers = async () => {
+    if (socketService.socket) {
+      const newIcebreaker = await IcebreakerService.getIcebreakerByCatSubCat(
+        selectedCategory,
+        selectedSubCategory
+      );
+      setIcebreaker(newIcebreaker);
+      GameService.changeCategory(socketService.socket, newIcebreaker);
+    }
+  };
+
+  const onCategoryChanged = () => {
+    if (socketService.socket) {
+      console.log("onCategoryChanged");
+      GameService.onCategoryChanged(socketService.socket, (icebreaker) => {
+        setIcebreaker(icebreaker);
+      });
+    }
+  };
+
+  const submitAnswer = () => {
+    console.log("Answer: ", answer);
+    const playerAnswer = { answer, firstName, lastName, userId };
+    if (socketService.socket) {
+      console.log("answerSubmit");
+      checkDuplicateAnswer(playerAnswer);
+      GameService.submitAnswer(
+        socketService.socket,
+        answer,
+        userId,
+        firstName,
+        lastName
+      );
+    }
+  };
+
+  const checkDuplicateAnswer = (playerAnswer) => {
+    console.log(allAnswers);
+    if (allAnswers) {
+      console.log("userId", userId);
+      let prevPlayerAnswer = allAnswers.find((x) => x.userId === userId);
+      if (prevPlayerAnswer) {
+        console.log("Prev Player answer: ", prevPlayerAnswer);
+        const index = allAnswers.indexOf(prevPlayerAnswer);
+        allAnswers[index] = playerAnswer;
+      } else {
+        allAnswers.push(playerAnswer);
+        setAllAnswers(allAnswers);
+      }
+    } else {
+      allAnswers.push(playerAnswer);
+      setAllAnswers(allAnswers);
+    }
+    console.log(allAnswers);
+  };
+
+  const onAnswerSubmitted = () => {
+    if (socketService.socket) {
+      console.log("onAnswerSubmitted");
+      GameService.onAnswerSubmitted(socketService.socket, (playerAnswer) => {
+        checkDuplicateAnswer(playerAnswer);
+      });
+    }
+  };
+
+  const handleEndRound = () => {
+    if (socketService.socket) {
+      console.log("handleEndRound");
+      GameService.handleEndRound(socketService.socket, allAnswers);
+      changeStage("RESULTS");
+    }
+  };
+
+  const onRoundEnded = () => {
+    if (socketService.socket) {
+      console.log("onRoundEnded");
+      GameService.onRoundEnded(socketService.socket, (allAnswers) => {
+        setAllAnswers(allAnswers);
+        changeStage("RESULTS");
+      });
+    }
+  };
+
   useEffect(() => {
+    onCategoryChanged();
+    onAnswerSubmitted();
+    onRoundEnded();
     let isMounted = true;
     IcebreakerService.getIcebreakerCategories().then((response) => {
       if (isMounted) {
@@ -86,13 +163,23 @@ export default function IcebreakerGame(props) {
         <DropDownBox
           options={categoryOptions}
           selected={selectedCategory}
+          placeholder="Select a Category"
           onChange={(e) => onChangeCategory(e)}
         ></DropDownBox>
         <DropDownBox
           options={subCategoryOptions}
           selected={selectedSubCategory}
+          placeholder="Select a Subcategory"
           onChange={(e) => onChangeSubCategory(e)}
         ></DropDownBox>
+        <ButtonWrapper>
+          <ReusableButton
+            title="Filter"
+            width="150px"
+            borderRadius="20px"
+            onClick={() => filterIcebreakers()}
+          />
+        </ButtonWrapper>
       </DropdownWrapper>
     );
   };
@@ -104,7 +191,7 @@ export default function IcebreakerGame(props) {
           title="End Round"
           width="150px"
           borderRadius="20px"
-          onClick={() => changeStage("RESULTS")}
+          onClick={() => handleEndRound()}
         />
         <ReusableButton
           title="End Session"
@@ -119,7 +206,7 @@ export default function IcebreakerGame(props) {
 
   return (
     <Wrapper>
-      <ContentWrapper isHost={isHost == "HOST"}>
+      <ContentWrapper isHost={isHost}>
         {isHost === true ? getHostDropdowns() : <></>}
         <TopWrapper>
           <IcebreakerCard
@@ -127,7 +214,6 @@ export default function IcebreakerGame(props) {
             subcategory={icebreaker.subcategory}
             question={icebreaker.question}
             color={getColor()}
-            onClick={(e) => changeSlide(e)}
             isButtons={false}
           />
         </TopWrapper>
@@ -135,7 +221,7 @@ export default function IcebreakerGame(props) {
           <TextArea
             title={"Enter your answer here"}
             onChange={(e) => {
-              setAnswer(e);
+              setAnswer(e.target.value);
             }}
             rows={"2"}
           />
@@ -144,7 +230,7 @@ export default function IcebreakerGame(props) {
               title="Submit"
               width="150px"
               borderRadius="20px"
-              onClick={() => console.log("clicked start")}
+              onClick={() => submitAnswer()}
             />
           </ButtonWrapper>
         </BottomWrapper>
@@ -185,8 +271,10 @@ const ContentWrapper = styled.div`
 
 const DropdownWrapper = styled.div`
   display: grid;
-  grid-template-columns: auto auto;
+  position: relative;
+  grid-template-columns: auto auto auto;
   gap: 30px;
+  align-items: center;
 `;
 
 const TopWrapper = styled.div`

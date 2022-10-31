@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, StyleSheetManager } from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { BodyMain, H2, H3 } from "../../styles/TextStyles";
 import ReusableButton from "../../buttons/ReusableButton";
@@ -13,7 +13,14 @@ import SlideShowButton from "../../buttons/SlideShowButton";
 import socketService from "../../../service/SocketService";
 import GameService from "../../../service/GameService";
 export default function IcebreakerLobby(props) {
-  const { context, icebreaker, isHost, changeStage, code } = props;
+  const {
+    context,
+    icebreaker,
+    setIcebreaker,
+    isHost,
+    changeStage,
+    code,
+  } = props;
   const { firstName, lastName } = context;
   const [users, setUsers] = useState([
     {
@@ -52,7 +59,7 @@ export default function IcebreakerLobby(props) {
             title="Click to start game"
             width="300px"
             borderRadius="20px"
-            onClick={() => changeStage("GAME")}
+            onClick={() => handleStartGame()}
           />
         </ButtonWrapper>
       );
@@ -64,14 +71,9 @@ export default function IcebreakerLobby(props) {
   useEffect(() => {
     handleUserUpdate();
     handleUpdatedUsers();
+    handleGameStarted();
   }, []);
-  // const handleGameUpdate = () => {
-  //   if (socketService.socket)
-  //     gameService.onGameUpdate(socketService.socket, (playerAnswer) => {
-  //       console.log(playerAnswer);
-  //       setAnswer(playerAnswer);
-  //     });
-  // };
+
   const handleUserUpdate = () => {
     if (socketService.socket) {
       console.log("handleUserUpdate");
@@ -101,6 +103,26 @@ export default function IcebreakerLobby(props) {
       GameService.onUpdatedUsers(socketService.socket, (users) => {
         console.log("updatedUsers", users);
         setUsers([...users]);
+      });
+    }
+  };
+
+  const handleStartGame = async () => {
+    if (socketService.socket) {
+      // get random ice breaker
+      const randomIcebreaker = await IcebreakerService.getRandomIcebreaker();
+      setIcebreaker(randomIcebreaker);
+      GameService.startGame(socketService.socket, randomIcebreaker);
+      changeStage("GAME");
+    }
+  };
+
+  const handleGameStarted = () => {
+    if (socketService.socket) {
+      console.log("handleGameStarted");
+      GameService.onGameStarted(socketService.socket, (icebreaker) => {
+        changeStage("GAME");
+        setIcebreaker(icebreaker);
       });
     }
   };
