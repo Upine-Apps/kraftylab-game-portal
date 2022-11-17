@@ -81,6 +81,7 @@ function IcebreakerPage() {
             setIcebreaker={setIcebreaker}
             isHost={isHost}
             code={code}
+            setCode={setCode}
             changeStage={(e) => onStageChange(e)}
             setAllAnswers={setAllAnswers}
             allAnswers={allAnswers}
@@ -99,8 +100,11 @@ function IcebreakerPage() {
             setAllAnswers={setAllAnswers}
             changeStage={(e) => onStageChange(e)}
             code={code}
+            setCode={setCode}
             selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
             selectedSubCategory={selectedSubCategory}
+            setSelectedSubCategory={setSelectedSubCategory}
             setIcebreaker={setIcebreaker}
           />
         );

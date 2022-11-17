@@ -28,11 +28,6 @@ export default function IcebreakerLobby(props) {
       lastName,
     },
   ]);
-  const getColor = () => {
-    const colors = ColorData;
-    var randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex].color;
-  };
   const userList = () => {
     if (users.length > 0) {
       return (
@@ -135,7 +130,7 @@ export default function IcebreakerLobby(props) {
             category={icebreaker.category}
             subcategory={icebreaker.subcategory}
             question={icebreaker.question}
-            color={getColor()}
+            color={icebreaker.color}
             onClick={null}
             isButtons={false}
           />

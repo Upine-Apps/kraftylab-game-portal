@@ -140,7 +140,7 @@ export default function IcebreakerHome(props) {
               category={item.category}
               subcategory={item.subcategory}
               question={item.question}
-              color={UtilService.getColor()}
+              color={item.color}
               onClick={null}
               isButtons={false}
             />
@@ -198,7 +198,7 @@ export default function IcebreakerHome(props) {
           <ReusableTextField
             title="Have a code? Enter it here!"
             value={code}
-            onChange={(e) => setCode(e.target.value)}
+            onChange={(e) => setCode(e.target.value.toUpperCase())}
           />
         </BottomWrapper>
       </ContentWrapper>

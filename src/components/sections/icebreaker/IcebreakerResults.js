@@ -16,15 +16,14 @@ export default function IcebreakerResults(props) {
     allAnswers,
     setAllAnswers,
     code,
+    setCode,
     selectedCategory,
+    setSelectedCategory,
     selectedSubCategory,
+    setSelectedSubCategory,
     setIcebreaker,
   } = props;
-  const getColor = () => {
-    const colors = ColorData;
-    var randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex].color;
-  };
+
   const userList = () => {
     console.log(allAnswers);
     if (allAnswers.length > 0) {
@@ -49,7 +48,11 @@ export default function IcebreakerResults(props) {
     if (socketService.socket) {
       console.log("handleEnd");
       GameService.handleEndSession(socketService.socket);
+      setCode("");
       setAllAnswers([]);
+      setSelectedCategory();
+      setSelectedSubCategory();
+      setIcebreaker([]);
       changeStage("HOME");
     }
   };
@@ -58,7 +61,6 @@ export default function IcebreakerResults(props) {
     if (socketService.socket) {
       console.log("handleNewRound");
       console.log(selectedCategory);
-      console.log("");
       // const newIcebreaker = !selectedCategory
       //   ? await IcebreakerService.getIcebreakerByCatSubCat(
       //       selectedCategory,
@@ -77,6 +79,7 @@ export default function IcebreakerResults(props) {
       setIcebreaker(newIcebreaker);
       GameService.handleNewRound(socketService.socket, newIcebreaker);
       setAllAnswers([]);
+      console.log("New round all answers", allAnswers);
       changeStage("GAME");
     }
   };
@@ -96,7 +99,9 @@ export default function IcebreakerResults(props) {
     if (socketService.socket) {
       console.log("handleSessionEnded");
       GameService.onSessionEnded(socketService.socket, () => {
+        setCode("");
         setAllAnswers([]);
+        setIcebreaker([]);
         changeStage("HOME");
       });
     }
@@ -135,7 +140,7 @@ export default function IcebreakerResults(props) {
             category={icebreaker.category}
             subcategory={icebreaker.subcategory}
             question={icebreaker.question}
-            color={getColor()}
+            color={icebreaker.color}
             onClick={null}
             isButtons={false}
           />

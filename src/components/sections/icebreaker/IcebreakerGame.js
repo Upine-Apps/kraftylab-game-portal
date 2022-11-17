@@ -17,6 +17,7 @@ export default function IcebreakerGame(props) {
     setIcebreaker,
     isHost,
     code,
+    setCode,
     changeStage,
     setAllAnswers,
     allAnswers,
@@ -29,18 +30,9 @@ export default function IcebreakerGame(props) {
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [subCategoryOptions, setSubCategoryOptions] = useState([]);
   const [subCategoryData, setSubCategoryData] = useState();
-
   const { firstName, lastName, userId } = context;
 
-  const getColor = () => {
-    const colors = ColorData;
-    var randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex].color;
-  };
-
-  const onSubmitAnswer = (e) => {
-    console.log(e);
-  };
+  const [submittedAnswer, setSubmittedAnswer] = useState();
 
   function onChangeCategory(e) {
     setSelectedCategory(e.value);
@@ -56,9 +48,28 @@ export default function IcebreakerGame(props) {
     setSelectedSubCategory(e.value);
   }
 
-  const handleEnd = () => {
-    // game end logic here
-    changeStage("HOME");
+  const handleEndSession = () => {
+    if (socketService.socket) {
+      console.log("handleEndSession");
+      GameService.handleEndSession(socketService.socket);
+      setCode("");
+      setAllAnswers([]);
+      setSelectedCategory();
+      setSelectedSubCategory();
+      setIcebreaker([]);
+      changeStage("HOME");
+    }
+  };
+  const handleSessionEnded = () => {
+    if (socketService.socket) {
+      console.log("handleSessionEnded");
+      GameService.onSessionEnded(socketService.socket, () => {
+        setCode("");
+        setAllAnswers([]);
+        setIcebreaker([]);
+        changeStage("HOME");
+      });
+    }
   };
 
   const filterIcebreakers = async () => {
@@ -86,6 +97,7 @@ export default function IcebreakerGame(props) {
     const playerAnswer = { answer, firstName, lastName, userId };
     if (socketService.socket) {
       console.log("answerSubmit");
+      console.log("allAnswers", allAnswers);
       checkDuplicateAnswer(playerAnswer);
       GameService.submitAnswer(
         socketService.socket,
@@ -94,15 +106,19 @@ export default function IcebreakerGame(props) {
         firstName,
         lastName
       );
+      setSubmittedAnswer(answer);
     }
   };
 
   const checkDuplicateAnswer = (playerAnswer) => {
     console.log(allAnswers);
-    if (allAnswers) {
+    if (allAnswers.length > 0) {
       console.log("userId", userId);
-      let prevPlayerAnswer = allAnswers.find((x) => x.userId === userId);
-      if (prevPlayerAnswer) {
+      console.log("allAnswers inside if: ", allAnswers);
+      let prevPlayerAnswer = allAnswers.find(
+        (x) => x.userId === playerAnswer.userId
+      );
+      if (prevPlayerAnswer && prevPlayerAnswer.length > 0) {
         console.log("Prev Player answer: ", prevPlayerAnswer);
         const index = allAnswers.indexOf(prevPlayerAnswer);
         allAnswers[index] = playerAnswer;
@@ -111,6 +127,7 @@ export default function IcebreakerGame(props) {
         setAllAnswers(allAnswers);
       }
     } else {
+      console.log("here");
       allAnswers.push(playerAnswer);
       setAllAnswers(allAnswers);
     }
@@ -145,8 +162,10 @@ export default function IcebreakerGame(props) {
   };
 
   useEffect(() => {
+    console.log("useEffect allAnswers", allAnswers);
     onCategoryChanged();
     onAnswerSubmitted();
+    handleSessionEnded();
     onRoundEnded();
     let isMounted = true;
     IcebreakerService.getIcebreakerCategories().then((response) => {
@@ -197,7 +216,7 @@ export default function IcebreakerGame(props) {
           title="End Session"
           width="150px"
           borderRadius="20px"
-          onClick={() => handleEnd()}
+          onClick={() => handleEndSession()}
           color="#FD3F33"
         />
       </HostButtonWrapper>
@@ -213,7 +232,7 @@ export default function IcebreakerGame(props) {
             category={icebreaker.category}
             subcategory={icebreaker.subcategory}
             question={icebreaker.question}
-            color={getColor()}
+            color={icebreaker.color}
             isButtons={false}
           />
         </TopWrapper>
@@ -234,11 +253,9 @@ export default function IcebreakerGame(props) {
             />
           </ButtonWrapper>
         </BottomWrapper>
+        <AnswerText>Answer Submitted: {submittedAnswer}</AnswerText>
         {isHost === true ? hostButtons() : <></>}
       </ContentWrapper>
-      <TextWrapper>
-        <GameCode>Game Code: {code}</GameCode>
-      </TextWrapper>
     </Wrapper>
   );
 }
@@ -329,4 +346,7 @@ const TextWrapper = styled.div`
   text-align: end;
 `;
 
-const GameCode = styled(BodyMain)``;
+const AnswerText = styled.div`
+  display: grid;
+  text-align: center;
+`;
