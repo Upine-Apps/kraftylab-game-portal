@@ -75,7 +75,6 @@ export default function IcebreakerLobby(props) {
         });
         setUsers([...newUsers]);
         if (isHost) {
-          console.log("sending updated user list");
           GameService.updateUsers(socketService.socket, users);
         }
       });

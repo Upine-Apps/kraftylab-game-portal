@@ -12,7 +12,6 @@ class SocketService {
         resolve(this.socket);
       });
       this.socket.on("connect_error", (err) => {
-        console.log("connection failed", err);
         reject(err);
       });
     });

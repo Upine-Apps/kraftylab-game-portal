@@ -33,7 +33,6 @@ function IcebreakerPage() {
   }, []);
 
   const onStageChange = (newStage) => {
-    console.log("Changing stage to: ", newStage);
     setStage(newStage);
   };
 

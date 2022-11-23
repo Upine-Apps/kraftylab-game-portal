@@ -75,7 +75,6 @@ export default function IcebreakerResults(props) {
 
   const handleOnNewRound = () => {
     if (socketService.socket) {
-      console.log("onNewRoune");
       GameService.onNewRound(socketService.socket, (newIcebreaker) => {
         setIcebreaker(newIcebreaker);
         setAllAnswers([]);
@@ -86,7 +85,6 @@ export default function IcebreakerResults(props) {
 
   const handleSessionEnded = () => {
     if (socketService.socket) {
-      console.log("handleSessionEnded");
       GameService.onSessionEnded(socketService.socket, () => {
         setCode("");
         setAllAnswers([]);

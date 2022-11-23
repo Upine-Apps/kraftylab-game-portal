@@ -122,7 +122,6 @@ export default function IcebreakerHome(props) {
         firstName,
         lastName
       ).catch((err) => {
-        console.log("Error: ", err); //TODO use custom alert
         setAlert({
           visible: true,
           status: "Error",
