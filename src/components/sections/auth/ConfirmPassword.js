@@ -143,7 +143,7 @@ export default function ConfirmPassword({ setStep, username }) {
 
 const Wrapper = styled.div`
   justify-items: center;
-  margin: 0 auto; // look into what this is doing
+  margin: 0 auto;
   max-width: 400px;
   @media (max-width: 450px) {
     vertical-align: middle;

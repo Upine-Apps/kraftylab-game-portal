@@ -21,10 +21,6 @@ export default function GameSection() {
     });
   };
 
-  const enterGame = () => {
-    console.log("Clicked");
-  };
-
   useEffect(() => {
     window.addEventListener("resize", setDimension);
 
@@ -54,8 +50,8 @@ export default function GameSection() {
                   color={item.color}
                   icon={item.icon}
                   iconSize={"60px"}
-                  onClick={enterGame}
                   path={item.path ? item.path : null}
+                  outsidePath={item.outsidePath ? item.outsidePath : false}
                 />
               ))}
             </LeftGameCardWrapper>
@@ -73,6 +69,7 @@ export default function GameSection() {
                   icon={item.icon}
                   iconSize={"60px"}
                   path={item.path ? item.path : null}
+                  outsidePath={item.outsidePath ? item.outsidePath : false}
                 />
               ))}
             </RightGameCardWrapper>

@@ -15,10 +15,7 @@ export default function AuthSection(props) {
     dynamicHeight: window.innerHeight,
   });
   const [step, setStep] = useState("Login");
-  // This value is to pass the username from forgot password to confirm password
   const [username, setUsername] = useState("");
-
-  // This value is to pass the username from registration to verfication
   const [registrationUsername, setRegistrationUsername] = useState("");
 
   const setDimension = () => {

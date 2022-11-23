@@ -1,15 +1,11 @@
 import React from "react";
-import styled, { keyframes, StyleSheetManager } from "styled-components";
-import { useState, useEffect, useContext } from "react";
+import styled, { keyframes } from "styled-components";
+import { useState, useEffect } from "react";
 import { BodyMain, H2, H3 } from "../../styles/TextStyles";
 import ReusableButton from "../../buttons/ReusableButton";
 import IcebreakerCard from "../../cards/IcebreakerCard";
-import { icebreakerData, userData } from "../../../data/icebreakerData";
-import ReusableTextField from "../../textfield/ReusableTextField";
 import IcebreakerService from "../../../service/IcebreakerService";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
-import { ColorData } from "../../../data/colorData";
-import SlideShowButton from "../../buttons/SlideShowButton";
 import socketService from "../../../service/SocketService";
 import GameService from "../../../service/GameService";
 export default function IcebreakerLobby(props) {
@@ -71,19 +67,13 @@ export default function IcebreakerLobby(props) {
 
   const handleUserUpdate = () => {
     if (socketService.socket) {
-      console.log("handleUserUpdate");
       GameService.onUserJoined(socketService.socket, (firstName, lastName) => {
-        console.log("here");
-        console.log(firstName);
         let newUsers = users;
         newUsers.push({
           firstName,
           lastName,
         });
-        console.log("Users:");
         setUsers([...newUsers]);
-        console.log(users);
-        console.log("HOST", isHost);
         if (isHost) {
           console.log("sending updated user list");
           GameService.updateUsers(socketService.socket, users);
@@ -94,9 +84,7 @@ export default function IcebreakerLobby(props) {
 
   const handleUpdatedUsers = () => {
     if (socketService.socket) {
-      console.log("handleUpdatedUsers");
       GameService.onUpdatedUsers(socketService.socket, (users) => {
-        console.log("updatedUsers", users);
         setUsers([...users]);
       });
     }
@@ -114,7 +102,6 @@ export default function IcebreakerLobby(props) {
 
   const handleGameStarted = () => {
     if (socketService.socket) {
-      console.log("handleGameStarted");
       GameService.onGameStarted(socketService.socket, (icebreaker) => {
         changeStage("GAME");
         setIcebreaker(icebreaker);

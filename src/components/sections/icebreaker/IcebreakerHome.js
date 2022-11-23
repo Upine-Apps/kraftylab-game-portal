@@ -12,6 +12,10 @@ import GameService from "../../../service/GameService";
 import StatusAlert from "../../alerts/StatusAlert";
 import { codeLength } from "../../../validators/validationUtilities";
 import Cookies from "universal-cookie";
+import UnauthorizedSection from "../auth/UnauthorizedSection";
+import UserService from "../../../service/UserService";
+import Layout from "../../layout/layout";
+
 export default function IcebreakerHome(props) {
   const emptyAlert = {
     visible: false,
@@ -30,6 +34,7 @@ export default function IcebreakerHome(props) {
   } = props;
   const [icebreakers, setIcebreakers] = useState([]);
   const [alert, setAlert] = useState(emptyAlert);
+  const [authenticated, setAuthenticated] = useState();
   const cookies = new Cookies();
   const {
     firstName,
@@ -54,17 +59,22 @@ export default function IcebreakerHome(props) {
     const socket = await socketService
       .connect("http://localhost:6969")
       .catch((err) => {
-        console.log("Error: ", err); //TODO use custom alert
+        console.log("Error: ", err);
       });
   };
 
   useEffect(() => {
     let isMounted = true;
-    connectToSocket();
-    IcebreakerService.getAllIcebreakers().then((response) => {
-      if (isMounted) {
-        let data = response;
-        setIcebreakers(data.sort(() => 0.5 - Math.random()).slice(0, 20));
+    UserService.validateToken().then((response) => {
+      setAuthenticated(response);
+      if (response) {
+        connectToSocket();
+        IcebreakerService.getAllIcebreakers().then((response) => {
+          if (isMounted) {
+            let data = response;
+            setIcebreakers(data.sort(() => 0.5 - Math.random()).slice(0, 20));
+          }
+        });
       }
     });
     return () => {
@@ -94,7 +104,6 @@ export default function IcebreakerHome(props) {
   }
 
   async function onJoinClick(e) {
-    console.log(codeLength(code));
     if (!codeLength(code)) {
       setAlert({
         visible: true,
@@ -106,7 +115,6 @@ export default function IcebreakerHome(props) {
     } else {
       const socket = socketService.socket;
       setIsHost(false);
-      console.log(firstName);
       const joined = await GameService.joinGameRoom(
         socket,
         code,
@@ -124,7 +132,6 @@ export default function IcebreakerHome(props) {
         });
       });
       if (joined) {
-        console.log("pp");
         setIcebreaker(icebreakers[0]);
         changeStage("LOBBY");
       }
@@ -169,41 +176,59 @@ export default function IcebreakerHome(props) {
 
   var timer = setInterval(function () {
     changeSlide("r");
-  }, 7000); //this needs to be 500ms faster than line 42 or the animation breaks
+  }, 7000); //this needs to be 500ms faster than line 183 or the animation breaks
 
   setTimeout(function () {
     clearInterval(timer);
   }, 7500);
 
-  return (
-    <Wrapper>
-      {alert.visible ? displayAlert() : ""}
-      <ContentWrapper>
-        <TopWrapper>{icebreakerCard()}</TopWrapper>
-        <BottomWrapper>
-          <ButtonRowWrapper>
-            <ReusableButton
-              title="Host"
-              width="182px"
-              borderRadius="20px"
-              onClick={(e) => onHostClick(e)}
+  const renderPage = () => {
+    return (
+      <Wrapper>
+        {alert.visible ? displayAlert() : ""}
+        <ContentWrapper>
+          <TopWrapper>{icebreakerCard()}</TopWrapper>
+          <BottomWrapper>
+            <ButtonRowWrapper>
+              <ReusableButton
+                title="Host"
+                width="182px"
+                borderRadius="20px"
+                onClick={(e) => onHostClick(e)}
+              />
+              <ReusableButton
+                title="Join"
+                width="182px"
+                borderRadius="20px"
+                onClick={(e) => onJoinClick(e)}
+              />
+            </ButtonRowWrapper>
+            <ReusableTextField
+              title="Have a code? Enter it here!"
+              value={code}
+              onChange={(e) => setCode(e.target.value.toUpperCase())}
             />
-            <ReusableButton
-              title="Join"
-              width="182px"
-              borderRadius="20px"
-              onClick={(e) => onJoinClick(e)}
-            />
-          </ButtonRowWrapper>
-          <ReusableTextField
-            title="Have a code? Enter it here!"
-            value={code}
-            onChange={(e) => setCode(e.target.value.toUpperCase())}
-          />
-        </BottomWrapper>
-      </ContentWrapper>
-    </Wrapper>
-  );
+          </BottomWrapper>
+        </ContentWrapper>
+      </Wrapper>
+    );
+  };
+
+  if (authenticated == true) {
+    return renderPage();
+  } else if (authenticated == false) {
+    return <UnauthorizedSection />;
+  } else {
+    return (
+      <Layout>
+        <AuthWrapper>
+          <AuthContentWrapper>
+            <DefaultSpinner isDark={true} />
+          </AuthContentWrapper>
+        </AuthWrapper>
+      </Layout>
+    );
+  }
 }
 
 const animation = keyframes`
@@ -211,6 +236,26 @@ const animation = keyframes`
   20% {opacity: 1;}
   80% {opacity: 1;}
   100% {opacity: 0;} 
+`;
+
+const AuthWrapper = styled.div`
+  position: absolute;
+  display: grid;
+  width: 100%;
+  top: 200px;
+  height: 800px;
+  align-content: center;
+  justify-content: center;
+`;
+
+const AuthContentWrapper = styled.div`
+  display: grid;
+  height: 200px;
+  margin: 0 auto;
+  width: 75%;
+  justify-content: center;
+  align-content: center;
+  gap: 30px;
 `;
 
 const Wrapper = styled.div`

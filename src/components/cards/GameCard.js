@@ -4,9 +4,17 @@ import { MediumText, H2 } from "../styles/TextStyles";
 import { Link } from "gatsby";
 
 export default function GameCard(props) {
-  const { title, description, color, icon, iconSize, onClick, path } = props;
+  const {
+    title,
+    description,
+    color,
+    icon,
+    iconSize,
+    path,
+    outsidePath,
+  } = props;
 
-  function returnLink(title, path, onClick) {
+  function returnLink(title, path) {
     return (
       <Link to={path}>
         <Wrapper color={color}>
@@ -24,7 +32,25 @@ export default function GameCard(props) {
     );
   }
 
-  function returnNoLink(title, onClick) {
+  function returnOutsideLink(title, path) {
+    return (
+      <a href={path}>
+        <Wrapper color={color}>
+          <CardWrapper>
+            <TextWrapper>
+              <GameTitle>{title}</GameTitle>
+              <Description>{description}</Description>
+            </TextWrapper>
+            <IconWrapper iconSize={iconSize}>
+              <img src={icon} alt="Icon" className="iceBreakerIcon" />
+            </IconWrapper>
+          </CardWrapper>
+        </Wrapper>
+      </a>
+    );
+  }
+
+  function returnNoLink(title) {
     return (
       <Wrapper color={color}>
         <CardWrapper>
@@ -40,9 +66,11 @@ export default function GameCard(props) {
     );
   }
 
-  return path === undefined
-    ? returnNoLink(title, onClick)
-    : returnLink(title, path, onClick);
+  return path !== undefined
+    ? outsidePath === true
+      ? returnOutsideLink(title, path)
+      : returnLink(title, path)
+    : returnNoLink(title);
 }
 
 const Wrapper = styled.div`

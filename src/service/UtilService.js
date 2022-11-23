@@ -1,4 +1,5 @@
 import { ColorData } from "../data/colorData";
+
 export class UtilService {
   getCode(length) {
     var result = "";

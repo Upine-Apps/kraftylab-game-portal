@@ -1,12 +1,16 @@
 import axios from "axios";
-
+import Cookies from "universal-cookie";
 export default class IcebreakerService {
   static hostUrl = "http://localhost:3000/icebreaker"; //local url
+  static cookies = new Cookies();
   static headers = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Request-Headers": "content-type",
+    access: this.cookies.get("access"),
+    refresh: this.cookies.get("refresh"),
   };
+
   static getUrl() {
     return this.hostUrl;
   }
@@ -20,7 +24,6 @@ export default class IcebreakerService {
       const res = await axios.get(`${this.hostUrl}/all`, {
         headers: this.headers,
       });
-      console.log(res.data);
       return res.data;
     } catch (error) {
       return error.response.data;
@@ -32,7 +35,6 @@ export default class IcebreakerService {
       const res = await axios.get(`${this.hostUrl}/categories`, {
         headers: this.headers,
       });
-      console.log(res.data);
       return res.data;
     } catch (error) {
       return error.response.data;
@@ -45,7 +47,6 @@ export default class IcebreakerService {
         params: { category: category },
         headers: this.headers,
       });
-      console.log(res.data);
       return res.data;
     } catch (error) {
       return error.response.data;
@@ -57,7 +58,6 @@ export default class IcebreakerService {
       const res = await axios.get(`${this.hostUrl}`, {
         headers: this.headers,
       });
-      console.log(res.data);
       return res.data;
     } catch (error) {
       return error.response.data;
@@ -67,14 +67,12 @@ export default class IcebreakerService {
   static async getIcebreakerByCatSubCat(category, subcategory) {
     try {
       let url = `${this.hostUrl}/category?category=${category}`;
-      console.log(subcategory);
       if (subcategory) {
         url += `&subcategory=${subcategory}`;
       }
       const res = await axios.get(url, {
         headers: this.headers,
       });
-      console.log(res.data);
       return res.data;
     } catch (error) {
       return error.response.data;

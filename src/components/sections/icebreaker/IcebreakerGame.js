@@ -37,12 +37,7 @@ export default function IcebreakerGame(props) {
   function onChangeCategory(e) {
     setSelectedCategory(e.value);
     setSelectedSubCategory();
-    console.log(e.value);
-    console.log("before");
-    console.log(subCategoryData);
-    console.log("after");
     setSubCategoryOptions(subCategoryData[`${e.value}`]);
-    console.log(subCategoryData[`${e}.value}`]);
   }
   function onChangeSubCategory(e) {
     setSelectedSubCategory(e.value);
@@ -50,7 +45,6 @@ export default function IcebreakerGame(props) {
 
   const handleEndSession = () => {
     if (socketService.socket) {
-      console.log("handleEndSession");
       GameService.handleEndSession(socketService.socket);
       setCode("");
       setAllAnswers([]);
@@ -62,7 +56,6 @@ export default function IcebreakerGame(props) {
   };
   const handleSessionEnded = () => {
     if (socketService.socket) {
-      console.log("handleSessionEnded");
       GameService.onSessionEnded(socketService.socket, () => {
         setCode("");
         setAllAnswers([]);
@@ -85,7 +78,6 @@ export default function IcebreakerGame(props) {
 
   const onCategoryChanged = () => {
     if (socketService.socket) {
-      console.log("onCategoryChanged");
       GameService.onCategoryChanged(socketService.socket, (icebreaker) => {
         setIcebreaker(icebreaker);
       });
@@ -93,11 +85,8 @@ export default function IcebreakerGame(props) {
   };
 
   const submitAnswer = () => {
-    console.log("Answer: ", answer);
     const playerAnswer = { answer, firstName, lastName, userId };
     if (socketService.socket) {
-      console.log("answerSubmit");
-      console.log("allAnswers", allAnswers);
       checkDuplicateAnswer(playerAnswer);
       GameService.submitAnswer(
         socketService.socket,
@@ -111,15 +100,11 @@ export default function IcebreakerGame(props) {
   };
 
   const checkDuplicateAnswer = (playerAnswer) => {
-    console.log(allAnswers);
     if (allAnswers.length > 0) {
-      console.log("userId", userId);
-      console.log("allAnswers inside if: ", allAnswers);
       let prevPlayerAnswer = allAnswers.find(
         (x) => x.userId === playerAnswer.userId
       );
       if (prevPlayerAnswer && prevPlayerAnswer.length > 0) {
-        console.log("Prev Player answer: ", prevPlayerAnswer);
         const index = allAnswers.indexOf(prevPlayerAnswer);
         allAnswers[index] = playerAnswer;
       } else {
@@ -127,16 +112,13 @@ export default function IcebreakerGame(props) {
         setAllAnswers(allAnswers);
       }
     } else {
-      console.log("here");
       allAnswers.push(playerAnswer);
       setAllAnswers(allAnswers);
     }
-    console.log(allAnswers);
   };
 
   const onAnswerSubmitted = () => {
     if (socketService.socket) {
-      console.log("onAnswerSubmitted");
       GameService.onAnswerSubmitted(socketService.socket, (playerAnswer) => {
         checkDuplicateAnswer(playerAnswer);
       });
@@ -145,7 +127,6 @@ export default function IcebreakerGame(props) {
 
   const handleEndRound = () => {
     if (socketService.socket) {
-      console.log("handleEndRound");
       GameService.handleEndRound(socketService.socket, allAnswers);
       changeStage("RESULTS");
     }
@@ -153,7 +134,6 @@ export default function IcebreakerGame(props) {
 
   const onRoundEnded = () => {
     if (socketService.socket) {
-      console.log("onRoundEnded");
       GameService.onRoundEnded(socketService.socket, (allAnswers) => {
         setAllAnswers(allAnswers);
         changeStage("RESULTS");
@@ -162,7 +142,6 @@ export default function IcebreakerGame(props) {
   };
 
   useEffect(() => {
-    console.log("useEffect allAnswers", allAnswers);
     onCategoryChanged();
     onAnswerSubmitted();
     handleSessionEnded();

@@ -10,6 +10,7 @@ export const gameRecentData = [
 
     icon: "images/icons/iceBreakerIcon.svg",
     path: "/icebreaker",
+    outsidePath: false,
   },
   {
     title: "Coming Soon",

@@ -122,7 +122,6 @@ const ButtonWrapper = styled.div`
     max-width: 450px;
   }
 
-  //why dis no work?
   a {
     :hover {
       transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);

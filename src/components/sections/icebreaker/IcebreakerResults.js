@@ -25,7 +25,6 @@ export default function IcebreakerResults(props) {
   } = props;
 
   const userList = () => {
-    console.log(allAnswers);
     if (allAnswers.length > 0) {
       return (
         <ListWrapper>
@@ -46,7 +45,6 @@ export default function IcebreakerResults(props) {
 
   const handleEnd = () => {
     if (socketService.socket) {
-      console.log("handleEnd");
       GameService.handleEndSession(socketService.socket);
       setCode("");
       setAllAnswers([]);
@@ -59,14 +57,6 @@ export default function IcebreakerResults(props) {
 
   const handleNewRound = async () => {
     if (socketService.socket) {
-      console.log("handleNewRound");
-      console.log(selectedCategory);
-      // const newIcebreaker = !selectedCategory
-      //   ? await IcebreakerService.getIcebreakerByCatSubCat(
-      //       selectedCategory,
-      //       selectedSubCategory
-      //     )
-      //   : await IcebreakerService.getRandomIcebreaker();
       let newIcebreaker;
       if (selectedCategory) {
         newIcebreaker = await IcebreakerService.getIcebreakerByCatSubCat(
@@ -79,7 +69,6 @@ export default function IcebreakerResults(props) {
       setIcebreaker(newIcebreaker);
       GameService.handleNewRound(socketService.socket, newIcebreaker);
       setAllAnswers([]);
-      console.log("New round all answers", allAnswers);
       changeStage("GAME");
     }
   };

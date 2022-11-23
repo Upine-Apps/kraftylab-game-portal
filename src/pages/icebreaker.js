@@ -11,6 +11,8 @@ import IcebreakerResults from "../components/sections/icebreaker/IcebreakerResul
 import GameContext from "../providers/gameContext";
 import socketService from "../service/SocketService";
 import { UserContext } from "../providers/userContext";
+import { navigate } from "gatsby";
+import UserService from "../service/UserService";
 function IcebreakerPage() {
   const [icebreaker, setIcebreaker] = useState([]);
   const [isHost, setIsHost] = useState(false);
@@ -23,24 +25,15 @@ function IcebreakerPage() {
   const [selectedCategory, setSelectedCategory] = useState();
   const [selectedSubCategory, setSelectedSubCategory] = useState();
 
-  // const gameContextValue = {
-  //   isHost,
-  //   setIsHost,
-  //   isInRoom,
-  //   setIsInRoom,
-  //   playerName,
-  //   setPlayerName,
-  // };
-
-  // const { firstName, setFirstName, lastName, setLastName } = context.useContext(
-  //   UserContext
-  // );
-  // console.log(firstName);
-  // console.log("setting first name");
-  // setFirstName("Joe MOmma");
+  useEffect(() => {
+    const authenticated = UserService.validateToken();
+    if (!authenticated) {
+      navigate("/auth");
+    }
+  }, []);
 
   const onStageChange = (newStage) => {
-    console.log(newStage);
+    console.log("Changing stage to: ", newStage);
     setStage(newStage);
   };
 
@@ -73,7 +66,6 @@ function IcebreakerPage() {
           />
         );
       case "GAME":
-        console.log("HOST: ", isHost);
         return (
           <IcebreakerGame
             context={context}

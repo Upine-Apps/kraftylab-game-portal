@@ -44,7 +44,6 @@ const Wrapper = styled.div`
   border-radius: ${(props) => {
     if (props.isIceBreaker) {
       if (props.direction == "left") {
-        console.log(props.direction);
         return "100px 0px 0px 100px";
       } else {
         return "0px 100px 100px 0px";
