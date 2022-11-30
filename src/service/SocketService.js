@@ -4,7 +4,7 @@ class SocketService {
 
   connect() {
     return new Promise((resolve, reject) => {
-      this.socket = io("http://172.31.42.243:6969");
+      this.socket = io("games.kraftylab.com:6969");
       if (!this.socket) {
         return reject();
       }
