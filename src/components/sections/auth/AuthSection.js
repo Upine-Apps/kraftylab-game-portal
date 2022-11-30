@@ -1,7 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import BackButton from "../../buttons/mobile/BackButton";
-import { useState, useEffect } from "react";
 import Registration from "./Registration";
 import ForgotPassword from "./ForgotPassword";
 import ConfirmPassword from "./ConfirmPassword";
@@ -10,36 +8,9 @@ import Verification from "./Verification";
 
 export default function AuthSection(props) {
   const { context } = props;
-  const [screenSize, getDimension] = useState({
-    dynamicWidth: window.innerWidth,
-    dynamicHeight: window.innerHeight,
-  });
   const [step, setStep] = useState("Login");
   const [username, setUsername] = useState("");
   const [registrationUsername, setRegistrationUsername] = useState("");
-
-  const setDimension = () => {
-    getDimension({
-      dynamicWidth: window.innerWidth,
-      dynamicHeight: window.innerHeight,
-    });
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", setDimension);
-
-    return () => {
-      window.removeEventListener("resize", setDimension);
-    };
-  }, [screenSize]);
-
-  function renderDesktop() {
-    return (
-      <GraphicWrapper>
-        <Graphic src="images/auth/auth-graphic.svg" />
-      </GraphicWrapper>
-    );
-  }
 
   function renderSwitch(param) {
     switch (param) {
@@ -71,7 +42,9 @@ export default function AuthSection(props) {
   return (
     <Wrapper>
       <ContentWrapper>
-        {screenSize.dynamicWidth > 450 ? renderDesktop() : ""}
+        <GraphicWrapper>
+          <Graphic src="images/auth/auth-graphic.svg" />
+        </GraphicWrapper>
         <ScreenWrapper>{renderSwitch(step)}</ScreenWrapper>
       </ContentWrapper>
     </Wrapper>
@@ -121,13 +94,4 @@ const ScreenWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
   }
-`;
-
-const ScreenComponent = styled.div`
-  display: grid;
-  border: 1px solid red;
-  width: 100%;
-  height: 100%;
-  justify-items: center;
-  align-content: center;
 `;

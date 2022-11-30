@@ -1,7 +1,8 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
 export default class IcebreakerService {
-  static hostUrl = "http://localhost:3000/icebreaker"; //local url
+  // static hostUrl = "http://localhost:3000/icebreaker"; //local url
+  static hostUrl = "http://172.31.42.243:3001/icebreaker";
   static cookies = new Cookies();
   static headers = {
     "Content-Type": "application/json",

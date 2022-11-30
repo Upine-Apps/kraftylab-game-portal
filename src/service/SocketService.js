@@ -2,9 +2,9 @@ import { io } from "socket.io-client";
 class SocketService {
   socket = null;
 
-  connect(url) {
+  connect() {
     return new Promise((resolve, reject) => {
-      this.socket = io(url);
+      this.socket = io("http://172.31.42.243:6969");
       if (!this.socket) {
         return reject();
       }

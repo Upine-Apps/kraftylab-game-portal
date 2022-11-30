@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import Layout from "../components/layout/layout";
-import SEO from "../components/layout/seo";
 import AuthSection from "../components/sections/auth/AuthSection";
 import { UserContext } from "../providers/userContext";
 

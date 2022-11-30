@@ -5,7 +5,6 @@ import IcebreakerCard from "../../cards/IcebreakerCard";
 import ReusableTextField from "../../textfield/ReusableTextField";
 import IcebreakerService from "../../../service/IcebreakerService";
 import DefaultSpinner from "../../spinners/DefaultSpinner";
-import { ColorData } from "../../../data/colorData";
 import socketService from "../../../service/SocketService";
 import UtilService from "../../../service/UtilService";
 import GameService from "../../../service/GameService";
@@ -56,11 +55,9 @@ export default function IcebreakerHome(props) {
   }
 
   const connectToSocket = async () => {
-    const socket = await socketService
-      .connect("http://localhost:6969")
-      .catch((err) => {
-        console.log("Error: ", err);
-      });
+    const socket = await socketService.connect().catch((err) => {
+      console.log("Error: ", err);
+    });
   };
 
   useEffect(() => {
