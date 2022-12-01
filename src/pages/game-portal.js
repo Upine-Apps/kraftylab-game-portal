@@ -43,16 +43,11 @@ function GamePage() {
   };
 
   useEffect(() => {
-    let isMounted = true;
-    let cookies = new Cookies();
-    console.log("isAuthenticated: ", authenticated);
-    console.log("Validating token: ", cookies.get("access"));
+    let isMounted = true;   
     UserService.validateToken().then((response) => {
-      console.log("Validation response: ", response);
       if (isMounted) {
         setAuthenticated(response);
         setTimeout(function () {
-          console.log("isAuthenticated after delay: ", authenticated);
         }, 2000);
       }
     });

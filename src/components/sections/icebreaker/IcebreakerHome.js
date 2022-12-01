@@ -55,6 +55,7 @@ export default function IcebreakerHome(props) {
   }
 
   const connectToSocket = async () => {
+    console.log("Connecting to socket...");
     const socket = await socketService.connect().catch((err) => {
       console.log("Error: ", err);
     });
