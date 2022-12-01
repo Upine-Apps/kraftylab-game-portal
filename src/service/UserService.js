@@ -111,7 +111,11 @@ export default class UserService {
         `${this.hostUrl}/validate-token`,
         {},
         {
-          headers: this.headers,
+          headers: {
+            ...this.headers,
+            access: this.cookies.get("access"),
+            refresh: this.cookies.get("refresh"),
+          },
         }
       );
       return res.data;

@@ -7,8 +7,6 @@ export default class IcebreakerService {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Request-Headers": "content-type",
-    access: this.cookies.get("access"),
-    refresh: this.cookies.get("refresh"),
   };
 
   static getUrl() {
@@ -22,7 +20,11 @@ export default class IcebreakerService {
   static async getAllIcebreakers() {
     try {
       const res = await axios.get(`${this.hostUrl}/all`, {
-        headers: this.headers,
+        headers: {
+          ...this.headers,
+          access: this.cookies.get("access"),
+          refresh: this.cookies.get("refresh"),
+        },
       });
       return res.data;
     } catch (error) {
@@ -33,7 +35,11 @@ export default class IcebreakerService {
   static async getIcebreakerCategories() {
     try {
       const res = await axios.get(`${this.hostUrl}/categories`, {
-        headers: this.headers,
+        headers: {
+          ...this.headers,
+          access: this.cookies.get("access"),
+          refresh: this.cookies.get("refresh"),
+        },
       });
       return res.data;
     } catch (error) {
@@ -45,7 +51,11 @@ export default class IcebreakerService {
     try {
       const res = await axios.get(`${this.hostUrl}/subcategories`, {
         params: { category: category },
-        headers: this.headers,
+        headers: {
+          ...this.headers,
+          access: this.cookies.get("access"),
+          refresh: this.cookies.get("refresh"),
+        },
       });
       return res.data;
     } catch (error) {
@@ -56,7 +66,11 @@ export default class IcebreakerService {
   static async getRandomIcebreaker() {
     try {
       const res = await axios.get(`${this.hostUrl}`, {
-        headers: this.headers,
+        headers: {
+          ...this.headers,
+          access: this.cookies.get("access"),
+          refresh: this.cookies.get("refresh"),
+        },
       });
       return res.data;
     } catch (error) {
@@ -71,7 +85,11 @@ export default class IcebreakerService {
         url += `&subcategory=${subcategory}`;
       }
       const res = await axios.get(url, {
-        headers: this.headers,
+        headers: {
+          ...this.headers,
+          access: this.cookies.get("access"),
+          refresh: this.cookies.get("refresh"),
+        },
       });
       return res.data;
     } catch (error) {
