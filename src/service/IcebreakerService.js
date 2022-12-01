@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
 export default class IcebreakerService {
-  static hostUrl = "http://games.kraftylab.com:3001/icebreaker"; //local url
+  static hostUrl = "https://games.kraftylab.com:3001/icebreaker"; //local url
   static cookies = new Cookies();
   static headers = {
     "Content-Type": "application/json",

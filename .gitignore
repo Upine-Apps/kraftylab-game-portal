@@ -108,5 +108,5 @@ dist
 
 
 **/.DS_Store
-public/**
+# public/**
 .vs/*

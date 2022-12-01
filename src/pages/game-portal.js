@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import UserService from "../service/UserService";
 import UnauthorizedSection from "../components/sections/auth/UnauthorizedSection";
 import DefaultSpinner from "../components/spinners/DefaultSpinner";
+import Cookies from "universal-cookie";
 
 function GamePage() {
   const [authenticated, setAuthenticated] = useState();
@@ -43,9 +44,16 @@ function GamePage() {
 
   useEffect(() => {
     let isMounted = true;
+    let cookies = new Cookies();
+    console.log("isAuthenticated: ", authenticated);
+    console.log("Validating token: ", cookies.get("access"));
     UserService.validateToken().then((response) => {
+      console.log("Validation response: ", response);
       if (isMounted) {
         setAuthenticated(response);
+        setTimeout(function () {
+          console.log("isAuthenticated after delay: ", authenticated);
+        }, 2000);
       }
     });
   }, []);

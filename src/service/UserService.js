@@ -4,7 +4,7 @@ import { navigate } from "gatsby";
 
 export default class UserService {
   // static hostUrl = "http://localhost:3000/user"; //local url
-  static hostUrl = "http://games.kraftylab.com:3001/user";
+  static hostUrl = "https://games.kraftylab.com:3001/user";
   static cookies = new Cookies();
   static headers = {
     "Content-Type": "application/json",
@@ -57,6 +57,8 @@ export default class UserService {
       const res = await axios.post(`${this.hostUrl}/login`, obj, {
         headers: this.headers,
       });
+      console.log("Login obj: ", obj);
+      console.log("Response: ", res);
       this.cookies.set("access", res.data.accessToken);
       this.cookies.set("refresh", res.data.refreshToken);
       return res.data;
