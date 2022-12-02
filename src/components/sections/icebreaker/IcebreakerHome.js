@@ -59,6 +59,7 @@ export default function IcebreakerHome(props) {
     const socket = await socketService.connect().catch((err) => {
       console.log("Error: ", err);
     });
+    console.log("Socket: ", socket);
   };
 
   useEffect(() => {
