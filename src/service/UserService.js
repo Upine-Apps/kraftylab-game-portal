@@ -10,8 +10,6 @@ export default class UserService {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Request-Headers": "content-type",
-    access: this.cookies.get("access"),
-    refresh: this.cookies.get("refresh"),
   };
 
   static getUrl() {
