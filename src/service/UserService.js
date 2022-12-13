@@ -55,11 +55,8 @@ export default class UserService {
       const res = await axios.post(`${this.hostUrl}/login`, obj, {
         headers: this.headers,
       });
-      console.log("Access: ", res.data.accessToken);
-      console.log("Access header: ", this.headers);
       this.cookies.set("access", res.data.accessToken, { path: "/" });
       this.cookies.set("refresh", res.data.refreshToken, { path: "/" });
-      console.log("Access headers after: ", this.headers);
       return res.data;
     } catch (error) {
       if (error.response) {
