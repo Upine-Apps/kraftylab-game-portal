@@ -57,8 +57,8 @@ export default class UserService {
       });
       console.log("Access: ", res.data.accessToken);
       console.log("Access header: ", this.headers);
-      this.cookies.set("access", res.data.accessToken);
-      this.cookies.set("refresh", res.data.refreshToken);
+      this.cookies.set("access", res.data.accessToken, { path: "/" });
+      this.cookies.set("refresh", res.data.refreshToken, { path: "/" });
       console.log("Access headers after: ", this.headers);
       return res.data;
     } catch (error) {
