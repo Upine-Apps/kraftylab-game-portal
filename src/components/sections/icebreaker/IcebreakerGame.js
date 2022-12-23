@@ -104,7 +104,7 @@ export default function IcebreakerGame(props) {
       let prevPlayerAnswer = allAnswers.find(
         (x) => x.userId === playerAnswer.userId
       );
-      if (prevPlayerAnswer && prevPlayerAnswer.length > 0) {
+      if (prevPlayerAnswer) {
         const index = allAnswers.indexOf(prevPlayerAnswer);
         allAnswers[index] = playerAnswer;
       } else {

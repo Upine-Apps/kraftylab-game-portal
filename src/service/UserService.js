@@ -3,7 +3,6 @@ import Cookies from "universal-cookie";
 import { navigate } from "gatsby";
 
 export default class UserService {
-  // static hostUrl = "http://localhost:3000/user"; //local url
   static hostUrl = "https://games.kraftylab.com:3001/user";
   static cookies = new Cookies();
   static headers = {
