@@ -5,7 +5,17 @@ import { Caption } from "../styles/TextStyles";
 import DefaultSpinner from "../spinners/DefaultSpinner";
 
 export default function ReusableButton(props) {
-  const { title, onClick, path, spinner, width, borderRadius, color } = props;
+  const {
+    title,
+    onClick,
+    path,
+    spinner,
+    width,
+    borderRadius,
+    color,
+    isDark,
+    isHover,
+  } = props;
 
   function returnLink(title, path, onClick) {
     return (
@@ -14,7 +24,7 @@ export default function ReusableButton(props) {
           {spinner === true ? (
             <DefaultSpinner />
           ) : (
-            <Title>{title || "Submit"}</Title>
+            <Title isDark={isDark}>{title || "Submit"}</Title>
           )}
         </ButtonWrapper>
       </Link>
@@ -28,11 +38,12 @@ export default function ReusableButton(props) {
         width={width}
         borderRadius={borderRadius}
         color={color}
+        isHover={isHover}
       >
         {spinner === true ? (
           <DefaultSpinner />
         ) : (
-          <Title>{title || "Submit"}</Title>
+          <Title isDark={isDark}>{title || "Submit"}</Title>
         )}
       </ButtonWrapper>
     );
@@ -56,8 +67,19 @@ const ButtonWrapper = styled.button`
   padding: 14px 14px;
   gap: 10px;
   cursor: pointer;
+
+  :hover {
+    background: ${(props) => (props.isHover ? "rgba(0, 0, 0, 0.1)" : "")};
+    box-shadow: ${(props) =>
+      props.isHover
+        ? "0px 10px 20px rgba(0, 0, 0, 0.1), inset 0px 0px 0px 0.5px rgba(255, 255, 255, 0.2)"
+        : ""};
+  }
 `;
 
-const Title = styled(Caption)`
-  color: white;
+const Title = styled.div`
+  color: ${(props) => (props.isDark ? "black" : "white")};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

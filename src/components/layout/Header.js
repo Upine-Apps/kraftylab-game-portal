@@ -1,18 +1,17 @@
-import React, { useRef, useState } from "react"
-import { Link } from "gatsby"
-import styled from "styled-components"
+import React, { useRef, useState } from "react";
+import { Link } from "gatsby";
+import styled from "styled-components";
 
 export default function Header() {
-
-    return (
-        <Wrapper>
-            <LinkWrapper>
-                <Link to="/">
-                    <img src="/images/logos/kraftylab-logo.png" alt="Logo" />
-                </Link>
-            </LinkWrapper>
-        </Wrapper>
-    )
+  return (
+    <Wrapper>
+      <LinkWrapper>
+        <Link to="/">
+          <img src="/images/logos/logo-black.svg" alt="Logo" />
+        </Link>
+      </LinkWrapper>
+    </Wrapper>
+  );
 }
 
 const LinkWrapper = styled.div`
@@ -24,7 +23,7 @@ const LinkWrapper = styled.div`
     height: 100px;
     width: 100px;
   }
-`
+`;
 
 const Wrapper = styled.div`
   position: absolute;
@@ -43,4 +42,4 @@ const Wrapper = styled.div`
     top: 20px;
     padding: 0 20px;
   }
-`
+`;

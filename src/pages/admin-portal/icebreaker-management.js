@@ -1,29 +1,29 @@
 import React from "react";
 import styled from "styled-components";
-import Layout from "../components/layout/layout";
-import SEO from "../components/layout/seo";
-import GameSection from "../components/sections/GameSection";
-import GameHeader from "../components/layout/GameHeader";
+import Layout from "../../components/layout/layout";
+import SEO from "../../components/layout/seo";
+import IcebreakerManagementSection from "../../components/sections/admin-portal/icebreaker/IcebreakerManagementSection";
+import GameHeader from "../../components/layout/GameHeader";
 import { useState, useEffect } from "react";
-import UserService from "../service/UserService";
-import UnauthorizedSection from "../components/sections/auth/UnauthorizedSection";
-import DefaultSpinner from "../components/spinners/DefaultSpinner";
+import UserService from "../../service/UserService";
+import UnauthorizedSection from "../../components/sections/auth/UnauthorizedSection";
+import DefaultSpinner from "../../components/spinners/DefaultSpinner";
 import Cookies from "universal-cookie";
-import { UserContext } from "../providers/userContext";
 
-function GamePage() {
+function AdminPortal() {
   const [authenticated, setAuthenticated] = useState();
-
+  const cookies = new Cookies();
+  const isAdmin = cookies.get("admin");
   const renderPage = () => {
-    if (authenticated == true) {
+    if (authenticated == true && isAdmin == "true") {
       return (
         <Layout>
-          <SEO title="game-portal" />
+          <SEO title="admin-portal" />
           <GameHeader />
-          <GameSection />
+          <IcebreakerManagementSection />
         </Layout>
       );
-    } else if (authenticated == false) {
+    } else if (authenticated == false || isAdmin == "false") {
       return (
         <Layout>
           <GameHeader />
@@ -76,4 +76,4 @@ const ContentWrapper = styled.div`
   gap: 30px;
 `;
 
-export default GamePage;
+export default AdminPortal;

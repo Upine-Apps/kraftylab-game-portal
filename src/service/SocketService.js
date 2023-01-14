@@ -5,7 +5,7 @@ class SocketService {
   connect() {
     return new Promise((resolve, reject) => {
       console.log("In socket service");
-      this.socket = io("https://games.kraftylab.com:6969");
+      this.socket = io("http://localhost:6969");
       // this.socket = io("http://localhost:6969");
       if (!this.socket) {
         console.log("No socket, rejecting");

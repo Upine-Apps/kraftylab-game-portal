@@ -36,7 +36,7 @@ export default function Login(props) {
   const [alert, setAlert] = useState(emptyAlert);
   const [spinner, setSpinner] = useState(false);
 
-  const { setFirstName, setLastName, setUserId, setEmail } = context;
+  const { setFirstName, setLastName, setUserId, setEmail, setAdmin } = context;
   const cookies = new Cookies();
 
   async function onClick(e) {
@@ -59,10 +59,12 @@ export default function Login(props) {
         setLastName(response.user.last_name);
         setUserId(response.user.id);
         setEmail(response.user.email);
+        setAdmin(response.user.admin);
         cookies.set("firstName", response.user.first_name, { path: "/" });
         cookies.set("lastName", response.user.last_name, { path: "/" });
         cookies.set("userId", response.user.id, { path: "/" });
         cookies.set("email", response.user.email, { path: "/" });
+        cookies.set("admin", response.user.admin, { path: "/" });
 
         setUsername("");
         setPassword("");

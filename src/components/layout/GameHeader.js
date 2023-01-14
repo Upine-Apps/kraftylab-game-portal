@@ -1,20 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "gatsby";
 import styled from "styled-components";
 import MenuButton from "../buttons/MenuButton";
 import { H2 } from "../styles/TextStyles";
 import { gamePortalData } from "../../data/gamePortalData";
+import Cookies from "universal-cookie";
 
 export default function Header() {
+  const cookies = new Cookies();
+  const isAdmin = cookies.get("admin");
+  const [adminGamePortalData, setAdminGamePortalData] = useState(
+    gamePortalData
+  );
+  useEffect(() => {
+    if (isAdmin == "true") {
+      setAdminGamePortalData(
+        gamePortalData.concat([
+          {
+            title: "Admin Portal",
+            link: "/admin-portal/home",
+            icon: "",
+          },
+        ])
+      );
+    }
+  }, []);
+
   return (
     <Wrapper>
       <LinkWrapper>
-        <Link to="/game-portal">
-          <Title>Krafty Lab Games </Title>
+        <Link to="/">
+          <img src="/images/logos/logo-black.svg" alt="Logo" />
         </Link>
       </LinkWrapper>
-      <MenuWrapper count={gamePortalData.length}>
-        {gamePortalData.map((item, index) => (
+      <MenuWrapper count={adminGamePortalData.length}>
+        {adminGamePortalData.map((item, index) => (
           <MenuButton item={item} key={index} onClick={item.onClick} />
         ))}
       </MenuWrapper>
@@ -23,8 +43,13 @@ export default function Header() {
 }
 
 const LinkWrapper = styled.div`
+  width: 150px;
   @media (max-width: 450px) {
     width: 44px;
+  }
+  img {
+    height: 150px;
+    width: 150px;
   }
 `;
 

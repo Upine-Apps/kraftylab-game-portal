@@ -7,6 +7,7 @@ const UserProvider = (props) => {
   const [lastName, setLastName] = useState("");
   const [userId, setUserId] = useState("");
   const [email, setEmail] = useState("");
+  const [admin, setAdmin] = useState("");
   const providerValue = {
     firstName,
     setFirstName,
@@ -16,6 +17,8 @@ const UserProvider = (props) => {
     setUserId,
     email,
     setEmail,
+    admin,
+    setAdmin,
   };
   return (
     <UserContext.Provider value={providerValue}>

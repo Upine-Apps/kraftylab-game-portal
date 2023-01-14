@@ -1,26 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import Layout from "../components/layout/layout";
-import SEO from "../components/layout/seo";
-import GameSection from "../components/sections/GameSection";
-import GameHeader from "../components/layout/GameHeader";
+import Layout from "../../components/layout/layout";
+import SEO from "../../components/layout/seo";
+import AdminPortalSection from "../../components/sections/admin-portal/AdminPortalSection";
+import GameHeader from "../../components/layout/GameHeader";
 import { useState, useEffect } from "react";
-import UserService from "../service/UserService";
-import UnauthorizedSection from "../components/sections/auth/UnauthorizedSection";
-import DefaultSpinner from "../components/spinners/DefaultSpinner";
-import Cookies from "universal-cookie";
-import { UserContext } from "../providers/userContext";
+import UserService from "../../service/UserService";
+import UnauthorizedSection from "../../components/sections/auth/UnauthorizedSection";
+import DefaultSpinner from "../../components/spinners/DefaultSpinner";
 
-function GamePage() {
+function AdminPortal() {
   const [authenticated, setAuthenticated] = useState();
 
   const renderPage = () => {
     if (authenticated == true) {
       return (
         <Layout>
-          <SEO title="game-portal" />
+          <SEO title="admin-portal" />
           <GameHeader />
-          <GameSection />
+          <AdminPortalSection />
         </Layout>
       );
     } else if (authenticated == false) {
@@ -76,4 +74,4 @@ const ContentWrapper = styled.div`
   gap: 30px;
 `;
 
-export default GamePage;
+export default AdminPortal;
