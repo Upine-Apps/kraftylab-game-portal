@@ -3,19 +3,11 @@ const color =
 
 export const icebreakerManagementData = [
   {
-    title: "View Icebreakers",
-    stage: "READ",
+    title: "Edit Icebreakers",
+    stage: "EDIT",
   },
   {
     title: "Create Icebreakers",
     stage: "CREATE",
-  },
-  {
-    title: "Update Icebreakers",
-    stage: "UPDATE",
-  },
-  {
-    title: "Delete Icebreakers",
-    stage: "DELETE",
   },
 ];

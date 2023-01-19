@@ -1,7 +1,7 @@
 export const gamePortalData = [
   {
     title: "Logout",
-    link: "/auth",
+    link: "/",
     icon: "",
   },
 ];

@@ -96,4 +96,64 @@ export default class IcebreakerService {
       return error.response.data;
     }
   }
+
+  static async updateIcebreaker(icebreaker) {
+    try {
+      let url = `${this.hostUrl}`;
+      console.log("inside update icebreaker call");
+      console.log(icebreaker);
+      const res = await axios.put(url, icebreaker, {
+        headers: {
+          ...this.headers,
+          access: this.cookies.get("access"),
+          refresh: this.cookies.get("refresh"),
+        },
+      });
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
+  static async deleteIcebreaker(icebreaker) {
+    try {
+      let url = `${this.hostUrl}/delete`;
+      console.log("deleting icebreaker");
+      console.log(url);
+      const res = await axios.post(
+        url,
+        { id: icebreaker.id },
+        {
+          headers: {
+            ...this.headers,
+            access: this.cookies.get("access"),
+            refresh: this.cookies.get("refresh"),
+          },
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
+  static async createIcebreaker(icebreaker) {
+    try {
+      let url = `${this.hostUrl}`;
+      console.log("creating icebreaker");
+      console.log(url);
+      const res = await axios.post(url, icebreaker, {
+        headers: {
+          ...this.headers,
+          access: this.cookies.get("access"),
+          refresh: this.cookies.get("refresh"),
+        },
+      });
+      console.log(res);
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 }

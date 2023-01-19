@@ -7,7 +7,7 @@ import GameHeader from "../../../layout/GameHeader";
 import CreateIcebreakers from "./CreateIcebreakers";
 import { icebreakerManagementData } from "../../../../data/icebreakerManagementData";
 import ReusableButton from "../../../buttons/ReusableButton";
-import ViewIcebreakers from "./ViewIcebreakers";
+import EditIcebreakers from "./EditIcebreakers";
 export default function IcebreakerManagementSection() {
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
@@ -21,29 +21,16 @@ export default function IcebreakerManagementSection() {
     setStage(newStage);
   };
 
-  const setDimension = () => {
-    getDimension({
-      dynamicWidth: window.innerWidth,
-      dynamicHeight: window.innerHeight,
-    });
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", setDimension);
-
-    return () => {
-      window.removeEventListener("resize", setDimension);
-    };
-  }, [screenSize]);
-
   const getComponent = (context) => {
     switch (stage) {
       case "CREATE":
         return <CreateIcebreakers />;
+      case "EDIT":
+        return <EditIcebreakers />;
       default:
         // TODO: Comeback and change to READ case
         // return <Title>Select an option from the left!</Title>;
-        return <ViewIcebreakers />;
+        return <EditIcebreakers />;
     }
   };
   return (

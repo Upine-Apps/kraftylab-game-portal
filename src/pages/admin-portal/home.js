@@ -15,6 +15,8 @@ function AdminPortal() {
   const cookies = new Cookies();
   const isAdmin = cookies.get("admin");
   const renderPage = () => {
+    console.log("auth", authenticated);
+    console.log("isAdmin", isAdmin);
     if (authenticated == true && isAdmin == "true") {
       return (
         <Layout>
@@ -23,7 +25,7 @@ function AdminPortal() {
           <AdminPortalSection />
         </Layout>
       );
-    } else if (authenticated == false || isAdmin == "false") {
+    } else if (authenticated == false || isAdmin !== "true") {
       return (
         <Layout>
           <GameHeader />

@@ -29,7 +29,7 @@ export default function Header() {
   return (
     <Wrapper>
       <LinkWrapper>
-        <Link to="/">
+        <Link to={"/game-portal"}>
           <img src="/images/logos/logo-black.svg" alt="Logo" />
         </Link>
       </LinkWrapper>

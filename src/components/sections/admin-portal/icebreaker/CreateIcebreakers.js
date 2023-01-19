@@ -3,12 +3,22 @@ import styled from "styled-components";
 import ReusableButton from "../../../buttons/ReusableButton";
 import { BodyMain, H2, H3 } from "../../../styles/TextStyles";
 import ReusableTextField from "../../../textfield/ReusableTextField";
+import IcebreakerService from "../../../../service/IcebreakerService";
+import StatusAlert from "../../../alerts/StatusAlert";
 
 export default function CreateIcebreakers() {
   const [fileName, setFileName] = useState("No File Selected");
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [question, setQuestion] = useState("");
+  const emptyAlert = {
+    visible: false,
+    status: "",
+    title: "",
+    subtitle: "",
+    key: 0,
+  };
+  const [alert, setAlert] = useState(emptyAlert);
 
   const handleFileSelect = () => {
     console.log("select");
@@ -16,8 +26,56 @@ export default function CreateIcebreakers() {
   const handleFileSubmit = () => {
     console.log("submit");
   };
+
+  const handleCreateIcebreaker = async () => {
+    console.log("submit one icebreaker");
+    const body = {
+      category: category,
+      subcategory: subcategory,
+      question: question,
+      points: 0,
+      holiday: "",
+    };
+    const res = await IcebreakerService.createIcebreaker(body);
+
+    if (res.status === 200) {
+      // clear field values
+      setCategory("");
+      setSubcategory("");
+      setQuestion("");
+
+      setAlert({
+        visible: true,
+        status: "Success",
+        title: "Success",
+        subtitle: "Successfully added icebreaker",
+        key: Math.random(),
+      });
+    } else {
+      setAlert({
+        visible: true,
+        status: "Error",
+        title: "Failed",
+        subtitle: "Could not create icebreaker, please try again",
+        key: Math.random(),
+      });
+    }
+  };
+
+  function displayAlert() {
+    return (
+      <StatusAlert
+        status={alert.status}
+        title={alert.title}
+        subtitle={alert.subtitle}
+        key={alert.key}
+      />
+    );
+  }
+
   return (
     <Wrapper>
+      {alert.visible ? displayAlert() : ""}
       <ContentWrapper>
         <ManualWrapper>
           <Title>Enter a New Icebreaker</Title>
@@ -46,7 +104,7 @@ export default function CreateIcebreakers() {
           <ButtonWrapper>
             <ReusableButton
               title="Submit"
-              onClick={(e) => handleFileSelect()}
+              onClick={(e) => handleCreateIcebreaker()}
               borderRadius="10px"
               color="#18C07A"
               width="200px"

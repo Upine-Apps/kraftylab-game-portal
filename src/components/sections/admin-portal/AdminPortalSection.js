@@ -68,7 +68,6 @@ const ScreenWrapper = styled.div`
   display: grid;
   gap: 30px;
   grid-template-columns: 40% 40%;
-  border: 1px solid red;
   width: 1080px;
   justify-content: center;
 `;
