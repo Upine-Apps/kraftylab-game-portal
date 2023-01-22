@@ -1,16 +1,18 @@
 import React, { useState } from "react";
+import { useFilePicker } from "use-file-picker";
 import styled from "styled-components";
 import ReusableButton from "../../../buttons/ReusableButton";
 import { BodyMain, H2, H3 } from "../../../styles/TextStyles";
 import ReusableTextField from "../../../textfield/ReusableTextField";
 import IcebreakerService from "../../../../service/IcebreakerService";
 import StatusAlert from "../../../alerts/StatusAlert";
+import Papa from "papaparse";
 
 export default function CreateIcebreakers() {
-  const [fileName, setFileName] = useState("No File Selected");
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [question, setQuestion] = useState("");
+  const [uploading, setUploading] = useState(false);
   const emptyAlert = {
     visible: false,
     status: "",
@@ -19,16 +21,45 @@ export default function CreateIcebreakers() {
     key: 0,
   };
   const [alert, setAlert] = useState(emptyAlert);
+  const [openFileSelector, { filesContent, loading }] = useFilePicker({
+    accept: ".csv",
+    multiple: false,
+    limitFilesConfig: {
+      min: 1,
+      max: 1,
+    },
+  });
 
-  const handleFileSelect = () => {
-    console.log("select");
-  };
-  const handleFileSubmit = () => {
-    console.log("submit");
+  const handleFileSubmit = async () => {
+    let csvContent = Papa.parse(filesContent[0].content, {
+      header: true,
+    });
+    setUploading(true);
+
+    for (let i = 0; i < csvContent.data.length; i++) {
+      const res = await IcebreakerService.createIcebreaker(csvContent.data[i]);
+      if (res.status !== 200) {
+        setAlert({
+          visible: true,
+          status: "Error",
+          title: "Failed",
+          subtitle: `Could not create icebreaker, row: ${i}`,
+          key: Math.random(),
+        });
+        break;
+      }
+    }
+    setAlert({
+      visible: true,
+      status: "Success",
+      title: "Success",
+      subtitle: "Successfully added icebreakers",
+      key: Math.random(),
+    });
+    setUploading(false);
   };
 
   const handleCreateIcebreaker = async () => {
-    console.log("submit one icebreaker");
     const body = {
       category: category,
       subcategory: subcategory,
@@ -119,10 +150,16 @@ export default function CreateIcebreakers() {
         <BulkWrapper>
           <Title>Upload in Bulk</Title>
           <FileWrapper>
-            <FileName>{fileName}</FileName>
+            {filesContent.length > 0 ? (
+              filesContent.map((file, index) => (
+                <FileName>{file.name}</FileName>
+              ))
+            ) : (
+              <FileName>No File Selected</FileName>
+            )}
             <ReusableButton
               title="Select File"
-              onClick={(e) => handleFileSelect()}
+              onClick={() => openFileSelector()}
               borderRadius="10px"
             />
             <ReusableButton
@@ -133,6 +170,7 @@ export default function CreateIcebreakers() {
             />
           </FileWrapper>
         </BulkWrapper>
+        {uploading === true ? <Uploading>Uploading...</Uploading> : ""}
       </ContentWrapper>
     </Wrapper>
   );
@@ -151,7 +189,7 @@ const ContentWrapper = styled.div`
   display: grid;
   margin: 0 auto;
   gap: 30px;
-  grid-template-rows: 45% 10% 45%;
+  grid-template-rows: 40% 10% 40% 10%;
 `;
 const ManualWrapper = styled.div`
   display: grid;
@@ -199,4 +237,7 @@ const FileName = styled.div`
   display: grid;
   justify-content: center;
   align-content: center;
+`;
+const Uploading = styled(H2)`
+  text-align: center;
 `;

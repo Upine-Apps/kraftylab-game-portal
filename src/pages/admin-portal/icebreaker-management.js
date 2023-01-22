@@ -10,7 +10,7 @@ import UnauthorizedSection from "../../components/sections/auth/UnauthorizedSect
 import DefaultSpinner from "../../components/spinners/DefaultSpinner";
 import Cookies from "universal-cookie";
 
-function AdminPortal() {
+function IcebreakerManagement() {
   const [authenticated, setAuthenticated] = useState();
   const cookies = new Cookies();
   const isAdmin = cookies.get("admin");
@@ -76,4 +76,4 @@ const ContentWrapper = styled.div`
   gap: 30px;
 `;
 
-export default AdminPortal;
+export default IcebreakerManagement;

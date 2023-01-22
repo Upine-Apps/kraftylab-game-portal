@@ -2,26 +2,28 @@ import React from "react";
 import styled from "styled-components";
 import Layout from "../../components/layout/layout";
 import SEO from "../../components/layout/seo";
-import AdminPortalSection from "../../components/sections/admin-portal/AdminPortalSection";
+import UserManagementSection from "../../components/sections/admin-portal/user/UserManagementSection";
 import GameHeader from "../../components/layout/GameHeader";
 import { useState, useEffect } from "react";
 import UserService from "../../service/UserService";
 import UnauthorizedSection from "../../components/sections/auth/UnauthorizedSection";
 import DefaultSpinner from "../../components/spinners/DefaultSpinner";
+import Cookies from "universal-cookie";
 
-function AdminPortal() {
+function UserManagement() {
   const [authenticated, setAuthenticated] = useState();
-
+  const cookies = new Cookies();
+  const isAdmin = cookies.get("admin");
   const renderPage = () => {
-    if (authenticated == true) {
+    if (authenticated == true && isAdmin == "true") {
       return (
         <Layout>
           <SEO title="admin-portal" />
           <GameHeader />
-          <AdminPortalSection />
+          <UserManagementSection />
         </Layout>
       );
-    } else if (authenticated == false) {
+    } else if (authenticated == false || isAdmin == "false") {
       return (
         <Layout>
           <GameHeader />
@@ -74,4 +76,4 @@ const ContentWrapper = styled.div`
   gap: 30px;
 `;
 
-export default AdminPortal;
+export default UserManagement;
