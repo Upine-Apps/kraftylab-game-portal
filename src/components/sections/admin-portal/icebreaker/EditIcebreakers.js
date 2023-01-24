@@ -306,6 +306,7 @@ const EditRow = styled.div`
 const ButtonWrapper = styled.div`
   display: grid;
   margin-top: 5px;
+  cursor: pointer;
   background-color: ${(props) => props.color};
   width: 40px;
   height: 40px;

@@ -70,6 +70,12 @@ export default function ViewUsers() {
     setEndDate(new Date());
   };
 
+  const handleRefresh = async () => {
+    await noFilterUsers();
+    if (allUsers.length < 1) {
+    }
+  };
+
   const filterUser = async () => {
     const result = await UserService.getAllUsers(
       toLocal(startDate),
@@ -81,9 +87,9 @@ export default function ViewUsers() {
     } else {
       setAlert({
         visible: true,
-        status: "Error",
-        title: "Failed",
-        subtitle: "Failed to filter user data",
+        status: "Info",
+        title: "No data",
+        subtitle: "No user data for this range",
         key: Math.random(),
       });
     }

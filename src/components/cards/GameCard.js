@@ -24,7 +24,7 @@ export default function GameCard(props) {
               <Description>{description}</Description>
             </TextWrapper>
             <IconWrapper iconSize={iconSize}>
-              <img src={icon} alt="Icon" className="iceBreakerIcon" />
+              <img src={icon} alt="Icon" className="icebreakericon" />
             </IconWrapper>
           </CardWrapper>
         </Wrapper>
@@ -42,7 +42,7 @@ export default function GameCard(props) {
               <Description>{description}</Description>
             </TextWrapper>
             <IconWrapper iconSize={iconSize}>
-              <img src={icon} alt="Icon" className="iceBreakerIcon" />
+              <img src={icon} alt="Icon" className="icebreakericon" />
             </IconWrapper>
           </CardWrapper>
         </Wrapper>
@@ -59,7 +59,7 @@ export default function GameCard(props) {
             <Description>{description}</Description>
           </TextWrapper>
           <IconWrapper iconSize={iconSize}>
-            <img src={icon} alt="Icon" className="iceBreakerIcon" />
+            <img src={icon} alt="Icon" className="icebreakericon" />
           </IconWrapper>
         </CardWrapper>
       </Wrapper>

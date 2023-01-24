@@ -38,7 +38,7 @@ export default function IcebreakerCard(props) {
             <img
               src={"images/logos/kraftylab-logo.png"}
               alt="Icon"
-              className="iceBreakerIcon"
+              className="icebreakericon"
             />
           </IconWrapper>
         </TopWrapper>
