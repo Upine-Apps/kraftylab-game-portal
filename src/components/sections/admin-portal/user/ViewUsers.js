@@ -1,25 +1,30 @@
 import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
 import styled from "styled-components";
-import ReusableButton from "../../../buttons/ReusableButton";
 import { BodyMain, H2, H3 } from "../../../styles/TextStyles";
-import ReusableTextField from "../../../textfield/ReusableTextField";
-import IcebreakerService from "../../../../service/IcebreakerService";
-import { BiPencil, BiSave, BiTrash } from "react-icons/bi";
-import { TiCancel } from "react-icons/ti";
+import { BiDownload, BiRefresh, BiReset, BiSearchAlt } from "react-icons/bi";
 import DefaultSpinner from "../../../spinners/DefaultSpinner";
 import StatusAlert from "../../../alerts/StatusAlert";
+import UserService from "../../../../service/UserService";
+import "react-datepicker/dist/react-datepicker.css";
+import { CSVLink } from "react-csv";
 
 export default function ViewUsers() {
-  const [fileName, setFileName] = useState("No File Selected");
-  const [category, setCategory] = useState("");
-  const [subcategory, setSubcategory] = useState("");
-  const [question, setQuestion] = useState("");
-  const [allIcebreakers, setAllIcebreakers] = useState();
-  const [editCategory, setEditCategory] = useState();
-  const [editSubcategory, setEditSubcategory] = useState();
-  const [editQuestion, setEditQuestion] = useState();
-  const [openEditForm, setOpenEditForm] = useState();
-  const [editItem, setEditItem] = useState();
+  const [allUsers, setAllUsers] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
+  const toLocal = (date) => {
+    console.log("Date: ", date);
+    const tzoffset = new Date().getTimezoneOffset() * 60000;
+    const tempdate = new Date(
+      (typeof date === "string" ? new Date(date) : date) - tzoffset
+    )
+      .toISOString()
+      .slice(0, 10);
+    console.log(tempdate);
+    return tempdate;
+  };
 
   const emptyAlert = {
     visible: false,
@@ -30,147 +35,14 @@ export default function ViewUsers() {
   };
   const [alert, setAlert] = useState(emptyAlert);
 
-  const handleEditCategory = (newCategory) => {
-    console.log("editCategory");
-    setEditCategory(newCategory);
-  };
-
-  const handleEditSubcategory = (newSubcategory) => {
-    console.log("editSubcategory");
-    setEditSubcategory(newSubcategory);
-  };
-
-  const handleEditQuestion = (newQuestion) => {
-    console.log("editQuestion");
-    setEditQuestion(newQuestion);
-  };
-
-  const handleEditClick = (item, index) => {
-    console.log("handleEditClick");
-    setEditItem(item);
-    setEditCategory(item.category);
-    setEditSubcategory(item.subcategory);
-    setEditQuestion(item.question);
-    setOpenEditForm(true);
-    openEdit();
-  };
-
-  const openEdit = () => {
-    console.log("openEditForm", openEditForm);
-    if (openEditForm == true) {
-      console.log("inside if statement");
-      return (
-        <EditRow>
-          <ReusableTextField
-            title="Category"
-            onChange={(e) => handleEditCategory(e.target.value)}
-            value={editCategory}
-          />
-          <ReusableTextField
-            title="Subcategory"
-            onChange={(e) => handleEditSubcategory(e.target.value)}
-            value={editSubcategory}
-          />
-          <ReusableTextField
-            title="Question"
-            onChange={(e) => handleEditQuestion(e.target.value)}
-            value={editQuestion}
-          />
-          <ButtonWrapper onClick={(e) => submitEdit()} color="#18c07a">
-            <BiSave color="white" />
-          </ButtonWrapper>
-          <ButtonWrapper
-            onClick={(e) => setOpenEditForm(false)}
-            color="#F06E6E"
-          >
-            <TiCancel color="white" />
-          </ButtonWrapper>
-        </EditRow>
-      );
-    } else {
-      console.log("inside else statement");
-      return <></>;
-    }
-  };
-  const handleDelete = async (item, index) => {
-    console.log("delete");
-
-    // Delete from database
-    const res = await IcebreakerService.deleteIcebreaker(item);
-    if (res.status === 200) {
-      // remove icebreaker from allIcebreaker
-      delete allIcebreakers[index];
-      setAllIcebreakers(allIcebreakers);
-
-      // display success alert
-      setAlert({
-        visible: true,
-        status: "Success",
-        title: "Success",
-        subtitle: "Successfully deleted icebreaker",
-        key: Math.random(),
-      });
-    } else {
-      setAlert({
-        visible: true,
-        status: "Error",
-        title: "Failed",
-        subtitle: "Could not delete icebreaker, please try again",
-        key: Math.random(),
-      });
-    }
-  };
-
-  const submitEdit = async () => {
-    console.log("submit edit");
-    let cleanedIcebreaker = {
-      id: editItem.id,
-      category: editCategory,
-      subcategory: editSubcategory,
-      question: editQuestion,
-    };
-    const res = await IcebreakerService.updateIcebreaker(cleanedIcebreaker);
-    if (res.status === 200) {
-      // update allIcebreakers with updated icebreaker
-      const index = allIcebreakers.findIndex(
-        (x) => x.id === cleanedIcebreaker.id
-      );
-      allIcebreakers[index].category = editCategory;
-      allIcebreakers[index].subcategory = editSubcategory;
-      allIcebreakers[index].question = editQuestion;
-      setAllIcebreakers(allIcebreakers);
-
-      // Reset all field values
-      setEditCategory();
-      setEditSubcategory();
-      setEditQuestion();
-      setEditItem();
-
-      // display success alert
-      setAlert({
-        visible: true,
-        status: "Success",
-        title: "Success",
-        subtitle: "Successfully updated icebreaker",
-        key: Math.random(),
-      });
-
-      setOpenEditForm(false);
-    } else {
-      setAlert({
-        visible: true,
-        status: "Error",
-        title: "Failed",
-        subtitle: "Could not update icebreaker, plese try again",
-        key: Math.random(),
-      });
-    }
-    // add alert (done)
-    // update allIcebreakers (done)
-    // reset field values (done)
-    // fix styling for edit form
-    // add cancel button
-  };
+  const csvHeaders = [
+    { label: "Id", key: "id" },
+    { label: "First Name", key: "first_name" },
+    { label: "Last Name", key: "last_name" },
+    { label: "Email", key: "email" },
+    { label: "Validated", key: "validated" },
+    { label: "Created At", key: "createdAt" },
+  ];
 
   function displayAlert() {
     return (
@@ -183,42 +55,58 @@ export default function ViewUsers() {
     );
   }
 
+  const cleanUsers = (data) => {
+    for (let user of data) {
+      user.createdAt = toLocal(user.createdAt);
+    }
+    setAllUsers(data);
+  };
+
+  const noFilterUsers = async () => {
+    UserService.getAllUsers().then((response) => {
+      cleanUsers(response.data);
+    });
+    setStartDate(new Date());
+    setEndDate(new Date());
+  };
+
+  const filterUser = async () => {
+    const result = await UserService.getAllUsers(
+      toLocal(startDate),
+      toLocal(endDate)
+    );
+    console.log("result", result);
+    if (result.status === 200) {
+      cleanUsers(result.data);
+    } else {
+      setAlert({
+        visible: true,
+        status: "Error",
+        title: "Failed",
+        subtitle: "Failed to filter user data",
+        key: Math.random(),
+      });
+    }
+  };
+
   useEffect(() => {
     let isMounted = true;
-    IcebreakerService.getAllIcebreakers().then((response) => {
-      if (isMounted) {
-        let data = response;
-        console.log(data);
-        setAllIcebreakers(data);
-      }
-    });
+    noFilterUsers();
     return () => {
       isMounted = false;
     };
   }, []);
 
-  const row = ["Sports", "Baseball", "What's your favorite baseball team?"];
-  const exampleData = [
-    {
-      category: "Sports",
-      subcategory: "Baseball",
-      question: "What's your favorite baseball team?",
-    },
-  ];
-
-  const displayIcebreakerTable = () => {
-    if (allIcebreakers && allIcebreakers.length > 0) {
-      return allIcebreakers.map((item, index) => (
+  const displayUserTable = () => {
+    if (allUsers && allUsers.length > 0) {
+      return allUsers.map((item, index) => (
         <TableRow>
-          <Text>{item.category}</Text>
-          <Text>{item.subcategory}</Text>
-          <Text>{item.question}</Text>
-          <IconWrapper onClick={(e) => handleEditClick(item, index)}>
-            <BiPencil className="react-icons" color="grey" />
-          </IconWrapper>
-          <IconWrapper onClick={(e) => handleDelete(item, index)}>
-            <BiTrash className="react-icons" color="grey" />
-          </IconWrapper>
+          <Text>{item.id}</Text>
+          <Text>{item.first_name}</Text>
+          <Text>{item.last_name}</Text>
+          <Text>{item.email}</Text>
+          <Text>{item.validated.toString()}</Text>
+          <Text>{item.createdAt}</Text>
         </TableRow>
       ));
     } else {
@@ -230,17 +118,47 @@ export default function ViewUsers() {
     <Wrapper>
       {alert.visible ? displayAlert() : ""}
       <TableWrapper>
-        <Title>Edit Icebreakers</Title>
+        <Title>View Users</Title>
+
         <TableHeader>
-          <Text>Category</Text>
-          <Text>Subcategory</Text>
-          <Text>Question</Text>
-          <Text>Edit</Text>
-          <Text>Delete</Text>
+          <Text>Id</Text>
+          <Text>First Name</Text>
+          <Text>Last Name</Text>
+          <Text>Email</Text>
+          <Text>Validated</Text>
+          <Text>Sign Up Date</Text>
         </TableHeader>
-        <Table count={exampleData.length}>{displayIcebreakerTable()}</Table>
+        <Table count={allUsers.length}>{displayUserTable()}</Table>
+        <FilterRow>
+          <Text>Start Date:</Text>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+          />
+          <Text>End Date:</Text>
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+          />
+          <ButtonWrapper onClick={(e) => filterUser()} color="#18c07a">
+            <BiSearchAlt color="white" />
+          </ButtonWrapper>
+          <ButtonWrapper onClick={(e) => noFilterUsers()} color="#F06E6E">
+            <BiRefresh color="white" />
+          </ButtonWrapper>
+          <CSVLink
+            data={allUsers}
+            filename={`kraftylab_signup_${toLocal(startDate)}_${toLocal(
+              endDate
+            )}`}
+            headers={csvHeaders}
+          >
+            <ButtonWrapper onClick={(e) => {}} color="#0067ff">
+              <BiDownload color="white" />
+            </ButtonWrapper>
+          </CSVLink>
+        </FilterRow>
       </TableWrapper>
-      {openEdit()}
     </Wrapper>
   );
 }
@@ -248,19 +166,26 @@ export default function ViewUsers() {
 const Wrapper = styled.div`
   position: absolute;
   padding: 40px;
-  max-width: 850px;
+  width: 1050px;
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   justify-self: center;
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto;
+  max-height: 500px;
+`;
+
+const FilterRow = styled.div`
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto;
 `;
 
 const TableWrapper = styled.div`
   display: grid;
   gap: 20px;
   width: 100%;
-  grid-template-rows: 10% 5% 85%;
+  grid-template-rows: 8% 5% auto 12%;
 `;
 
 const Table = styled.div`
@@ -271,45 +196,30 @@ const Table = styled.div`
   grid-template-rows: auto;
   gap: 7.5px;
   overflow: auto;
-  max-height: 200px;
+  max-height: 300px;
 `;
 
 const TableHeader = styled.div`
   display: grid;
-  grid-template-columns: 10% 15% 60% 7% 8%;
+  grid-template-columns: 5% 15% 14% 35% 10% 21%;
   font-weight: bold;
 `;
 
 const TableRow = styled.div`
   display: grid;
-  grid-template-columns: 10% 15% 60% 7% 8%;
+  grid-template-columns: 5% 15% 15% 35% 10% 20%;
 `;
-
-const IconWrapper = styled.div`
-  display: grid;
-  justify-content: center;
-  cursor: pointer;
-`;
-
 const Title = styled(H2)``;
 
 const Text = styled.div``;
 
-const EditRow = styled.div`
-  display: grid;
-  gap: 10px;
-  margin-top: 12px;
-  margin-bottom: -12px;
-  grid-template-columns: 20% 20% auto 5% 5%;
-`;
-
 const ButtonWrapper = styled.div`
   display: grid;
-  margin-top: 5px;
+  cursor: pointer;
   background-color: ${(props) => props.color};
   width: 40px;
-  height: 40px;
-  border-radius: 5px;
+  height: 30px;
+  border-radius: 10px;
   justify-content: center;
   align-content: center;
 `;

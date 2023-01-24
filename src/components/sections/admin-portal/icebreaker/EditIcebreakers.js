@@ -14,7 +14,7 @@ export default function EditIcebreakers() {
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [question, setQuestion] = useState("");
-  const [allIcebreakers, setAllIcebreakers] = useState();
+  const [allIcebreakers, setAllIcebreakers] = useState([]);
   const [editCategory, setEditCategory] = useState();
   const [editSubcategory, setEditSubcategory] = useState();
   const [editQuestion, setEditQuestion] = useState();
@@ -238,7 +238,7 @@ export default function EditIcebreakers() {
           <Text>Edit</Text>
           <Text>Delete</Text>
         </TableHeader>
-        <Table count={exampleData.length}>{displayIcebreakerTable()}</Table>
+        <Table count={allIcebreakers.length}>{displayIcebreakerTable()}</Table>
       </TableWrapper>
       {openEdit()}
     </Wrapper>

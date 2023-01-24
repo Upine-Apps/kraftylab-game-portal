@@ -81,6 +81,25 @@ export default class UserService {
     }
   }
 
+  static async getAllUsers(startDate = "", endDate = "") {
+    try {
+      let url = `${this.hostUrl}`;
+      const res = await axios.get(
+        `${url}?startdate=${startDate}&enddate=${endDate}`,
+        {
+          headers: {
+            ...this.headers,
+            access: this.cookies.get("access"),
+            refresh: this.cookies.get("refresh"),
+          },
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
   static async confirmPassword(obj) {
     try {
       const res = await axios.post(
