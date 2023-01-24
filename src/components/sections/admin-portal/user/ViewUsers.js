@@ -70,12 +70,6 @@ export default function ViewUsers() {
     setEndDate(new Date());
   };
 
-  const handleRefresh = async () => {
-    await noFilterUsers();
-    if (allUsers.length < 1) {
-    }
-  };
-
   const filterUser = async () => {
     const result = await UserService.getAllUsers(
       toLocal(startDate),
@@ -83,7 +77,17 @@ export default function ViewUsers() {
     );
     console.log("result", result);
     if (result.status === 200) {
-      cleanUsers(result.data);
+      if (result.data.length > 0) {
+        cleanUsers(result.data);
+      } else {
+        setAlert({
+          visible: true,
+          status: "Info",
+          title: "No data",
+          subtitle: "No user data for this range",
+          key: Math.random(),
+        });
+      }
     } else {
       setAlert({
         visible: true,
