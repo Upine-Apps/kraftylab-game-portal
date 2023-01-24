@@ -129,7 +129,6 @@ export default function ViewUsers() {
       {alert.visible ? displayAlert() : ""}
       <TableWrapper>
         <Title>View Users</Title>
-
         <TableHeader>
           <Text>Id</Text>
           <Text>First Name</Text>
@@ -213,6 +212,7 @@ const TableHeader = styled.div`
   display: grid;
   grid-template-columns: 5% 15% 14% 35% 10% 21%;
   font-weight: bold;
+  padding-top: 10px;
 `;
 
 const TableRow = styled.div`
