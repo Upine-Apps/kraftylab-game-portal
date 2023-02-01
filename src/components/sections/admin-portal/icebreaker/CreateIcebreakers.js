@@ -215,6 +215,7 @@ const BulkWrapper = styled.div`
 const FileWrapper = styled.div`
   display: grid;
   width: 450px;
+  height: 50px;
   gap: 10px;
   justify-self: center;
   grid-template-columns: auto auto auto;
@@ -222,6 +223,7 @@ const FileWrapper = styled.div`
 const Separator = styled.div`
   display: grid;
   gap: 20px;
+  padding-top: 20px;
   align-items: center;
   justify-self: center;
   grid-template-columns: auto auto auto;
